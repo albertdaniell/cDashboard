@@ -5,9 +5,130 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  background-color: rgb(231, 231, 231);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.sideNavWall{
+  
+  height: 100%;
+  position: fixed;
+  width:18%;
+  color: white;
+  overflow: auto;
+  padding: 10;
+  z-index: 500;
+  background-image: url('./images/city.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+
+.sideNav{
+  z-index: 1000;
+  background: #191919d2;
+  height: 100%;
+  position: fixed;
+  width:18%;
+  color: white;
+  overflow: auto;
+  padding: 10;
+  
+}
+.sideNav a{
+  display: block;
+ 
+  color: white;
+  padding: 15px;
+  transition: .2s ease;
+  border-bottom: 1px solid rgb(133, 133, 133);
+  text-decoration: none;
+}
+
+.sideNav .active{
+  background-color: white;
+  color: rgb(255, 115, 0);
+  border-radius: 4px;
+  border-left: 4px solid rgb(255, 115, 0);;
+  font-weight: bold;
+}
+
+.sideNav .active .fas{
+  
+  color: #191919;
+  border-radius: 4px;
+  
+}
+.sideNav .fas{
+  margin-right: 20px;
+  color: rgb(255, 115, 0);
+  transition: .2s ease;
+}
+
+.sideNav a:hover{
+  background: #ffffff27;
+  color: white;
+  border-radius: 4px;
+}
+
+.sideNav a:hover .fas{
+  
+  color: white;
+}
+.outerDiv{
+  padding:0;
+}
+
+
+.mainDiv{
+  width: 82%;
+  padding:20;
+  margin-top:10px;
+
+  float:right;
+
+}
+
+.graphDiv{
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  box-shadow: 2px 2px 8px 2px #b4b4b4;
+}
+
+.loadingDiv{
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+.pageHeading{
+  margin-bottom: 20px;
+}
+
+.pageHeading .fas{
+  margin-right: 20px;
+}
+
+.sideHead .fas{
+  color: rgb(167, 167, 167);
+  
+  
+}
+
+.sideHead{
+  padding: 10px;
+  font-size: 25px;
+  color: rgb(105, 105, 105);
+  letter-spacing: 2px;
 }

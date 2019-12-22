@@ -1,24 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import PageLayout from './components/PageLayout';
+import UserContextProvider, {UserContext} from './contexts/UserContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <UserContextProvider>
+        <PageLayout></PageLayout>
+      </UserContextProvider>
     </div>
   );
 }
