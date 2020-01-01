@@ -27,7 +27,7 @@ const ChvReportingRateContextProvider = (props) => {
     setDataPresent] = useState(false)
 
   // end of states
-  const url = `analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_12_MONTHS&displayProperty=NAME&`
+  const url = `${constants.MY_PROXY}analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_12_MONTHS&displayProperty=NAME&`
   const orgUniturl = `organisationUnits`
   const getData = async() => {
   

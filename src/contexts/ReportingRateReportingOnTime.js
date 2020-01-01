@@ -1,4 +1,5 @@
 import React, {createContext, useState, useEffect} from 'react'
+import constants from '../constants'
 
 export const ReportingRateReportingRateOnTime = createContext();
 
@@ -29,9 +30,9 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
-    const allData = await fetch('analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPOR' +
+    const allData = await fetch(`${constants.MY_PROXY}analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPOR' +
         'TING_RATE&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME' +
-        '&user=Fsw9jvRNAGL');
+        '&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe)
@@ -95,6 +96,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       var colorG = Math.floor(Math.random() * 255) + 1;
       var colorB = Math.floor(Math.random() * 255) + 1;
       var colorA = 0.80;
+
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
       if (dxvalue === "z2slLbjn7PM.REPORTING_RATE_ON_TIME") {
         dataElement = "CHV Reporting Rate on time"
