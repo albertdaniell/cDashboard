@@ -12,8 +12,8 @@ const fetchOptions = {
 const ReportingRateReportingRateOnTimeProvider = (props) => {
   const [graphData,
     setGraphData] = useState([])
-    const [dataPresent,
-      setdataPresent] = useState(false)
+  const [dataPresent,
+    setdataPresent] = useState(false)
   const [allData,
     setAllData] = useState([]);
 
@@ -30,16 +30,15 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
-    const allData = await fetch(`${constants.MY_PROXY}analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPOR' +
-        'TING_RATE&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME' +
-        '&user=Fsw9jvRNAGL`);
+    const allData = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPOR' +
+        'TING_RATE&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe)
     setOu(await allDatajson.metaData.dimensions.ou)
     setDx(await allDatajson.metaData.dimensions.dx)
     setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]))
-    
+
   }
 
   const getOuNames = () => {

@@ -33,7 +33,7 @@ const CommodityReportingRateProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
-    const allData = await fetch(`${constants.MY_PROXY}analytics.json?dimension=dx:zUdUMvPpY7S;PflRNbAv3hO;B9jXSyRn4RH;bHf4q8pPzFJ;YfVM' +
+    const allData = await fetch(`analytics.json?dimension=dx:zUdUMvPpY7S;PflRNbAv3hO;B9jXSyRn4RH;bHf4q8pPzFJ;YfVM' +
         'oUlquDz;VPuHdZpv4sJ;Bt8Nedvaaee;hGMiQ4teZXa;q33nlys1mqT;Nbo7dLam7WC;eGe4UZ0eK5W;' +
         'MsJfgHV4ez4;j8f50aOYx6H;mcgnywJOgh7;XdJbnISaGY1;OOoaCN5rIRd;JSU8L0xCkf4;pQc0IAdW' +
         'prU&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
