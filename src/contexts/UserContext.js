@@ -22,7 +22,7 @@ const UserContextProvider = (props) => {
     setDataPresent] = useState(false)
 
   const getUserData = async() => {
-    const userdetails = await fetch(`${constants.MY_PROXY}me/`)
+    const userdetails = await fetch(`${constants.MY_PROXY}me/`,fetchOptions)
     const userdetails2 = await userdetails.json()
 
     setUserData(userdetails2)
