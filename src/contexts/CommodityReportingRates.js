@@ -27,7 +27,8 @@ const CommodityReportingRateProvider = (props) => {
   const [dx,
     setDx] = useState([])
 
-    const [dataPresent,setdataPresent]=useState(false)
+  const [dataPresent,
+    setdataPresent] = useState(false)
 
   const [ouNames,
     setOuNames] = useState([])
@@ -37,7 +38,7 @@ const CommodityReportingRateProvider = (props) => {
         'oUlquDz;VPuHdZpv4sJ;Bt8Nedvaaee;hGMiQ4teZXa;q33nlys1mqT;Nbo7dLam7WC;eGe4UZ0eK5W;' +
         'MsJfgHV4ez4;j8f50aOYx6H;mcgnywJOgh7;XdJbnISaGY1;OOoaCN5rIRd;JSU8L0xCkf4;pQc0IAdW' +
         'prU&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
-        '9jvRNAGL`);
+        '9jvRNAGL`, constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe)
@@ -61,7 +62,7 @@ const CommodityReportingRateProvider = (props) => {
       var colorA = 0.80;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
-      fetch(`indicators/${indicatorid}`)
+      fetch(`indicators/${indicatorid}`, constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
 
@@ -69,43 +70,38 @@ const CommodityReportingRateProvider = (props) => {
           console.log("indicator results,", result.displayName)
 
           let filtered = allData2.filter((data) => {
-           // alert(data[0])
+            // alert(data[0])
             return data[0] === indicatorid
-            
 
           }).map((data) => {
             return data[2];
           })
           aggData = filtered
-         console.log("agg data,",filtered)
-         
-        setTimeout(() => {
-          
+          console.log("agg data,", filtered)
+
+          setTimeout(() => {
+
             let data = {
               data: aggData,
               label: indicatorName,
               backgroundColor: backgroundColor
             }
-    
+
             newds = [
               ...newds,
               data
             ]
-    
+
             setGraphData(newds)
 
             setTimeout(() => {
-                setdataPresent(true)
+              setdataPresent(true)
             }, 2000);
-        }, 4000);
+          }, 4000);
         })
         .catch((e) => {
           console.log(e)
         })
-
-        
-
-      
 
     })
   }

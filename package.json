@@ -34,5 +34,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://cors-anywhere.herokuapp.com/https://kecstock.jsi.com/api/"
+  "proxy":"https://kecstock.jsi.com/api/"
 }

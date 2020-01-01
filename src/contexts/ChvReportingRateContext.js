@@ -27,11 +27,11 @@ const ChvReportingRateContextProvider = (props) => {
     setDataPresent] = useState(false)
 
   // end of states
-  const url = `analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_12_MONTHS&displayProperty=NAME&`
+  const url = `  analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_12_MONTHS&displayProperty=NAME&`
   const orgUniturl = `organisationUnits`
   const getData = async() => {
-  
-    const allData = await fetch(url);
+
+    const allData = await fetch(url, constants.FETCH_OPTIONS);
     const allData2 = await allData.json();
     const setmydata = setData([
       ...allMetaData,
@@ -45,10 +45,10 @@ const ChvReportingRateContextProvider = (props) => {
     const sortedrowData = await myrowData
       .slice()
       .sort((a, b) => a[2] - b[2])
-    setrowData(await sortedrowData)
+    setrowData(await sortedrowData.slice().sort((a, b) => a[1] - b[1]))
     setOrgUnit(await myorgUnits)
     //Test();
-    setTimeout(() => {}, 5000);
+   
     setPeriods(await myperiods);
 
     // console.log("All Metadata:",allMetaData) console.log(setmydata)
@@ -63,30 +63,30 @@ const ChvReportingRateContextProvider = (props) => {
       let aggData = [];
       var myds = [];
       let backgroundColor = ''
-      var colorR = Math.floor(Math.random() * 255) + 1;
+      var colorR = Math.floor(Math.random() * 225) + 1;
       var colorG = Math.floor(Math.random() * 255) + 1;
-      var colorB = Math.floor(Math.random() * 255) + 1;
+      var colorB = Math.floor(Math.random() * 205) + 1;
       var colorA = 0.85;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
       let orgUnitId = id
       var orgUnitName = "";
-      fetch(`organisationUnits/${orgUnitId}`)
+      fetch(`  organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
           orgUnitName = result.displayName
           console.log(orgUnitName)
 
           let filtered = rowData
-          .slice()
-          .sort((a, b) => a[2] - b[2])
-          .filter((data) => {
-            return data[1] === orgUnitId
-  
-          })
-          .map((data) => {
-            return data[3];
-          })
+            .slice()
+            .sort((a, b) => a[2] - b[2])
+            .filter((data) => {
+              return data[1] === orgUnitId
+
+            })
+            .map((data) => {
+              return data[3];
+            })
           aggData = filtered
 
           let data = {
@@ -96,29 +96,20 @@ const ChvReportingRateContextProvider = (props) => {
             backgroundColor: backgroundColor
           }
 
-       
-    
           newds = [
             ...newds,
             data
           ]
-          setTimeout(() => {
-            setTimeout(() => {
-          
-              console.log("gdata", newds)
-              setGraphData(newds)
-              setTimeout(() => {
-                setDataPresent(true)
-              }, 1000);
-    
-            }, 400);
-    
-          }, 400);
+
+          console.log("gdata", newds)
+          setGraphData(newds)
+
+          setDataPresent(true)
 
           //console.log(myds)
 
         })
-    
+
       console.log(newds)
       //setGraphData([newds])
       return newds
@@ -137,7 +128,6 @@ const ChvReportingRateContextProvider = (props) => {
 
   }, [])
 
-  
   useEffect(() => {
     // getOUNames();
     const mygraphdata = getOUNames()
@@ -148,10 +138,8 @@ const ChvReportingRateContextProvider = (props) => {
     console.log("graph data.....", graphData)
   }, [periods])
 
-  // useEffect(() => {
-  //   console.log("The data changed", graphData)
-  //   //setDataPresent(false)
-  // }, [graphData])
+  // useEffect(() => {   console.log("The data changed", graphData)
+  // //setDataPresent(false) }, [graphData])
 
   return (
     <ChvReportingRateContext.Provider

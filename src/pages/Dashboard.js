@@ -6,6 +6,7 @@ import ActualReportingExpectedProvider from '../contexts/ActualReportingExpected
 import ActualReports from '../components/graphs/ActualReports'
 import Loading from '../components/Loading'
 import ReportingRRateonTime from '../components/graphs/ReportingRRateonTime'
+import CHVRRateFacGraph from '../components/graphs/CHVRRateFacGraph'
 
 export default function Dashboard() {
   return (
@@ -34,12 +35,22 @@ export default function Dashboard() {
 
         <div className="row">
           <div className="col-sm-12">
-            <ChvReportingRateContextProvider>
+         
 
               <ReportingRate></ReportingRate>
-            </ChvReportingRateContextProvider>
+           
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-sm-12">
+         
+
+              <CHVRRateFacGraph></CHVRRateFacGraph>
+           
+          </div>
+        </div>
+        
 
       </div>
 

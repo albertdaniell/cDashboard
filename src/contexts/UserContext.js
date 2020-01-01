@@ -1,4 +1,5 @@
 import React, {createContext, useState, useEffect} from 'react'
+import constants from '../constants';
 export const UserContext = createContext();
 
 const fetchOptions = {
@@ -21,7 +22,13 @@ const UserContextProvider = (props) => {
     setDataPresent] = useState(false)
 
   const getUserData = async() => {
-    const userdetails = await fetch(`me/`)
+
+    // var x = browser.cookies.getAll(
+    //   url="https://kecstock.jsi.com/"            // object
+    // )
+    // console.log("cookie",x)
+
+    const userdetails = await fetch(`  me/`, constants.FETCH_OPTIONS)
     const userdetails2 = await userdetails.json()
 
     setUserData(userdetails2)

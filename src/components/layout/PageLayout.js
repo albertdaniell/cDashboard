@@ -14,53 +14,56 @@ import CommodityRates from '../../pages/CommodityRates'
 import StockStatusPage from '../../pages/StockStatusPage'
 import StockStatusProvider from '../../contexts/StockStatus'
 import SideNavWallpaper from '../SideNavWallpaper'
+import CHVRRateFacilityProvider from '../../contexts/CHVRRateFacility'
 
 export default function PageLayout() {
 
   return (
 
     <Router>
-      <StockStatusProvider>
-        <CommodityReportingRateProvider>
-          <ReportingRateReportingRateOnTimeProvider>
-            <UserContextProvider>
-              <ActualReportingExpectedProvider>
+      <CHVRRateFacilityProvider>
+        <StockStatusProvider>
+          <CommodityReportingRateProvider>
+            <ReportingRateReportingRateOnTimeProvider>
+              <UserContextProvider>
+                <ActualReportingExpectedProvider>
 
-                <ChvReportingRateContextProvider>
-                  {/* <Loading></Loading> */}
+                  <ChvReportingRateContextProvider>
+                    {/* <Loading></Loading> */}
 
-                  <div className="container-fluid" style={{}}>
+                    <div className="container-fluid" style={{}}>
 
-                    <div className="row">
-                      <SideNavWallpaper></SideNavWallpaper>
-                      <div className="col-sm-2 sideNav">
+                      <div className="row">
+                        <SideNavWallpaper></SideNavWallpaper>
+                        <div className="col-sm-2 sideNav">
 
-                        <SideNav></SideNav>
-                      </div>
-                      <div className="col-sm-10 mainDiv">
-                        <AppNav></AppNav>
+                          <SideNav></SideNav>
+                        </div>
+                        <div className="col-sm-10 mainDiv">
+                          <AppNav></AppNav>
 
-                        <div>
-                          <Route exact path="/" component={Dashboard}/>
-                          <Route path="/users" component={Users}/>
-                          <Route path="/commodityRR" component={CommodityRates}></Route>
-                          <Route path="/stockstatus" component={StockStatusPage}></Route>
+                          <div>
+                            <Route exact path="/" component={Dashboard}/>
+                            <Route path="/users" component={Users}/>
+                            <Route path="/commodityRR" component={CommodityRates}></Route>
+                            <Route path="/stockstatus" component={StockStatusPage}></Route>
+
+                          </div>
 
                         </div>
 
                       </div>
 
                     </div>
+                  </ChvReportingRateContextProvider>
+                </ActualReportingExpectedProvider>
 
-                  </div>
-                </ChvReportingRateContextProvider>
-              </ActualReportingExpectedProvider>
+              </UserContextProvider>
+            </ReportingRateReportingRateOnTimeProvider>
 
-            </UserContextProvider>
-          </ReportingRateReportingRateOnTimeProvider>
-
-        </CommodityReportingRateProvider>
-      </StockStatusProvider>
+          </CommodityReportingRateProvider>
+        </StockStatusProvider>
+      </CHVRRateFacilityProvider>
 
     </Router>
   )

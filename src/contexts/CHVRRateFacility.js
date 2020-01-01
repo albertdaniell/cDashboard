@@ -1,15 +1,10 @@
 import React, {useContext, useState, useEffect, createContext} from 'react'
+
 import constants from '../constants'
 
-export const ActualReportingExpected = createContext();
-const fetchOptions = {
-  headers: {
-    Authorization: `Basic ${btoa('albertagoya@gmail.com:Pa$$word1')}`
-  }
-}
+export const CHVRRateFacility = createContext();
 
-const ActualReportingExpectedProvider = (props) => {
-
+const CHVRRateFacilityProvider = (props) => {
   const [allData1,
     setallData1] = useState([])
   const [allData2,
@@ -27,9 +22,9 @@ const ActualReportingExpectedProvider = (props) => {
   const [dataElement,
     setdataElement] = useState([])
 
-  const getData = async() => {
+  const getAllData = async() => {
 
-    const myalldata1 = await fetch(`  analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.ACTUAL_REPORTS&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:LEVEL-4;JNvqpOnKfGR&filter=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID`, constants.FETCH_OPTIONS)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
     setou(await myalldata1json.metaData.dimensions.ou)
@@ -38,12 +33,24 @@ const ActualReportingExpectedProvider = (props) => {
 
   }
 
-  const getData2 = async() => {
+  const getOuNames = () => {
+    let ounames = []
+    //
+    ou.forEach((ouid, index) => {
+      let orgName;
 
-    const myalldata1 = await fetch(`  analytics/dataValueSet.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.ACTUAL_REPORTS&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
-    const myalldata1json = await myalldata1.json()
-    console.log(await myalldata1json)
-    setallData2(await myalldata1json.dataValues)
+      fetch(`organisationUnits/${ouid}`, constants.FETCH_OPTIONS)
+        .then(res => res.json())
+        .then((result) => {
+
+          orgName = result.displayName;
+          // alert(orgName)
+          ounames[index] = orgName;
+
+          setouName([...ounames])
+
+        })
+    })
 
   }
 
@@ -61,14 +68,20 @@ const ActualReportingExpectedProvider = (props) => {
         dataElementName2 = "CHV Actual Reports on Time"
       } else if (dataElementName === "z2slLbjn7PM.EXPECTED_REPORTS") {
         dataElementName2 = "CHV Expected Reports"
+      } else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE") {
+        dataElementName2 = "CHV Reporting Rate"
       }
 
-      let filtered = allData2.filter((data) => {
-        return data.dataElement === dataElementName
+      else if(dataElementName === "z2slLbjn7PM.REPORTING_RATE_ON_TIME"){
+        dataElementName2 = "CHV Reporting Rate on Time"
+      }
 
-      }).map(({value}) => {
+      let filtered = allData1.rows.filter((data) => {
+        return data[0] === dataElementName
 
-        return value
+      }).map((data) => {
+
+        return data[2]
 
       })
 
@@ -96,61 +109,31 @@ const ActualReportingExpectedProvider = (props) => {
 
   }
 
-  const getOrgNames = () => {
-    let myou = []
-    ou.map((orgUnitId, index) => {
-
-      setTimeout(() => {
-        fetch(`  organisationUnits/${orgUnitId}`,constants.FETCH_OPTIONS)
-          .then(res => res.json())
-          .then((result) => {
-            myou = [
-              ...myou,
-              result.displayName
-            ]
-            setouName(myou)
-
-          })
-      }, 100);
-
-    })
-
-  }
-
   useEffect(() => {
-    getData()
+    getAllData();
   }, [])
-
-  useEffect(() => {
-    // alert(0)
-    getData2()
-  }, [allData1])
 
   useEffect(() => {
     makeGraphData()
 
-  }, [allData2])
+  }, [dataElement])
 
   useEffect(() => {
-    getOrgNames()
-  }, [allData2])
-
+    getOuNames();
+  }, [ou])
   return (
-    <ActualReportingExpected.Provider
+    <CHVRRateFacility.Provider
       value={{
       allData1,
-      allData2,
       ou,
-      graphData,
-      dataElement,
       ouName,
+      dataElement,
+      graphData,
       dataPresent
     }}>
-      {props.children}
-
-    </ActualReportingExpected.Provider>
+      {props.children}</CHVRRateFacility.Provider>
   )
 
 }
 
-export default ActualReportingExpectedProvider;
+export default CHVRRateFacilityProvider;

@@ -30,8 +30,8 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
-    const allData = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPOR' +
-        'TING_RATE&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
+    const allData = await fetch(`  analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe)
@@ -45,7 +45,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
     let myounames = []
     ou.map((id) => {
       let orgUnitId = id
-      fetch(`organisationUnits/${orgUnitId}`)
+      fetch(`organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
           //alert(myounames)
@@ -63,9 +63,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
 
   }
   const getData2 = async() => {
-    const allData = await fetch('analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7' +
-        'PM.REPORTING_RATE&dimension=pe:LAST_6_MONTHS&dimension=ou:USER_ORGUNIT&displayPr' +
-        'operty=NAME&user=Fsw9jvRNAGL');
+    const allData = await fetch(`analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:LAST_6_MONTHS&dimension=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
 
     // setAllData2(await allDatajson.dataValues.slice().sort((a, b) => a.period -
@@ -79,10 +77,6 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
   }
 
   const makdeGraphData = () => {
-    // ou.forEach((orgid) => {   let orgUnitId = orgid   let orgUnitName;
-    // fetch(`organisationUnits/${orgUnitId}`)     .then(res => res.json())
-    // .then((result) => {       orgUnitName = result.displayName alert(orgUnitName)
-    //     }) })
 
     let graphData = [];
     let newds = [];

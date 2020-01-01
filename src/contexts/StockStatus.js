@@ -30,11 +30,8 @@ const StockStatusProvider = (props) => {
 
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
-        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;' +
-        'MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhm' +
-        'BjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
-        '9jvRNAGL`);
+    const allData = await fetch(`  analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
+        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`,constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe);
@@ -57,13 +54,13 @@ const StockStatusProvider = (props) => {
       let indicatorid = indi;
       let aggData = [];
       let backgroundColor = ''
-      var colorR = Math.floor(Math.random() * 255) + 1;
+      var colorR = Math.floor(Math.random() * 225) + 1;
       var colorG = Math.floor(Math.random() * 255) + 1;
-      var colorB = Math.floor(Math.random() * 255) + 1;
+      var colorB = Math.floor(Math.random() * 205) + 1;
       var colorA = 0.80;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
-      fetch(`dataElements/${indicatorid}`)
+      fetch(`  dataElements/${indicatorid}`,constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
 
