@@ -1,5 +1,4 @@
 import React, {createContext, useState, useEffect} from 'react'
-import constants from '../constants';
 export const UserContext = createContext();
 
 const fetchOptions = {
@@ -22,7 +21,7 @@ const UserContextProvider = (props) => {
     setDataPresent] = useState(false)
 
   const getUserData = async() => {
-    const userdetails = await fetch(`https://kecstock.jsi.com/api/me/`,fetchOptions)
+    const userdetails = await fetch(`me/`)
     const userdetails2 = await userdetails.json()
 
     setUserData(userdetails2)
