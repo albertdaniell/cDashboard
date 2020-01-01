@@ -1,4 +1,5 @@
 import React, {useContext, useState, useEffect, createContext} from 'react'
+import constants from '../constants'
 
 export const ActualReportingExpected = createContext();
 const fetchOptions = {
@@ -28,9 +29,9 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getData = async() => {
 
-    const myalldata1 = await fetch('analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPO' +
+    const myalldata1 = await fetch(`${constants.MY_PROXY}analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPO' +
         'RTS_ON_TIME;z2slLbjn7PM.ACTUAL_REPORTS&dimension=ou:USER_ORGUNIT&filter=pe:LAST_' +
-        'MONTH&displayProperty=NAME&user=Fsw9jvRNAGL',
+        'MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`,
     fetchOptions)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
@@ -42,9 +43,9 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getData2 = async() => {
 
-    const myalldata1 = await fetch('analytics/dataValueSet.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7P' +
+    const myalldata1 = await fetch(`${constants.MY_PROXY}analytics/dataValueSet.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7P' +
         'M.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.ACTUAL_REPORTS&dimension=ou:USER_ORGUNIT&di' +
-        'mension=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL',
+        'mension=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`,
     fetchOptions)
     const myalldata1json = await myalldata1.json()
     console.log(await myalldata1json)
