@@ -11,7 +11,8 @@ const fetchOptions = {
 const ReportingRateReportingRateOnTimeProvider = (props) => {
   const [graphData,
     setGraphData] = useState([])
-
+    const [dataPresent,
+      setdataPresent] = useState(false)
   const [allData,
     setAllData] = useState([]);
 
@@ -24,7 +25,8 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
   const [dx,
     setDx] = useState([])
 
-  const [ouNames,setOuNames]=useState([])
+  const [ouNames,
+    setOuNames] = useState([])
 
   const getData = async() => {
     const allData = await fetch('analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPOR' +
@@ -35,32 +37,35 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
     setPeriods(await allDatajson.metaData.dimensions.pe)
     setOu(await allDatajson.metaData.dimensions.ou)
     setDx(await allDatajson.metaData.dimensions.dx)
-    setAllData2(await allDatajson.rows.slice().sort((a,b)=>a[1]-b[1]))
+    setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]))
+    
   }
 
-  const getOuNames=()=>{
-    let myounames=[]
-    ou.map((id)=>{
+  const getOuNames = () => {
+    let myounames = []
+    ou.map((id) => {
       let orgUnitId = id
       fetch(`organisationUnits/${orgUnitId}`)
-      .then(res=>res.json())
-      .then((result)=>{
-        //alert(myounames)
-        myounames=[...myounames,result.displayName]
-        setOuNames(myounames)
-      })
-      .catch((e)=>{
-        console.log(e)
-      })
+        .then(res => res.json())
+        .then((result) => {
+          //alert(myounames)
+          myounames = [
+            ...myounames,
+            result.displayName
+          ]
+          setOuNames(myounames)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
 
     })
 
-    
   }
   const getData2 = async() => {
-    const allData = await fetch('analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2sl' +
-        'Lbjn7PM.REPORTING_RATE&dimension=pe:LAST_6_MONTHS&dimension=ou:USER_ORGUNIT&disp' +
-        'layProperty=NAME&user=Fsw9jvRNAGL');
+    const allData = await fetch('analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7' +
+        'PM.REPORTING_RATE&dimension=pe:LAST_6_MONTHS&dimension=ou:USER_ORGUNIT&displayPr' +
+        'operty=NAME&user=Fsw9jvRNAGL');
     const allDatajson = await allData.json();
 
     // setAllData2(await allDatajson.dataValues.slice().sort((a, b) => a.period -
@@ -123,6 +128,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       ]
 
       setGraphData(newds)
+      setdataPresent(true)
       // allData2.forEach((data)=>{ })
       console.log(dataElement)
     })
@@ -133,18 +139,18 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
   }, [])
 
   useEffect(() => {
-  
-      getData2()
-      getOuNames()
-   
+
+    getData2()
+    getOuNames()
+
   }, [allData])
 
   useEffect(() => {
-  
-   // getData2()
+
+    // getData2()
     getOuNames()
- 
-}, [ou])
+
+  }, [ou])
 
   useEffect(() => {
     setTimeout(() => {
@@ -161,7 +167,8 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       allData2,
       graphData,
       periods,
-      ouNames
+      ouNames,
+      dataPresent
     }}>
       {props.children}
     </ReportingRateReportingRateOnTime.Provider>

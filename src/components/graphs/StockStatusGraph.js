@@ -4,20 +4,20 @@ import {ChvReportingRateContext} from '../../contexts/ChvReportingRateContext';
 import Spacer from '../Spacer'
 import Loading2 from '../Loading2';
 import {CommodityReportingRate} from '../../contexts/CommodityReportingRates';
-import { StockStatus } from '../../contexts/StockStatus';
+import {StockStatus} from '../../contexts/StockStatus';
 
 export default function CommodityRRate() {
 
-    const [sortedMonths,
-        setMonths] = useState([])
+  const [sortedMonths,
+    setMonths] = useState([])
 
-  const {graphData, periods, dataPresent} = useContext(StockStatus)
+  const {graphData, periods, dataPresent, changePeriodAPI,allData} = useContext(StockStatus)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     let holdSortedMonths = [...periods];
     let formattedMonths = [];
     holdSortedMonths.forEach(originalMonth => {
@@ -78,29 +78,44 @@ export default function CommodityRRate() {
     });
 
     setMonths(formattedMonths)
-  },[graphData])
+  }, [graphData])
 
   return (
     <div className="col-sm-12 graphDiv">
-      <h4>
-  <center>Stock Status for {
-      sortedMonths.map((month)=>{
-          return(
-              <span>{month} </span>
-          )
+      <select name="periods" onChange={(e) => changePeriodAPI(e.target.value)}>
+        <option value="LAST_MONTH">Last month</option>
+        <option value="LAST_3_MONTHS">Last 3 months</option>
+        <option value="LAST_6_MONTHS">Last 6 months</option>
+        <option value="LAST_12_MONTHS">Last 12 Months</option>
 
-      })
-      }</center>
+      </select>
+      <h4>
+        <center>Stock Status for {sortedMonths.map((month) => {
+            return (
+              <span>{month} ,
+              </span>
+            )
+
+          })
+}</center>
       </h4>
       <Spacer></Spacer>
 
       <div className="col-sm-12">
-      {!dataPresent
-        ? <Loading2></Loading2>
-        : <Bar options={{
-          responsive: true
-        }} data={mydata}/>
-}
+        {
+          allData.rows === undefined || allData.rows.length == 0?<p style={{color:'red'}}>No data for selected month(s)</p>:
+          !dataPresent
+            ? <Loading2></Loading2>
+            : <Bar options={{
+              responsive: true
+            }} data={mydata}/>
+  
+
+          
+        }
+        {/* <button onClick={() => changePeriodAPI()}>Change</button> */}
+
+     
       </div>
     </div>
   )

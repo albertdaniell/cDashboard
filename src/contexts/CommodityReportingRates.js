@@ -35,7 +35,7 @@ const CommodityReportingRateProvider = (props) => {
     const allData = await fetch('analytics.json?dimension=dx:zUdUMvPpY7S;PflRNbAv3hO;B9jXSyRn4RH;bHf4q8pPzFJ;YfVM' +
         'oUlquDz;VPuHdZpv4sJ;Bt8Nedvaaee;hGMiQ4teZXa;q33nlys1mqT;Nbo7dLam7WC;eGe4UZ0eK5W;' +
         'MsJfgHV4ez4;j8f50aOYx6H;mcgnywJOgh7;XdJbnISaGY1;OOoaCN5rIRd;JSU8L0xCkf4;pQc0IAdW' +
-        'prU&dimension=pe:LAST_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
+        'prU&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
         '9jvRNAGL');
     const allDatajson = await allData.json();
     setAllData(await allDatajson);

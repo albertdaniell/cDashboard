@@ -2,6 +2,8 @@ import React, {useState, useContext, useEffect} from 'react'
 import {Line, Bar, HorizontalBar} from 'react-chartjs-2';
 import Spacer from '../Spacer'
 import { ReportingRateReportingRateOnTime } from '../../contexts/ReportingRateReportingOnTime';
+import Loading from '../Loading';
+import Loading2 from '../Loading2';
 
 const ReportingRRateonTime = () => {
 
@@ -9,7 +11,7 @@ const ReportingRRateonTime = () => {
         setShowLine] = useState(false)
     const [sortedMonths,
         setMonths] = useState([])
-    const {graphData,periods,ouNames} = useContext(ReportingRateReportingRateOnTime)
+    const {graphData,periods,ouNames,dataPresent} = useContext(ReportingRateReportingRateOnTime)
     const mydata = {
         labels: sortedMonths,
         datasets: graphData
@@ -78,7 +80,7 @@ const ReportingRRateonTime = () => {
         setMonths(formattedMonths)
       }, [graphData])
     return (
-        <div className="graphDiv">
+        <div className="col-sm-12 graphDiv">
                     <button className="btn btn-default btn-sm" onClick={() => setShowLine(!showLine)}>Toggle Line/Bar</button>
                     <h4>
         <center>Monthly CHV Reporting Rates over time for {ouNames.map((ou)=>{
@@ -88,7 +90,10 @@ const ReportingRRateonTime = () => {
         })} </center>
       </h4>
       <Spacer></Spacer>
-     {showLine
+ {
+   !dataPresent?<Loading2></Loading2>:
+   <div>
+         {showLine
         ? <Line options={{
             responsive: true
           }} data={mydata}></Line>
@@ -96,6 +101,8 @@ const ReportingRRateonTime = () => {
           responsive: true
         }} data={mydata}/>
 }
+   </div>
+ }
         </div>
     );
 }

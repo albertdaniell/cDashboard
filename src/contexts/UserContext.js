@@ -1,4 +1,4 @@
-import React, {createContext, useState,useEffect} from 'react'
+import React, {createContext, useState, useEffect} from 'react'
 export const UserContext = createContext();
 
 const fetchOptions = {
@@ -11,35 +11,42 @@ const UserContextProvider = (props) => {
   const [userData,
     setUserData] = useState([])
 
-    const [userCredentials,
-      setUserCredentials] = useState([])
+  const [userCredentials,
+    setUserCredentials] = useState([])
 
-      const [userAccess,
-        setUserAccess] = useState([])
-  
+  const [userAccess,
+    setUserAccess] = useState([])
 
-    const getUserData = async() => {
+  const [dataPresent,
+    setDataPresent] = useState(false)
+
+  const getUserData = async() => {
     const userdetails = await fetch('me/')
     const userdetails2 = await userdetails.json()
 
     setUserData(userdetails2)
     setUserCredentials(await userdetails2.userCredentials)
-    setUserAccess(await  userdetails2.userCredentials.access)
-   console.log("Uset data",await userdetails2.userCredentials)
+    setUserAccess(await userdetails2.userCredentials.access)
+    console.log("Uset data", await userdetails2.userCredentials)
+    setDataPresent(true)
 
   }
 
   useEffect(() => {
-      getUserData()
+    getUserData()
   }, [])
 
   return (
 
-    <UserContext.Provider value={{
+    <UserContext.Provider
+      value={{
       userData,
       userCredentials,
-      userAccess
-    }}> {props.children} </UserContext.Provider>
+      userAccess,
+      dataPresent
+    }}>
+      {props.children}
+    </UserContext.Provider>
   )
 
 }

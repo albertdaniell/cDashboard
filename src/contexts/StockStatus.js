@@ -1,8 +1,11 @@
 import React, {createContext, useState, useEffect} from 'react'
+import constants from '../constants'
 
 export const StockStatus = createContext();
 
 const StockStatusProvider = (props) => {
+
+  const [periodAPI,setPeriodApi]=useState('LAST_MONTH')
 
   const [graphData,
     setGraphData] = useState([])
@@ -26,17 +29,23 @@ const StockStatusProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
-    const allData = await fetch('analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
+    setdataPresent(false)
+    const allData = await fetch(`analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
         'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;' +
         'MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhm' +
-        'BjU&dimension=pe:LAST_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
-        '9jvRNAGL');
+        'BjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
+        '9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
-    setPeriods(await allDatajson.metaData.dimensions.pe)
-    setOu(await allDatajson.metaData.dimensions.ou)
-    setDx(await allDatajson.metaData.dimensions.dx)
-    setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]))
+    setPeriods(await allDatajson.metaData.dimensions.pe);
+    setOu(await allDatajson.metaData.dimensions.ou);
+    setDx(await allDatajson.metaData.dimensions.dx);
+    setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]));
+  }
+
+  const changePeriodAPI=(pe='LAST_12_MONTHS')=>{
+    
+  setPeriodApi(pe)
   }
 
   const getgraphData = () => {
@@ -93,6 +102,7 @@ const StockStatusProvider = (props) => {
         })
         .catch((e) => {
           console.log(e)
+          setdataPresent(false)
         })
 
     })
@@ -100,7 +110,7 @@ const StockStatusProvider = (props) => {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [periodAPI])
 
   useEffect(() => {
     getgraphData()
@@ -115,7 +125,8 @@ const StockStatusProvider = (props) => {
       ou,
       periods,
       graphData,
-      dataPresent
+      dataPresent,
+      changePeriodAPI,
     }}>
       {props.children}
 

@@ -4,7 +4,7 @@ import logo from '../images/logo.jpg'
 
 const AppNav = () => {
 
-  const {userData} = useContext(UserContext);
+  const {userData, dataPresent} = useContext(UserContext);
   return (
     <div>
       <nav class="navbar navbar-default">
@@ -21,8 +21,14 @@ const AppNav = () => {
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"> 
-            <img alt="logo" src={logo} style={{height:'100%',width:'auto'}}></img>
+            <a class="navbar-brand" href="#">
+              <img
+                alt="logo"
+                src={logo}
+                style={{
+                height: '100%',
+                width: 'auto'
+              }}></img>
             </a>
           </div>
 
@@ -38,8 +44,27 @@ const AppNav = () => {
                   data-toggle="dropdown"
                   role="button"
                   aria-haspopup="true"
-                  aria-expanded="false"> <span style={{padding:5,backgroundColor:'gray',borderRadius:100}}> <i class="fas fa-user" style={{color:'white'}}></i></span> {userData.displayName}
-                  <span class="caret"></span>
+                  aria-expanded="false">
+                  <span
+                    style={{
+                    padding: 5,
+                    
+                    borderRadius: 100
+                  }}>
+                    <i
+                      class="fas fa-user"
+                      style={{
+                      color: 'black'
+                    }}></i>
+                  </span>
+                  {!dataPresent
+                    ? <span>...</span>
+                    : <span>
+                      {userData.displayName}
+                      <span class="caret"></span>
+                    </span>
+}
+                 
                 </a>
 
               </li>

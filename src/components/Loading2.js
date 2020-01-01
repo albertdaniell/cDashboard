@@ -5,7 +5,7 @@ const Loading2 = () => {
     return (
         <div className="col-sm-6 loadingDiv">
             <center>
-            <img src={Loading} style={{height:100}}></img>
+            <img alt="loading... " src={Loading} style={{height:100}}></img>
             </center>
         </div>
     );

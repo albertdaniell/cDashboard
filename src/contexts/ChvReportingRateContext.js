@@ -1,12 +1,7 @@
 import React, {useState, createContext, useEffect} from 'react'
+import constants from '../constants'
 
 export const ChvReportingRateContext = createContext();
-
-const fetchOptions = {
-  headers: {
-    Authorization: `Basic ${btoa('albertagoya@gmail.com:Pa$$word1')}`
-  }
-}
 
 const ChvReportingRateContextProvider = (props) => {
 
@@ -35,7 +30,7 @@ const ChvReportingRateContextProvider = (props) => {
   const url = `analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_12_MONTHS&displayProperty=NAME&`
   const orgUniturl = `organisationUnits`
   const getData = async() => {
-    setDataPresent(false)
+  
     const allData = await fetch(url);
     const allData2 = await allData.json();
     const setmydata = setData([
@@ -65,7 +60,14 @@ const ChvReportingRateContextProvider = (props) => {
     console.log("rowData", rowData)
     var newds = [];
     orgUnits.map((id) => {
+      let aggData = [];
       var myds = [];
+      let backgroundColor = ''
+      var colorR = Math.floor(Math.random() * 255) + 1;
+      var colorG = Math.floor(Math.random() * 255) + 1;
+      var colorB = Math.floor(Math.random() * 255) + 1;
+      var colorA = 0.85;
+      backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
       let orgUnitId = id
       var orgUnitName = "";
@@ -74,49 +76,49 @@ const ChvReportingRateContextProvider = (props) => {
         .then((result) => {
           orgUnitName = result.displayName
           console.log(orgUnitName)
-          rowData.forEach((data) => {
-            if (data[1] === orgUnitId) {
 
-              myds = [
-                ...myds,
-                data[3]
-              ]
-              // console.log("data for org unit", orgUnitName,"is ", data[3])
-            }
-
+          let filtered = rowData
+          .slice()
+          .sort((a, b) => a[2] - b[2])
+          .filter((data) => {
+            return data[1] === orgUnitId
+  
           })
-          //console.log(myds)
+          .map((data) => {
+            return data[3];
+          })
+          aggData = filtered
 
-        })
-      setTimeout(() => {
-        setTimeout(() => {
-          var colorR = Math.floor(Math.random() * 255) + 1;
-          var colorG = Math.floor(Math.random() * 255) + 1;
-          var colorB = Math.floor(Math.random() * 255) + 1;
-          var colorA = 0.85;
-
-          var data = {
-            data: myds,
+          let data = {
+            data: aggData,
             orgUnitId: orgUnitId,
             label: orgUnitName,
-            backgroundColor: `rgba(${colorR},${colorG},${colorB},${colorA})`
-
+            backgroundColor: backgroundColor
           }
 
+       
+    
           newds = [
             ...newds,
             data
           ]
-
-          console.log("gdata", newds)
-          setGraphData(newds)
           setTimeout(() => {
-            setDataPresent(true)
-          }, 2000);
+            setTimeout(() => {
+          
+              console.log("gdata", newds)
+              setGraphData(newds)
+              setTimeout(() => {
+                setDataPresent(true)
+              }, 1000);
+    
+            }, 400);
+    
+          }, 400);
 
-        }, 3000);
+          //console.log(myds)
 
-      }, 3000);
+        })
+    
       console.log(newds)
       //setGraphData([newds])
       return newds
@@ -126,19 +128,16 @@ const ChvReportingRateContextProvider = (props) => {
   }
 
   const Test = () => {
-   // alert(0)
+    // alert(0)
   }
 
   useEffect(() => {
     console.log("haahha")
     getData();
-    
+
   }, [])
 
-  useEffect(() => {
-setDataPresent(false)
-  }, [graphData])
-
+  
   useEffect(() => {
     // getOUNames();
     const mygraphdata = getOUNames()
@@ -149,10 +148,10 @@ setDataPresent(false)
     console.log("graph data.....", graphData)
   }, [periods])
 
-  useEffect(() => {
-    console.log("The data changed", graphData)
-    setDataPresent(false)
-  }, [graphData])
+  // useEffect(() => {
+  //   console.log("The data changed", graphData)
+  //   //setDataPresent(false)
+  // }, [graphData])
 
   return (
     <ChvReportingRateContext.Provider
@@ -161,7 +160,8 @@ setDataPresent(false)
       periods,
       graphData,
       dataName,
-      isData
+      isData,
+      rowData
     }}>
       {props.children}
     </ChvReportingRateContext.Provider>

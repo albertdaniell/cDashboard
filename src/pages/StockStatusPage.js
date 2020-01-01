@@ -14,7 +14,7 @@ export default function Commodities() {
     <div>
 
       <h2 className="pageHeading">
-        <i class="fas fa-medkit"></i>
+        <i class="fas fa-store"></i>
        Stock Status</h2>
 
       <div className="container-fluid" style={{

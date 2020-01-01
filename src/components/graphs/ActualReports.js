@@ -1,8 +1,17 @@
 import React, {useContext, useState, useEffect} from 'react';
 
-import {Line, Bar, Radar, Pie,Doughnut,Polar,Bubble} from 'react-chartjs-2';
+import {
+  Line,
+  Bar,
+  Radar,
+  Pie,
+  Doughnut,
+  Polar,
+  Bubble
+} from 'react-chartjs-2';
 import ActualReportingExpectedProvider, {ActualReportingExpected} from '../../contexts/ActualReportingExpected';
 import Spacer from '../Spacer';
+import Loading2 from '../Loading2';
 
 const fetchOptions = {
   headers: {
@@ -13,7 +22,7 @@ const fetchOptions = {
 const ActualReports = () => {
   const [ouNames,
     setouNames] = useState([])
-  const {graphData, ou, ouName} = useContext(ActualReportingExpected)
+  const {graphData, ou, ouName, dataPresent} = useContext(ActualReportingExpected)
   const mydata = {
     labels: ouNames,
     datasets: graphData
@@ -58,18 +67,27 @@ const ActualReports = () => {
     <div className="col-sm-12 graphDiv" style={{
       position: 'relative'
     }}>
-      <button className="btn btn-default btn-sm" onClick={() => setShowLine(!showLine)}>Toggle Line/Bar</button>
+      <button
+        className="btn btn-default btn-sm"
+        onClick={() => setShowLine(!showLine)}>Toggle Line/Bar</button>
       <h4>
         <center>Reporting Rates over time</center>
       </h4>
       <Spacer></Spacer>
-      {!showLine
-        ? <Bar options={{
-            responsive: true
-          }} data={mydata}/>
-        : <Line options={{
-          responsive: true
-        }} data={mydata}></Line>
+      {!dataPresent
+        ? <Loading2></Loading2>
+        : <div>
+          {!showLine
+            ? <Bar
+                options={{
+                responsive: true
+              }}
+                data={mydata}/>
+            : <Line options={{
+              responsive: true
+            }} data={mydata}></Line>
+}
+        </div>
 }
     </div>
   );

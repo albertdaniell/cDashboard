@@ -27,12 +27,12 @@ const Loading = () => {
             marginTop: '5%'
           }}>
             <center>
-              <img style={{
+              <img alt="spinner" style={{
                 height: 250
               }} src={spinner}></img>
               <br></br>
               <br></br>
-              <img style={{
+              <img alt="logo" style={{
                 height: 50
               }} src={logo}></img>
               <br></br>

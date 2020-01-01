@@ -1,13 +1,13 @@
 import React from 'react';
-import PageLayout from './components/PageLayout';
 import UserContextProvider, {UserContext} from './contexts/UserContext';
+import PageLayout from './components/layout/PageLayout';
 
 function App() {
   return (
     <div className="">
-      <UserContextProvider>
-        <PageLayout></PageLayout>
-      </UserContextProvider>
+
+      <PageLayout></PageLayout>
+
     </div>
   );
 }

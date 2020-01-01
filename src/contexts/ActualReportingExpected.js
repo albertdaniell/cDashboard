@@ -15,7 +15,8 @@ const ActualReportingExpectedProvider = (props) => {
     setallData2] = useState([])
   const [graphData,
     setGraphData] = useState([])
-
+    const [dataPresent,
+      setdataPresent] = useState(false)
   const [ou,
     setou] = useState([])
 
@@ -94,6 +95,7 @@ const ActualReportingExpectedProvider = (props) => {
       ]
 
       setGraphData(newds)
+      setdataPresent(true)
 
     })
 
@@ -146,7 +148,8 @@ const ActualReportingExpectedProvider = (props) => {
       ou,
       graphData,
       dataElement,
-      ouName
+      ouName,
+      dataPresent
     }}>
       {props.children}
 

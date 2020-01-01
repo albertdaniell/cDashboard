@@ -14,7 +14,7 @@ const User = () => {
 
       <div className="container-fluid">
         <div className="row">
-          <div className="col-sm-4 graphDiv">
+          <div className="col-sm-6 graphDiv">
             <h4>User Details</h4>
             <Spacer></Spacer>
             Name: {userData.displayName}
@@ -31,7 +31,7 @@ const User = () => {
             Password Last Updated: {userCredentials.passwordLastUpdated}
           </div>
 
-          <div className="col-sm-4">
+          <div className="col-sm-6">
            <div className="col-sm-12 graphDiv">
            <h4>User Access Details</h4>
          <Spacer></Spacer>
