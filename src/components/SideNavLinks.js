@@ -19,6 +19,8 @@ const SideNavLinks = () => {
         <i class="fas fa-store"></i>
         Stock Status</NavLink>
 
+        <NavLink activeClassName="active" to="/stockstatusbyno"> <i class="fas fa-notes-medical"></i> Stock Status By No.</NavLink>
+
     </div>
   );
 }

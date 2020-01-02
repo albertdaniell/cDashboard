@@ -1,12 +1,11 @@
-import React, {createContext, useState, useEffect} from 'react'
+import React, {createContext, useState, useContext, useEffect} from 'react'
 import constants from '../constants'
 
-export const StockStatus = createContext();
+export const StockStatusByNo = createContext();
 
-const StockStatusProvider = (props) => {
-
+const StockStatusByNoProvider = (props) => {
   const [periodAPI,
-    setPeriodApi] = useState('LAST_MONTH')
+    setPeriodApi] = useState('LAST_3_MONTHS')
 
   const [graphData,
     setGraphData] = useState([])
@@ -30,30 +29,25 @@ const StockStatusProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
+    let stockstatusid = ".VAhKn4YLOtX"
     setdataPresent(false)
-    const allData = await fetch(`  analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
-        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`analytics.json?dimension=VAhKn4YLOtX:aVuisZ9bgxJ;JkW5RXtoxjj;YxgCPnP2Mbn;fkBysl2P7tC&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&filter=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1GdTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`, constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe);
     setOu(await allDatajson.metaData.dimensions.ou);
-    setDx(await allDatajson.metaData.dimensions.dx);
-    setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]));
+    setDx(await allDatajson.metaData.dimensions.VAhKn4YLOtX);
+    setAllData2(await allDatajson.rows.slice().sort((a, b) => a[2] - b[2]));
   }
-
   const changePeriodAPI = (pe) => {
 
     setPeriodApi(pe)
   }
-
   const getgraphData = () => {
-
-    let graphData = [];
     let newds = [];
-    dx.map((indi,index) => {
-      let indicatorName = ""
-      let inidcatorsList=[]
-      let indicatorid = indi;
+    dx.map((dxid) => {
+        let catOptid=dxid
+      let catOptionName = "99"
       let aggData = [];
       let backgroundColor = ''
       var colorR = Math.floor(Math.random() * 225) + 1;
@@ -62,21 +56,20 @@ const StockStatusProvider = (props) => {
       var colorA = 0.80;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
-      fetch(`  dataElements/${indicatorid}`, constants.FETCH_OPTIONS)
+      fetch(`categoryOptions/${catOptid}`,constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
-
-          indicatorName = result.displayName
-        //inidcatorsList[index] = indicatorName;
-          console.log("indicator results,", result.displayName)
+            console.log("stockstatus by n res",result)
+          catOptionName = result.displayName
 
           let filtered = allData2.filter((data) => {
             // alert(data[0])
-            return data[0] === indicatorid
+            return data[0] === catOptid
 
           }).map((data) => {
             return data[2];
           })
+
           aggData = filtered
           console.log("agg data,", filtered)
 
@@ -84,7 +77,7 @@ const StockStatusProvider = (props) => {
 
             let data = {
               data: aggData,
-              label: indicatorName,
+              label: catOptionName,
               backgroundColor: backgroundColor
             }
 
@@ -97,12 +90,9 @@ const StockStatusProvider = (props) => {
 
             setTimeout(() => {
               setdataPresent(true)
-            }, 200);
-          }, 400);
-        })
-        .catch((e) => {
-          console.log(e)
-          setdataPresent(false)
+            }, 100);
+          }, 100);
+
         })
 
     })
@@ -115,9 +105,8 @@ const StockStatusProvider = (props) => {
   useEffect(() => {
     getgraphData()
   }, [allData2])
-
   return (
-    <StockStatus.Provider
+    <StockStatusByNo.Provider
       value={{
       allData,
       allData2,
@@ -127,11 +116,11 @@ const StockStatusProvider = (props) => {
       graphData,
       dataPresent,
       changePeriodAPI
-    }}>
-      {props.children}
+    }}> {props.children}
 
-    </StockStatus.Provider>
-  )
+    </StockStatusByNo.Provider>
+
+)
 }
 
-export default StockStatusProvider;
+export default StockStatusByNoProvider;

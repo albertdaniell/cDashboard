@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react'
-import {Line, Bar, Pie, Polar, HorizontalBar} from 'react-chartjs-2';
+import {Line, Bar, Pie, Polar, HorizontalBar,Radar} from 'react-chartjs-2';
 import {ChvReportingRateContext} from '../../contexts/ChvReportingRateContext';
 import Spacer from '../Spacer'
 import Loading2 from '../Loading2';

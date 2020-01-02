@@ -65,7 +65,7 @@ const ActualReports = () => {
   }, [graphData])
   return (
     <div className="col-sm-12 graphDiv" style={{
-      position: 'relative'
+     
     }}>
       <div className="col-sm-4">
         <button

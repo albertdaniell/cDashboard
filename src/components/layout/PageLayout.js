@@ -12,16 +12,20 @@ import ReportingRateReportingRateOnTimeProvider from '../../contexts/ReportingRa
 import CommodityReportingRateProvider, {CommodityReportingRate} from '../../contexts/CommodityReportingRates'
 import CommodityRates from '../../pages/CommodityRates'
 import StockStatusPage from '../../pages/StockStatusPage'
+import StockStatusByNoPage from '../../pages/StockStatusByoPage'
 import StockStatusProvider from '../../contexts/StockStatus'
 import SideNavWallpaper from '../SideNavWallpaper'
 import CHVRRateFacilityProvider from '../../contexts/CHVRRateFacility'
+import StockStatusByNoProvider from '../../contexts/StockStatusByNumber'
 
 export default function PageLayout() {
 
   return (
 
     <Router>
-      <CHVRRateFacilityProvider>
+    
+<StockStatusByNoProvider>
+  <CHVRRateFacilityProvider>
         <StockStatusProvider>
           <CommodityReportingRateProvider>
             <ReportingRateReportingRateOnTimeProvider>
@@ -47,6 +51,7 @@ export default function PageLayout() {
                             <Route path="/users" component={Users}/>
                             <Route path="/commodityRR" component={CommodityRates}></Route>
                             <Route path="/stockstatus" component={StockStatusPage}></Route>
+                            <Route path="/stockstatusbyno" component={StockStatusByNoPage}></Route>
 
                           </div>
 
@@ -64,7 +69,7 @@ export default function PageLayout() {
           </CommodityReportingRateProvider>
         </StockStatusProvider>
       </CHVRRateFacilityProvider>
-
+</StockStatusByNoProvider>
     </Router>
   )
 }

@@ -7,6 +7,9 @@ import ActualReports from '../components/graphs/ActualReports'
 import Loading from '../components/Loading'
 import ReportingRRateonTime from '../components/graphs/ReportingRRateonTime'
 import CHVRRateFacGraph from '../components/graphs/CHVRRateFacGraph'
+import StockStatusByNoGraph from '../components/graphs/StockSatusByNoGraph'
+import { ReportingRateReportingRateOnTime } from '../contexts/CommodityReportingRates'
+import CommodityRRate from '../components/graphs/CommodityRRate'
 
 export default function Dashboard() {
   return (
@@ -16,17 +19,30 @@ export default function Dashboard() {
         <i class="fas fa-tachometer-alt"></i>
         Dashboard</h2>
 
-      <div className="container-fluid" style={{
+      <div className="" style={{
         padding: 0
       }}>
         <div className="row">
 
-          <div className="col-sm-6">
+          <div className="col-lg-6">
             <ReportingRRateonTime></ReportingRRateonTime>
 
           </div>
 
-          <div className="col-sm-6">
+          <div className="col-lg-6">
+          <StockStatusByNoGraph></StockStatusByNoGraph>
+          
+          </div>
+
+         
+
+        
+
+
+        </div>
+
+        <div className="row">
+        <div className="col-lg-6">
             <ActualReportingExpectedProvider>
               <ActualReports></ActualReports>
             </ActualReportingExpectedProvider>

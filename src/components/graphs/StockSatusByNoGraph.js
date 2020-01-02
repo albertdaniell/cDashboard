@@ -1,17 +1,17 @@
 import React, {useState, useContext, useEffect} from 'react'
-import {Line, Bar, Pie, Polar, HorizontalBar,Radar} from 'react-chartjs-2';
+import {Line, Bar, Pie, Polar, HorizontalBar,Radar, Doughnut} from 'react-chartjs-2';
 import {ChvReportingRateContext} from '../../contexts/ChvReportingRateContext';
 import Spacer from '../Spacer'
 import Loading2 from '../Loading2';
 import {CommodityReportingRate} from '../../contexts/CommodityReportingRates';
-import {StockStatus} from '../../contexts/StockStatus';
+import { StockStatusByNo } from '../../contexts/StockStatusByNumber';
 
-export default function CommodityRRate() {
+export default function StockStatusByNoGraph() {
 
   const [sortedMonths,
     setMonths] = useState([])
 
-  const {graphData, periods, dataPresent, changePeriodAPI, allData} = useContext(StockStatus)
+  const {graphData, periods, dataPresent, changePeriodAPI, allData} = useContext(StockStatusByNo)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
@@ -166,7 +166,7 @@ export default function CommodityRRate() {
             }}>No data for selected month(s)</p>
           : !dataPresent
             ? <Loading2></Loading2>
-            : <Bar options={{
+            : <Radar options={{
               responsive: true
             }} data={mydata}/>
 }
