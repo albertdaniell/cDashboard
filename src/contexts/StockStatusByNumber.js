@@ -5,7 +5,7 @@ export const StockStatusByNo = createContext();
 
 const StockStatusByNoProvider = (props) => {
   const [periodAPI,
-    setPeriodApi] = useState('LAST_3_MONTHS')
+    setPeriodApi] = useState('LAST_12_MONTHS')
 
   const [graphData,
     setGraphData] = useState([])

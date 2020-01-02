@@ -3,15 +3,17 @@ import spinner from '../images/spinner.gif'
 import logo from '../images/logo.jpg'
 import {ChvReportingRateContext} from '../contexts/ChvReportingRateContext';
 import { UserContext } from '../contexts/UserContext';
+import BackgroundLoading from './BackgroundLoading';
 const Loading = () => {
 
-  const {isData, } = useContext(ChvReportingRateContext)
+  const {isData, showLoading ,setshowLoading} = useContext(ChvReportingRateContext)
   const {userData} = useContext(UserContext)
   return (
     <div>
       {isData
         ? null
-        : <div
+        : showLoading?
+        <div
           style={{
           position: 'fixed',
           zIndex: 2000,
@@ -44,9 +46,12 @@ const Loading = () => {
                 :  <h3 style={{color:'black'}}>Welcome {userData.displayName}</h3>
 }
 
+<button className="btn btn-primary" onClick={()=>setshowLoading(false)}>Continue In Background</button>
+
             </center>
           </div>
         </div>
+        :<BackgroundLoading></BackgroundLoading>
 }
     </div>
   );

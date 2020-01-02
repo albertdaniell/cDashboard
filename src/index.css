@@ -145,3 +145,17 @@ color: rgb(255, 115, 0);
   font-size: 20px;
   color: rgb(0, 60, 255);
 }
+
+
+.bgloading{
+  background-color: rgb(41, 41, 41);
+  color: white;
+  position:fixed;
+  z-index: 2000;
+  bottom: 0;
+  right: 0;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}

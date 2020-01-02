@@ -1,4 +1,4 @@
-import React, {useState, createContext, useEffect} from 'react'
+import React, {useState, createContext, useEffect, useContext} from 'react'
 import constants from '../constants'
 
 export const ChvReportingRateContext = createContext();
@@ -6,6 +6,8 @@ export const ChvReportingRateContext = createContext();
 const ChvReportingRateContextProvider = (props) => {
   const [periodAPI,
     setPeriodApi] = useState('LAST_MONTH')
+
+    const [showLoading,setshowLoading]=useState(true)
 
   const [dataName,
     setdataName] = useState('CHV Reporting rate for the past 12 months')
@@ -114,6 +116,7 @@ const ChvReportingRateContextProvider = (props) => {
           setGraphData(newds)
 
           setDataPresent(true)
+          setshowLoading(false)
 
           //console.log(myds)
 
@@ -159,7 +162,9 @@ const ChvReportingRateContextProvider = (props) => {
       dataName,
       isData,
       rowData,
-      changePeriodAPI
+      changePeriodAPI,
+      showLoading,
+      setshowLoading
     }}>
       {props.children}
     </ChvReportingRateContext.Provider>
