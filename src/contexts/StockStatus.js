@@ -5,7 +5,8 @@ export const StockStatus = createContext();
 
 const StockStatusProvider = (props) => {
 
-  const [periodAPI,setPeriodApi]=useState('LAST_MONTH')
+  const [periodAPI,
+    setPeriodApi] = useState('LAST_MONTH')
 
   const [graphData,
     setGraphData] = useState([])
@@ -31,7 +32,7 @@ const StockStatusProvider = (props) => {
   const getData = async() => {
     setdataPresent(false)
     const allData = await fetch(`  analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
-        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`,constants.FETCH_OPTIONS);
+        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe);
@@ -40,9 +41,9 @@ const StockStatusProvider = (props) => {
     setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]));
   }
 
-  const changePeriodAPI=(pe='LAST_12_MONTHS')=>{
-    
-  setPeriodApi(pe)
+  const changePeriodAPI = (pe) => {
+
+    setPeriodApi(pe)
   }
 
   const getgraphData = () => {
@@ -60,7 +61,7 @@ const StockStatusProvider = (props) => {
       var colorA = 0.80;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
-      fetch(`  dataElements/${indicatorid}`,constants.FETCH_OPTIONS)
+      fetch(`  dataElements/${indicatorid}`, constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
 
@@ -123,7 +124,7 @@ const StockStatusProvider = (props) => {
       periods,
       graphData,
       dataPresent,
-      changePeriodAPI,
+      changePeriodAPI
     }}>
       {props.children}
 

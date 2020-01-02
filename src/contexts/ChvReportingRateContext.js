@@ -4,6 +4,8 @@ import constants from '../constants'
 export const ChvReportingRateContext = createContext();
 
 const ChvReportingRateContextProvider = (props) => {
+  const [periodAPI,
+    setPeriodApi] = useState('LAST_MONTH')
 
   const [dataName,
     setdataName] = useState('CHV Reporting rate for the past 12 months')
@@ -15,7 +17,8 @@ const ChvReportingRateContextProvider = (props) => {
     setOrgUnit] = useState([])
 
   const [orgUnitsNames,
-    setOrgUnitName] = useState([])
+    setOrgUnitName] = useState([]) 
+  
 
   const [rowData,
     setrowData] = useState([])
@@ -27,9 +30,15 @@ const ChvReportingRateContextProvider = (props) => {
     setDataPresent] = useState(false)
 
   // end of states
-  const url = `  analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_12_MONTHS&displayProperty=NAME&`
+
+  const changePeriodAPI = (pe) => {
+
+    setPeriodApi(pe)
+  }
+  const url = `  analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:${periodAPI}&displayProperty=NAME&`
   const orgUniturl = `organisationUnits`
   const getData = async() => {
+    setDataPresent(false)
 
     const allData = await fetch(url, constants.FETCH_OPTIONS);
     const allData2 = await allData.json();
@@ -48,7 +57,7 @@ const ChvReportingRateContextProvider = (props) => {
     setrowData(await sortedrowData.slice().sort((a, b) => a[1] - b[1]))
     setOrgUnit(await myorgUnits)
     //Test();
-   
+
     setPeriods(await myperiods);
 
     // console.log("All Metadata:",allMetaData) console.log(setmydata)
@@ -126,7 +135,7 @@ const ChvReportingRateContextProvider = (props) => {
     console.log("haahha")
     getData();
 
-  }, [])
+  }, [periodAPI])
 
   useEffect(() => {
     // getOUNames();
@@ -149,7 +158,8 @@ const ChvReportingRateContextProvider = (props) => {
       graphData,
       dataName,
       isData,
-      rowData
+      rowData,
+      changePeriodAPI
     }}>
       {props.children}
     </ChvReportingRateContext.Provider>

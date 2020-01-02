@@ -8,7 +8,7 @@ function ReportingRate() {
     setMonths] = useState([])
   const [data,
     setdata] = useState([])
-  const {graphData, periods, dataName,isData} = useContext(ChvReportingRateContext)
+  const {graphData, periods, dataName, isData, changePeriodAPI} = useContext(ChvReportingRateContext)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
@@ -70,7 +70,46 @@ function ReportingRate() {
           break;
         case '12':
           monthName = 'December ';
+        case 'Q1':
+          monthName = 'January ';
           break;
+        case 'Q2':
+          monthName = 'February ';
+          break;
+        case 'Q3':
+          monthName = 'March ';
+          break;
+        case 'Q4':
+          monthName = 'April ';
+          break;
+        case 'Q5':
+          monthName = 'May ';
+          break;
+        case 'Q6':
+          monthName = 'June ';
+          break;
+        case 'Q7':
+          monthName = 'July ';
+          break;
+        case 'Q8':
+          monthName = 'August ';
+          break;
+        case 'Q9':
+          monthName = 'September ';
+          break;
+        case 'Q10':
+          monthName = 'October ';
+          break;
+        case 'Q11':
+          monthName = 'November ';
+          break;
+        case 'Q12':
+          monthName = 'December ';
+          break
+
+        case '':
+          monthName = 'Year ';
+          break
         default:
           break;
       }
@@ -87,31 +126,58 @@ function ReportingRate() {
   }, [graphData])
 
   return (
-    <div className="col-sm-12 graphDiv" style={{
-    
-    }}>
+    <div className="col-sm-12 graphDiv" style={{}}>
+      <div className="col-sm-4">
+        <button
+          className="btn btn-default btn-sm"
+          onClick={() => setShowLine(!showLine)}>Toggle Line/Bar {showLine
+            ? <i class="fas fa-chart-line fa-2x isLine"></i>
+            : <i class="far fa-chart-bar fa-2x isBar"></i>
+}</button>
 
-      <div>
-        <button className="btn btn-default btn-sm" onClick={() => setShowLine(!showLine)}>Toggle Line/Bar</button>
       </div>
-      <h4>
-        <center>{dataName}</center>
-      </h4>
-      <Spacer></Spacer>
-      {
-        !isData?<Loading2></Loading2>:
-        <div>
-            {showLine
-        ? <Line options={{
-            responsive: true
-          }} data={mydata}></Line>
-        : <Bar options={{
-          responsive: true
-        }} data={mydata}></Bar>
+      <div className="col-sm-4">
+
+        <select
+          className="form-control"
+          name="periods"
+          onChange={(e) => changePeriodAPI(e.target.value)}>
+          <option value="LAST_MONTH">Last month</option>
+          <option value="LAST_3_MONTHS">Last 3 months</option>
+          <option value="LAST_6_MONTHS">Last 6 months</option>
+          <option value="LAST_12_MONTHS">Last 12 Months</option>
+          <option value="LAST_BIMONTH">This Bi Month
+          </option>
+          <option value="LAST_BIMONTH">Last Bi Month</option>
+          <option value="QUARTERS_LAST_YEAR">Quarters Last Year
+          </option>
+          <option value="LAST_YEAR">Last Year
+          </option>
+
+        </select>
+      </div>
+      <div className="col-sm-12">
+        <h4>
+          <center>{dataName}</center>
+        </h4>
+        <Spacer></Spacer>
+      </div>
+
+      {!isData
+        ? <Loading2></Loading2>
+        : <div>
+          {showLine
+            ? <Line
+                options={{
+                responsive: true
+              }}
+                data={mydata}></Line>
+            : <Bar options={{
+              responsive: true
+            }} data={mydata}></Bar>
 }
         </div>
-      }
-    
+}
 
     </div>
   )

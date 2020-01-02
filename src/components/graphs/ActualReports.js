@@ -67,13 +67,26 @@ const ActualReports = () => {
     <div className="col-sm-12 graphDiv" style={{
       position: 'relative'
     }}>
-      <button
-        className="btn btn-default btn-sm"
-        onClick={() => setShowLine(!showLine)}>Toggle Line/Bar</button>
-      <h4>
-        <center>Reporting Rates over time</center>
-      </h4>
-      <Spacer></Spacer>
+      <div className="col-sm-4">
+        <button
+          className="btn btn-default btn-sm"
+          onClick={() => setShowLine(!showLine)}>Toggle Line/Bar {showLine
+            ? <i class="fas fa-chart-line fa-2x isLine"></i>
+            : <i class="far fa-chart-bar fa-2x isBar"></i>
+}</button>
+
+      </div>
+      <div className="col-sm-4"></div>
+      <div className="col-sm-4"></div>
+      <br></br>
+
+      <div className="col-sm-12">
+        <h4>
+          <center>Reporting Rates over time</center>
+        </h4>
+        <Spacer></Spacer>
+      </div>
+    
       {!dataPresent
         ? <Loading2></Loading2>
         : <div>

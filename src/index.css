@@ -132,3 +132,16 @@ code {
   color: rgb(158, 158, 158);
   letter-spacing: 2px;
 }
+
+.isLine{
+margin-left: 20px;
+font-size: 20px;
+color: rgb(255, 115, 0);
+ 
+}
+
+.isBar{
+  margin-left: 20px;
+  font-size: 20px;
+  color: rgb(0, 60, 255);
+}
