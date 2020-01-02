@@ -5,9 +5,10 @@ export const ChvReportingRateContext = createContext();
 
 const ChvReportingRateContextProvider = (props) => {
   const [periodAPI,
-    setPeriodApi] = useState('LAST_MONTH')
+    setPeriodApi] = useState('LAST_12_MONTHS')
 
-    const [showLoading,setshowLoading]=useState(true)
+  const [showLoading,
+    setshowLoading] = useState(true)
 
   const [dataName,
     setdataName] = useState('CHV Reporting rate for the past 12 months')
@@ -19,8 +20,7 @@ const ChvReportingRateContextProvider = (props) => {
     setOrgUnit] = useState([])
 
   const [orgUnitsNames,
-    setOrgUnitName] = useState([]) 
-  
+    setOrgUnitName] = useState([])
 
   const [rowData,
     setrowData] = useState([])
@@ -115,8 +115,10 @@ const ChvReportingRateContextProvider = (props) => {
           console.log("gdata", newds)
           setGraphData(newds)
 
-          setDataPresent(true)
-          setshowLoading(false)
+          setTimeout(() => {
+            setDataPresent(true)
+            setshowLoading(false)
+          }, 3000);
 
           //console.log(myds)
 

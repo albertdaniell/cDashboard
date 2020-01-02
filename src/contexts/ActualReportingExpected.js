@@ -49,6 +49,8 @@ const ActualReportingExpectedProvider = (props) => {
 
   const makeGraphData = () => {
     let newds = []
+  
+    
     dataElement.map((de) => {
 
       let aggData = []
@@ -64,9 +66,13 @@ const ActualReportingExpectedProvider = (props) => {
       }
 
       let filtered = allData2.filter((data) => {
-        return data.dataElement === dataElementName
+        
+        return data.dataElement === dataElementName 
+        
 
-      }).map(({value}) => {
+      })
+      
+      .map(({value}) => {
 
         return value
 
@@ -89,29 +95,33 @@ const ActualReportingExpectedProvider = (props) => {
         data
       ]
 
-      setGraphData(newds)
+     
       setdataPresent(true)
 
-    })
+    
+    
+
+  })
+
+  setGraphData(newds)
 
   }
 
   const getOrgNames = () => {
     let myou = []
-    ou.map((orgUnitId, index) => {
-
-      setTimeout(() => {
-        fetch(`  organisationUnits/${orgUnitId}`,constants.FETCH_OPTIONS)
+    ou.forEach((orgUnitId, index) => {
+      let ouName;
+      
+        fetch(`  organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
           .then(res => res.json())
           .then((result) => {
-            myou = [
-              ...myou,
-              result.displayName
-            ]
-            setouName(myou)
+            ouName = result.displayName
+            myou[index] = ouName
+            // myou = [   ...myou,   result.displayName ]
+            setouName([...myou])
 
           })
-      }, 100);
+    
 
     })
 

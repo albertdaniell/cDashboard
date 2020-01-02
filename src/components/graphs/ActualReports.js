@@ -24,7 +24,7 @@ const ActualReports = () => {
     setouNames] = useState([])
   const {graphData, ou, ouName, dataPresent} = useContext(ActualReportingExpected)
   const mydata = {
-    labels: ouNames,
+    labels: ouName,
     datasets: graphData
   }
 

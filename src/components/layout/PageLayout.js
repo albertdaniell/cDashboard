@@ -34,7 +34,7 @@ export default function PageLayout() {
                   <ActualReportingExpectedProvider>
 
                     <ChvReportingRateContextProvider>
-                      <Loading></Loading>
+                      {/* <Loading></Loading> */}
                       {/* <BackgroundLoading></BackgroundLoading> */}
 
                       <div className="container-fluid" style={{}}>

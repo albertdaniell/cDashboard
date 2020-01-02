@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {UserContext} from '../contexts/UserContext';
 import logo from '../images/logo.jpg'
+import {Route, NavLink, BrowserRouter as Router, Switch} from 'react-router-dom'
 
 const AppNav = () => {
 
@@ -33,7 +34,37 @@ const AppNav = () => {
           </div>
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav"></ul>
+            <ul class="nav navbar-nav navbarlinks">
+              <li>
+                <NavLink exact activeClassName="active" to="/">
+                  <i class="fas fa-tachometer-alt"></i>
+                  Dashboard</NavLink>
+              </li>
+              <li>
+                <NavLink activeClassName="active" to="/users">
+                  <i class="fas fa-user"></i>
+                  User Account</NavLink>
+              </li>
+
+              <li>
+                <NavLink activeClassName="active" to="/commodityRR">
+                  <i class="fas fa-medkit"></i>
+                  C. Reporting Rate</NavLink>
+              </li>
+
+              <li>
+                <NavLink activeClassName="active" to="/stockstatus">
+                  <i class="fas fa-store"></i>
+                  Stock Status</NavLink>
+              </li>
+
+              <li>
+                <NavLink activeClassName="active" to="/stockstatusbyno">
+                  <i class="fas fa-notes-medical"></i>
+                  Stock Status By No.</NavLink>
+              </li>
+
+            </ul>
 
             <ul class="nav navbar-nav navbar-right">
               <li></li>
@@ -48,7 +79,6 @@ const AppNav = () => {
                   <span
                     style={{
                     padding: 5,
-                    
                     borderRadius: 100
                   }}>
                     <i
@@ -59,12 +89,12 @@ const AppNav = () => {
                   </span>
                   {!dataPresent
                     ? <span>...</span>
-                    : <span>
+                    : <span className="username">
                       {userData.displayName}
                       <span class="caret"></span>
                     </span>
 }
-                 
+
                 </a>
 
               </li>

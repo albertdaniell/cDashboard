@@ -21,16 +21,13 @@ const Loading = () => {
           height: '100%',
           width: '100%'
         }}>
-          <div
+          <div className="loadingDivContent"
             style={{
-            width: '20%',
-            height: '20%',
-            marginLeft: '40%',
-            marginTop: '5%'
+           
           }}>
             <center>
-              <img alt="spinner" style={{
-                height: 250
+              <img alt="spinner" className="loadingDivimg" style={{
+               
               }} src={spinner}></img>
               <br></br>
               <br></br>
