@@ -7,9 +7,9 @@ export default function BackgroundLoading() {
     const {isData, showLoading ,setshowLoading} = useContext(ChvReportingRateContext)
     return (
         <div className="bgloading">
-            <p> <img alt="spinner" style={{
-                height: 20
-              }} src={spinner}></img> Loading metadata in background mode.</p>
+           <img alt="spinner" style={{
+                height: 30
+              }} src={spinner}></img>   <span style={{fontStyle:'italic',fontWeight:'bold'}}>Loading metadata in background mode.</span>
         </div>
     )
 }

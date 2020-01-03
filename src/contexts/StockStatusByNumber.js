@@ -22,7 +22,7 @@ const StockStatusByNoProvider = (props) => {
   const [dx,
     setDx] = useState([])
 
-  const [dataPresent,
+  const [stockdataPresent,
     setdataPresent] = useState(false)
 
   const [ouNames,
@@ -114,7 +114,7 @@ const StockStatusByNoProvider = (props) => {
       ou,
       periods,
       graphData,
-      dataPresent,
+      stockdataPresent,
       changePeriodAPI
     }}> {props.children}
 

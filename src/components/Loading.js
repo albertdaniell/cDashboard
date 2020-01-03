@@ -4,13 +4,18 @@ import logo from '../images/logo.jpg'
 import {ChvReportingRateContext} from '../contexts/ChvReportingRateContext';
 import { UserContext } from '../contexts/UserContext';
 import BackgroundLoading from './BackgroundLoading';
+import { ActualReportingExpected } from '../contexts/ActualReportingExpected';
+import { StockStatusByNo } from '../contexts/StockStatusByNumber';
 const Loading = () => {
 
   const {isData, showLoading ,setshowLoading} = useContext(ChvReportingRateContext)
+  const {dataPresent} = useContext(ActualReportingExpected)
+  const {stockdataPresent,} = useContext(StockStatusByNo)
+
   const {userData} = useContext(UserContext)
   return (
     <div>
-      {isData
+      {isData && dataPresent && stockdataPresent
         ? null
         : showLoading?
         <div

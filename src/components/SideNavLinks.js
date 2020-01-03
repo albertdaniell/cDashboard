@@ -9,9 +9,6 @@ const SideNavLinks = () => {
         <i class="fas fa-tachometer-alt"></i>
         Dashboard</NavLink>
 
-      <NavLink activeClassName="active" to="/users">
-        <i class="fas fa-user"></i>
-        User Account</NavLink>
       <NavLink activeClassName="active" to="/commodityRR">
         <i class="fas fa-medkit"></i>
         C. Reporting Rate</NavLink>
@@ -19,8 +16,16 @@ const SideNavLinks = () => {
         <i class="fas fa-store"></i>
         Stock Status</NavLink>
 
-        <NavLink activeClassName="active" to="/stockstatusbyno"> <i class="fas fa-notes-medical"></i> Stock Status By No.</NavLink>
+      <NavLink activeClassName="active" to="/stockstatusbyno">
+        <i class="fas fa-notes-medical"></i>
+        Stock Status By No.</NavLink>
+      <NavLink activeClassName="active" to="/users">
+        <i class="fas fa-user"></i>
+        User Account</NavLink>
 
+        <NavLink activeClassName="" to="#">
+        <i class="fas fa-user"></i>
+        Tables</NavLink>
     </div>
   );
 }

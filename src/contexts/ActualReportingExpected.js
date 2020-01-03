@@ -27,14 +27,20 @@ const ActualReportingExpectedProvider = (props) => {
   const [dataElement,
     setdataElement] = useState([])
 
+    const [pe,
+      setPeriod] = useState([])
+
+
   const getData = async() => {
 
-    const myalldata1 = await fetch(`  analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.ACTUAL_REPORTS&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=pe:LAST_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
     setou(await myalldata1json.metaData.dimensions.ou)
     console.log(await myalldata1json)
     setdataElement(await myalldata1json.metaData.dimensions.dx)
+    setPeriod(await myalldata1json.metaData.dimensions.pe)
+    setallData2(await myalldata1json.rows)
 
   }
 
@@ -43,67 +49,66 @@ const ActualReportingExpectedProvider = (props) => {
     const myalldata1 = await fetch(`  analytics/dataValueSet.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.ACTUAL_REPORTS&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
     const myalldata1json = await myalldata1.json()
     console.log(await myalldata1json)
-    setallData2(await myalldata1json.dataValues)
+  //  setallData2(await myalldata1json.dataValues)
 
   }
 
   const makeGraphData = () => {
     let newds = []
   
-    
-    dataElement.map((de) => {
-
       let aggData = []
+      let dataElementName2;
 
-      let dataElementName = de
-      let dataElementName2 = de
-      if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS") {
-        dataElementName2 = "CHV Actual Reports"
-      } else if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME") {
-        dataElementName2 = "CHV Actual Reports on Time"
-      } else if (dataElementName === "z2slLbjn7PM.EXPECTED_REPORTS") {
-        dataElementName2 = "CHV Expected Reports"
-      }
+      let dataElementName3;
 
-      let filtered = allData2.filter((data) => {
-        
-        return data.dataElement === dataElementName 
-        
+      dataElement.map((de) => {
+
+        let dataElementName = de
+        dataElementName3 =de;
+        var colorR = Math.floor(Math.random() * 255) + 1;
+        var colorG = Math.floor(Math.random() * 255) + 1;
+        var colorB = Math.floor(Math.random() * 255) + 1;
+        var colorA = 0.85;
+        let backgroundColor= `rgba(${colorR},${colorG},${colorB},${colorA})`
+
+        if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS") {
+          dataElementName2 = "CHV Actual Reports"
+        } else if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME") {
+          dataElementName2 = "CHV Actual Reports on Time"
+        } else if (dataElementName === "z2slLbjn7PM.EXPECTED_REPORTS") {
+          dataElementName2 = "CHV Expected Reports"
+        }
+
+        let filtered = allData2.filter((data) => {
+
+          return data[0] === dataElementName3
+  
+        }).map((value) => {
+  
+          return value[2]
+  
+        })
+  
+        aggData = filtered
+  
+        var data = {
+          data: aggData,
+          label: dataElementName2,
+          backgroundColor: backgroundColor}
+  
+        newds = [
+          ...newds,
+          data
+        ]
+  
+        setdataPresent(true)
+       
 
       })
-      
-      .map(({value}) => {
 
-        return value
-
-      })
-
-      aggData = filtered
-
-      var colorR = Math.floor(Math.random() * 255) + 1;
-      var colorG = Math.floor(Math.random() * 255) + 1;
-      var colorB = Math.floor(Math.random() * 255) + 1;
-      var colorA = 0.85;
-      var data = {
-        data: aggData,
-        label: dataElementName2,
-        backgroundColor: `rgba(${colorR},${colorG},${colorB},${colorA})`
-      }
-
-      newds = [
-        ...newds,
-        data
-      ]
-
-     
-      setdataPresent(true)
+      setGraphData([...newds])
 
     
-    
-
-  })
-
-  setGraphData(newds)
 
   }
 
@@ -111,17 +116,16 @@ const ActualReportingExpectedProvider = (props) => {
     let myou = []
     ou.forEach((orgUnitId, index) => {
       let ouName;
-      
-        fetch(`  organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
-          .then(res => res.json())
-          .then((result) => {
-            ouName = result.displayName
-            myou[index] = ouName
-            // myou = [   ...myou,   result.displayName ]
-            setouName([...myou])
 
-          })
-    
+      fetch(`  organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
+        .then(res => res.json())
+        .then((result) => {
+          ouName = result.displayName
+          myou[index] = ouName
+          // myou = [   ...myou,   result.displayName ]
+          setouName([...myou])
+
+        })
 
     })
 
@@ -154,7 +158,8 @@ const ActualReportingExpectedProvider = (props) => {
       graphData,
       dataElement,
       ouName,
-      dataPresent
+      dataPresent,
+      pe
     }}>
       {props.children}
 

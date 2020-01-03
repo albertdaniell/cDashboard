@@ -11,7 +11,7 @@ export default function StockStatusByNoGraph() {
   const [sortedMonths,
     setMonths] = useState([])
 
-  const {graphData, periods, dataPresent, changePeriodAPI, allData} = useContext(StockStatusByNo)
+  const {graphData, periods, stockdataPresent, changePeriodAPI, allData} = useContext(StockStatusByNo)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
@@ -164,7 +164,7 @@ export default function StockStatusByNoGraph() {
           ? <p style={{
               color: 'red'
             }}>No data for selected month(s)</p>
-          : !dataPresent
+          : !stockdataPresent
             ? <Loading2></Loading2>
             : <Radar options={{
               responsive: true
