@@ -10,8 +10,9 @@ import { ReportingRateReportingRateOnTime } from '../contexts/ReportingRateRepor
 const Loading = () => {
 
   const {isData, showLoading, setshowLoading} = useContext(ChvReportingRateContext)
+  
   const {RROntimedataPresent} = useContext(ReportingRateReportingRateOnTime)
-  const {dataPresent} = useContext(ActualReportingExpected)
+  const {dataPresent,graphData} = useContext(ActualReportingExpected)
   const {stockdataPresent} = useContext(StockStatusByNo)
 
   const {userData} = useContext(UserContext)
@@ -41,10 +42,10 @@ const Loading = () => {
                     src={logo}></img>
                   <br></br>
                   <br></br>
-                  {userData.displayName === ""
+                  {userData.length === 0
                     ? <h3 style={{
                         color: 'black'
-                      }}>Please Wait...</h3>
+                      }}>Loading Metadata...</h3>
                     : <h3 style={{
                       color: 'black'
                     }}>Welcome {userData.displayName}</h3>

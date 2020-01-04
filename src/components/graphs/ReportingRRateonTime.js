@@ -11,7 +11,7 @@ const ReportingRRateonTime = () => {
         setShowLine] = useState(false)
     const [sortedMonths,
         setMonths] = useState([])
-    const {graphData,periods,ouNames, RROntimedataPresent} = useContext(ReportingRateReportingRateOnTime)
+    const {graphData,periods,ouNames, RROntimedataPresent,changePeriodAPI} = useContext(ReportingRateReportingRateOnTime)
     const mydata = {
         labels: sortedMonths,
         datasets: graphData
@@ -65,6 +65,41 @@ const ReportingRRateonTime = () => {
               break;
             case '12':
               monthName = 'December ';
+              case 'Q1':
+                monthName = 'January ';
+                break;
+              case 'Q2':
+                monthName = 'February ';
+                break;
+              case 'Q3':
+                monthName = 'March ';
+                break;
+              case 'Q4':
+                monthName = 'April ';
+                break;
+              case 'Q5':
+                monthName = 'May ';
+                break;
+              case 'Q6':
+                monthName = 'June ';
+                break;
+              case 'Q7':
+                monthName = 'July ';
+                break;
+              case 'Q8':
+                monthName = 'August ';
+                break;
+              case 'Q9':
+                monthName = 'September ';
+                break;
+              case 'Q10':
+                monthName = 'October ';
+                break;
+              case 'Q11':
+                monthName = 'November ';
+                break;
+              case 'Q12':
+                monthName = 'December ';
               break;
             default:
               break;
@@ -90,9 +125,24 @@ const ReportingRRateonTime = () => {
 }</button>
 
       </div>
+      <div className="col-sm-4">
 
+        <select
+          className="form-control"
+          name="periods"
+          onChange={(e) => changePeriodAPI(e.target.value)}>
+          <option value="LAST_MONTH">Last month</option>
+          <option value="LAST_3_MONTHS">Last 3 months</option>
+          <option value="LAST_6_MONTHS">Last 6 months</option>
+          <option value="LAST_12_MONTHS">Last 12 Months</option>
+          <option value="LAST_BIMONTH">Last Bi Month</option>
+          <option value="QUARTERS_LAST_YEAR">Quarters Last Year
+          </option>
+          <option value="LAST_YEAR">Last Year
+          </option>
 
-      <div className="col-sm-4"></div>
+        </select>
+      </div>
       <div className="col-sm-4"></div>
       <br></br>
 

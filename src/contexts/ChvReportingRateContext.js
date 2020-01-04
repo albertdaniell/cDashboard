@@ -115,10 +115,10 @@ const ChvReportingRateContextProvider = (props) => {
           console.log("gdata", newds)
           setGraphData(newds)
 
-          setTimeout(() => {
+        
             setDataPresent(true)
-            setshowLoading(false)
-          }, 3000);
+           
+          
 
           //console.log(myds)
 
@@ -141,6 +141,12 @@ const ChvReportingRateContextProvider = (props) => {
     getData();
 
   }, [periodAPI])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setshowLoading(false)
+    }, 5000);
+  }, [graphData])
 
   useEffect(() => {
     // getOUNames();

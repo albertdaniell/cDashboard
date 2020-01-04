@@ -40,7 +40,9 @@ const UserContextProvider = (props) => {
   }
 
   useEffect(() => {
-    getUserData()
+    setTimeout(() => {
+      getUserData()
+    }, 200);
   }, [])
 
   return (

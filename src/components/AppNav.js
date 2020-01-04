@@ -5,7 +5,7 @@ import {Route, NavLink, BrowserRouter as Router, Switch} from 'react-router-dom'
 
 const AppNav = () => {
 
-  const {userData, dataPresent} = useContext(UserContext);
+  const {userData, dataPresent,userCredentials} = useContext(UserContext);
   return (
     <div>
       <nav class="navbar navbar-default">
@@ -90,8 +90,7 @@ const AppNav = () => {
                   {!dataPresent
                     ? <span>...</span>
                     : <span className="username">
-                      {userData.displayName}
-                      <span class="caret"></span>
+                      {userCredentials.username}
                     </span>
 }
 

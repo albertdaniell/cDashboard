@@ -138,7 +138,7 @@ const ActualReportingExpectedProvider = (props) => {
           data
         ]
   
-        setdataPresent(true)
+        
        
 
       })
@@ -168,6 +168,12 @@ const ActualReportingExpectedProvider = (props) => {
     })
 
   }
+
+  useEffect(() => {
+   setTimeout(() => {
+    setdataPresent(true)
+   }, 3000);
+  }, [graphData])
 
   useEffect(() => {
     getData()

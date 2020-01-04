@@ -10,7 +10,7 @@ export default function CommodityRRate() {
     const [sortedMonths,
         setMonths] = useState([])
 
-  const {graphData, periods, dataPresent} = useContext(CommodityReportingRate)
+  const {graphData, periods, dataPresent,allData} = useContext(CommodityReportingRate)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
@@ -93,7 +93,7 @@ export default function CommodityRRate() {
       </h4>
       <Spacer></Spacer>
 
-      {!dataPresent
+      {graphData.length === 0
         ? <Loading2></Loading2>
         : <Bar options={{
           animation: {

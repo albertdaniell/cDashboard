@@ -10,6 +10,9 @@ const fetchOptions = {
 }
 
 const ReportingRateReportingRateOnTimeProvider = (props) => {
+
+  const [periodAPI,
+    setPeriodApi] = useState('LAST_3_MONTHS')
   const [graphData,
     setGraphData] = useState([])
   const [RROntimedataPresent,
@@ -29,8 +32,14 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
   const [ouNames,
     setOuNames] = useState([])
 
+    const changePeriodAPI = (pe) => {
+
+      setPeriodApi(pe)
+    }
+
   const getData = async() => {
-    const allData = await fetch(`  analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:LAST_6_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    setdataPresent(false)
+    const allData = await fetch(`  analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
 
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
@@ -130,9 +139,11 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
     })
   }
 
+
+
   useEffect(() => {
     getData()
-  }, [])
+  }, [periodAPI])
 
   useEffect(() => {
 
@@ -169,7 +180,8 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       graphData,
       periods,
       ouNames,
-      RROntimedataPresent
+      RROntimedataPresent,
+      changePeriodAPI
     }}>
       {props.children}
     </ReportingRateReportingRateOnTime.Provider>

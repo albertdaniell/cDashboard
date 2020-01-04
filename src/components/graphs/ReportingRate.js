@@ -146,8 +146,6 @@ function ReportingRate() {
           <option value="LAST_3_MONTHS">Last 3 months</option>
           <option value="LAST_6_MONTHS">Last 6 months</option>
           <option value="LAST_12_MONTHS">Last 12 Months</option>
-          <option value="LAST_BIMONTH">This Bi Month
-          </option>
           <option value="LAST_BIMONTH">Last Bi Month</option>
           <option value="QUARTERS_LAST_YEAR">Quarters Last Year
           </option>

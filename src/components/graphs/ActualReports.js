@@ -152,7 +152,7 @@ const ActualReports = () => {
         <Spacer></Spacer>
       </div>
     
-      {!dataPresent
+      {ouName.length === 0
         ? <Loading2></Loading2>
         : <div>
           {!showLine
