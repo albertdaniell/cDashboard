@@ -70,7 +70,7 @@ const ChvReportingRateContextProvider = (props) => {
     console.log("orgUnits", orgUnits)
     console.log("rowData", rowData)
     var newds = [];
-    orgUnits.map((id) => {
+    orgUnits.forEach((id,index) => {
       let aggData = [];
       var myds = [];
       let backgroundColor = ''
@@ -85,7 +85,7 @@ const ChvReportingRateContextProvider = (props) => {
       fetch(`  organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
-          orgUnitName = result.displayName
+          orgUnitName= result.displayName
           console.log(orgUnitName)
 
           let filtered = rowData

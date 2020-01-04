@@ -160,13 +160,16 @@ export default function StockStatusByNoGraph() {
 }</center>
         </h4>
         <Spacer></Spacer>
-        {allData.rows === undefined || allData.rows.length == 0
+        {allData.rows === undefined || allData.rows.length === 0
           ? <p style={{
               color: 'red'
             }}>No data for selected month(s)</p>
           : !stockdataPresent
             ? <Loading2></Loading2>
-            : <Radar options={{
+            : <Bar options={{
+              animation: {
+                duration: 3000 // general animation time
+            },
               responsive: true
             }} data={mydata}/>
 }

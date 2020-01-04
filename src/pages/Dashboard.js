@@ -8,8 +8,10 @@ import Loading from '../components/Loading'
 import ReportingRRateonTime from '../components/graphs/ReportingRRateonTime'
 import CHVRRateFacGraph from '../components/graphs/CHVRRateFacGraph'
 import StockStatusByNoGraph from '../components/graphs/StockSatusByNoGraph'
-import { ReportingRateReportingRateOnTime } from '../contexts/CommodityReportingRates'
+import {ReportingRateReportingRateOnTime} from '../contexts/CommodityReportingRates'
 import CommodityRRate from '../components/graphs/CommodityRRate'
+import ReportingRateOverTimeTable from '../components/tables/ReportingRateOverTimeTable'
+import CHVStockReceiptGraph from '../components/graphs/CHVStockReceiptGraph'
 
 export default function Dashboard() {
   return (
@@ -30,43 +32,56 @@ export default function Dashboard() {
           </div>
 
           <div className="col-lg-6">
-          <StockStatusByNoGraph></StockStatusByNoGraph>
-          
+
+            <StockStatusByNoGraph></StockStatusByNoGraph>
+
           </div>
-
-         
-
-        
-
 
         </div>
 
         <div className="row">
-        <div className="col-lg-6">
-            <ActualReportingExpectedProvider>
-              <ActualReports></ActualReports>
-            </ActualReportingExpectedProvider>
+          <div className="col-lg-6">
+
+            
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-sm-12">
-         
+          <div className="col-lg-6">
+            
 
-              <ReportingRate></ReportingRate>
-           
+           {/* <ReportingRateOverTimeTable></ReportingRateOverTimeTable> */}
           </div>
         </div>
 
         <div className="row">
           <div className="col-sm-12">
-         
 
-              <CHVRRateFacGraph></CHVRRateFacGraph>
-           
+          <ActualReports></ActualReports>
           </div>
         </div>
-        
+
+        <div className="row">
+          <div className="col-sm-12">
+
+          <CHVStockReceiptGraph></CHVStockReceiptGraph>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-sm-12">
+
+            <ReportingRate></ReportingRate>
+
+          </div>
+        </div>
+
+
+        <div className="row">
+          <div className="col-sm-12">
+
+            <CHVRRateFacGraph></CHVRRateFacGraph>
+
+          </div>
+        </div>
 
       </div>
 

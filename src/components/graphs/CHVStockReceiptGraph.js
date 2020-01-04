@@ -1,17 +1,26 @@
 import React, {useState, useContext, useEffect} from 'react'
-import {Line, Bar, Pie, Polar, HorizontalBar,Radar} from 'react-chartjs-2';
+import {
+  Line,
+  Bar,
+  Pie,
+  Polar,
+  HorizontalBar,
+  Radar,
+  Bubble
+} from 'react-chartjs-2';
 import {ChvReportingRateContext} from '../../contexts/ChvReportingRateContext';
 import Spacer from '../Spacer'
 import Loading2 from '../Loading2';
 import {CommodityReportingRate} from '../../contexts/CommodityReportingRates';
 import {StockStatus} from '../../contexts/StockStatus';
+import {CHVStockReceiptContext} from '../../contexts/CHVStockReceiptContext';
 
-export default function CommodityRRate() {
+export default function CHVStockReceiptGraph() {
 
   const [sortedMonths,
     setMonths] = useState([])
 
-  const {graphData, periods, dataPresent, changePeriodAPI, allData} = useContext(StockStatus)
+  const {graphData, periods, dataPresent, changePeriodAPI, allData} = useContext(CHVStockReceiptContext)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
@@ -149,7 +158,7 @@ export default function CommodityRRate() {
 
       <div className="col-sm-12">
         <h4>
-          <center>Stock Status for {sortedMonths.map((month) => {
+          <center>CHV Stock Receipt for {sortedMonths.map((month) => {
               return (
                 <span>{month}
                   ,
@@ -166,12 +175,20 @@ export default function CommodityRRate() {
             }}>No data for selected month(s)</p>
           : !dataPresent
             ? <Loading2></Loading2>
-            : <Bar options={{
-              animation: {
-                duration: 3000 // general animation time
-            },
-              responsive: true
-            }} data={mydata}/>
+            : <Bar
+              options={{
+                animation: {
+                    duration: 3000 // general animation time
+                },
+                
+              responsive: true,
+              legend: {
+                display: true,
+                
+              },
+             
+            }}
+              data={mydata}/>
 }
         {/* <button onClick={() => changePeriodAPI()}>Change</button> */}
 

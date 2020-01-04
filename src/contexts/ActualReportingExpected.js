@@ -20,7 +20,8 @@ const ActualReportingExpectedProvider = (props) => {
     setdataPresent] = useState(false)
   const [ou,
     setou] = useState([])
-
+    const [ou2,
+      setou2] = useState([])
   const [ouName,
     setouName] = useState([])
 
@@ -33,12 +34,40 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getData = async() => {
 
-    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=pe:LAST_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
-    setou(await myalldata1json.metaData.dimensions.ou)
+
+    let myou = [];
+
+    let filteredou = await myalldata1json
+      .rows
+      .map((d) => {
+        return d[1]
+
+      })
+
+    myou = filteredou
+    myou = [...new Set(myou)]
+
+    let myDataElements=[];
+    let filteredDataElements = await myalldata1json
+    .rows
+    .map((d) => {
+      return d[0]
+
+    })
+
+    myDataElements = filteredDataElements
+    myDataElements = [...new Set(myDataElements)]
+
+
+    setou(myou)
+    setdataElement(myDataElements)
+    setou2(await myalldata1json.metaData.dimensions.ou)
     console.log(await myalldata1json)
-    setdataElement(await myalldata1json.metaData.dimensions.dx)
+   // setdataElement(await myalldata1json.metaData.dimensions.dx)
+   // alert(await myalldata1json.metaData.dimensions.dx)
     setPeriod(await myalldata1json.metaData.dimensions.pe)
     setallData2(await myalldata1json.rows)
 
@@ -46,7 +75,7 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getData2 = async() => {
 
-    const myalldata1 = await fetch(`  analytics/dataValueSet.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.ACTUAL_REPORTS&dimension=ou:USER_ORGUNIT&dimension=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`, constants.FETCH_OPTIONS)
     const myalldata1json = await myalldata1.json()
     console.log(await myalldata1json)
   //  setallData2(await myalldata1json.dataValues)
@@ -72,11 +101,19 @@ const ActualReportingExpectedProvider = (props) => {
         let backgroundColor= `rgba(${colorR},${colorG},${colorB},${colorA})`
 
         if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS") {
-          dataElementName2 = "CHV Actual Reports"
+          dataElementName2 = "Monthly CHV SOH Actual Reports"
         } else if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME") {
-          dataElementName2 = "CHV Actual Reports on Time"
+          dataElementName2 = "Monthly  CHV SOH Actual Reports on Time"
         } else if (dataElementName === "z2slLbjn7PM.EXPECTED_REPORTS") {
-          dataElementName2 = "CHV Expected Reports"
+          dataElementName2 = "Monthly  CHV SOH Expected Reports"
+        }
+
+        else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE") {
+          dataElementName2 = "Monthly CHV SOH Reporting Rate"
+        }
+
+        else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE_ON_TIME") {
+          dataElementName2 = "Monthly CHV SOH Reporting Rate on time"
         }
 
         let filtered = allData2.filter((data) => {
@@ -114,6 +151,7 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getOrgNames = () => {
     let myou = []
+    let ouArray=
     ou.forEach((orgUnitId, index) => {
       let ouName;
 
@@ -159,7 +197,8 @@ const ActualReportingExpectedProvider = (props) => {
       dataElement,
       ouName,
       dataPresent,
-      pe
+      pe,
+      ou2
     }}>
       {props.children}
 

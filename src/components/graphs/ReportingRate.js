@@ -169,11 +169,19 @@ function ReportingRate() {
           {showLine
             ? <Line
                 options={{
+                  lineTension:"0",
+                  animation: {
+                    duration: 3000 // general animation time
+                },
                 responsive: true
               }}
                 data={mydata}></Line>
             : <Bar options={{
-              responsive: true
+              animation: {
+                duration: 3000 // general animation time
+            },
+              responsive: true,
+            
             }} data={mydata}></Bar>
 }
         </div>

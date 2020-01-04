@@ -1,25 +1,29 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+    "version": "0.1",
+    "name": "CStock App",
+    "description": "My App is a Packaged App",
+    "launch_path": "/index.html",
+    "appType": "APP",
+    "icons": {
+        "16": "./public/logo1.png",
+        "48": "./public/logo1.png",
+        "128": "./public/logo1.png",
+       
     },
-    {
-      "src": "logo1.png",
-      "type": "image/png",
-      "sizes": "192x192"
+    "developer": {
+        "name": "Me",
+        "url": "http://me.com"
     },
-    {
-      "src": "logo1.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": "https://kecstock.jsi.com/cStock",
+            "namespace": "my-namespace"
+        }
+    },
+    "authorities": [
+         "MY_APP_ADD_NEW",
+         "MY_APP_UPDATE",
+         "MY_APP_DELETE"
+    ]
 }

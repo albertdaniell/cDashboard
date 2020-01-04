@@ -12,7 +12,7 @@ const fetchOptions = {
 const ReportingRateReportingRateOnTimeProvider = (props) => {
   const [graphData,
     setGraphData] = useState([])
-  const [dataPresent,
+  const [RROntimedataPresent,
     setdataPresent] = useState(false)
   const [allData,
     setAllData] = useState([]);
@@ -43,17 +43,18 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
 
   const getOuNames = () => {
     let myounames = []
-    ou.map((id) => {
+    ou.forEach((id, index) => {
+      let orgName;
       let orgUnitId = id
       fetch(`organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
           //alert(myounames)
-          myounames = [
-            ...myounames,
-            result.displayName
-          ]
-          setOuNames(myounames)
+          orgName = result.displayName
+          // myounames = [   ...myounames,   result.displayName ]
+
+          myounames[index] = orgName;
+          setOuNames([...myounames])
         })
         .catch((e) => {
           console.log(e)
@@ -136,6 +137,11 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
   useEffect(() => {
 
     getData2()
+
+  }, [allData])
+
+  useEffect(() => {
+
     getOuNames()
 
   }, [allData])
@@ -150,7 +156,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
   useEffect(() => {
     setTimeout(() => {
       makdeGraphData()
-    }, 2000);
+    }, 1000);
   }, [allData2, dx, ou])
 
   return (
@@ -163,7 +169,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       graphData,
       periods,
       ouNames,
-      dataPresent
+      RROntimedataPresent
     }}>
       {props.children}
     </ReportingRateReportingRateOnTime.Provider>

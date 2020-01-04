@@ -23,13 +23,25 @@ const CHVRRateFacilityProvider = (props) => {
     setdataElement] = useState([])
 
   const getAllData = async() => {
-
+    const url2 = `analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;s4029egvhCv.REPORTING_RATE_ON_TIME&dimension=ou:LEVEL-4;JNvqpOnKfGR&filter=pe:LAST_MONTH&displayProperty=NAME`;
     const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:LEVEL-4;JNvqpOnKfGR&filter=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID`, constants.FETCH_OPTIONS)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
-    setou(await myalldata1json.metaData.dimensions.ou)
+    let myou = [];
+
+    let filtered = await myalldata1json
+      .rows
+      .map((d) => {
+        return d[1]
+
+      })
+
+    myou = filtered
+    setou(myou)
+    //setou(await myalldata1json.rows[1])
     console.log(await myalldata1json)
     setdataElement(await myalldata1json.metaData.dimensions.dx)
+    setallData2(await myalldata1json.rows.slice().sort((a, b) => a[4] - b[4]))
 
   }
 
@@ -70,13 +82,11 @@ const CHVRRateFacilityProvider = (props) => {
         dataElementName2 = "CHV Expected Reports"
       } else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE") {
         dataElementName2 = "CHV Reporting Rate"
-      }
-
-      else if(dataElementName === "z2slLbjn7PM.REPORTING_RATE_ON_TIME"){
+      } else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE_ON_TIME") {
         dataElementName2 = "CHV Reporting Rate on Time"
       }
 
-      let filtered = allData1.rows.filter((data) => {
+      let filtered = allData2.filter((data) => {
         return data[0] === dataElementName
 
       }).map((data) => {
@@ -116,7 +126,7 @@ const CHVRRateFacilityProvider = (props) => {
   useEffect(() => {
     makeGraphData()
 
-  }, [dataElement])
+  }, [allData2])
 
   useEffect(() => {
     getOuNames();
@@ -129,7 +139,8 @@ const CHVRRateFacilityProvider = (props) => {
       ouName,
       dataElement,
       graphData,
-      dataPresent
+      dataPresent,
+      allData2
     }}>
       {props.children}</CHVRRateFacility.Provider>
   )

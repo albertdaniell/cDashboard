@@ -11,7 +11,7 @@ const ReportingRRateonTime = () => {
         setShowLine] = useState(false)
     const [sortedMonths,
         setMonths] = useState([])
-    const {graphData,periods,ouNames,dataPresent} = useContext(ReportingRateReportingRateOnTime)
+    const {graphData,periods,ouNames, RROntimedataPresent} = useContext(ReportingRateReportingRateOnTime)
     const mydata = {
         labels: sortedMonths,
         datasets: graphData
@@ -109,13 +109,19 @@ const ReportingRRateonTime = () => {
                 
      
  {
-   !dataPresent?<Loading2></Loading2>:
+   ! RROntimedataPresent?<Loading2></Loading2>:
    <div>
          {showLine
         ? <Line options={{
+          animation: {
+            duration: 3000 // general animation time
+        },
             responsive: true
           }} data={mydata}></Line>
         : <HorizontalBar options={{
+          animation: {
+            duration: 3000 // general animation time
+        },
           responsive: true
         }} data={mydata}/>
 }

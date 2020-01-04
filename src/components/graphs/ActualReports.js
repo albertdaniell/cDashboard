@@ -26,7 +26,7 @@ const ActualReports = () => {
     const [formatedMonths,setMonths]=useState([])
   const {graphData, ou, ouName, dataPresent,pe} = useContext(ActualReportingExpected)
   const mydata = {
-    labels: formatedMonths,
+    labels: ouName,
     datasets: graphData
   }
 
@@ -118,14 +118,14 @@ const ActualReports = () => {
         ];
         console.log(formattedOrgs)
         setouNames(formattedOrgs)
-      }, 6000);
+      }, 0);
 
     })
     //alert(formattedOrgs)
 
     setTimeout(() => {
       console.log(ouNames)
-    }, 3000);
+    }, 0);
 
   }, [graphData])
   return (
@@ -158,10 +158,16 @@ const ActualReports = () => {
           {!showLine
             ? <Bar
                 options={{
+                  animation: {
+                    duration: 3000 // general animation time
+                },
                 responsive: true
               }}
                 data={mydata}/>
             : <Line options={{
+              animation: {
+                duration: 3000 // general animation time
+            },
               responsive: true
             }} data={mydata}></Line>
 }

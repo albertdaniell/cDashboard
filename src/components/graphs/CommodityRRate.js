@@ -96,6 +96,9 @@ export default function CommodityRRate() {
       {!dataPresent
         ? <Loading2></Loading2>
         : <Bar options={{
+          animation: {
+            duration: 3000 // general animation time
+        },
           responsive: true
         }} data={mydata}/>
 }

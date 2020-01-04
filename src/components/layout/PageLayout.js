@@ -18,14 +18,15 @@ import SideNavWallpaper from '../SideNavWallpaper'
 import CHVRRateFacilityProvider from '../../contexts/CHVRRateFacility'
 import StockStatusByNoProvider from '../../contexts/StockStatusByNumber'
 import BackgroundLoading from '../BackgroundLoading'
+import CHVStockReceiptContextProvider from '../../contexts/CHVStockReceiptContext'
 
 export default function PageLayout() {
 
   return (
 
     <Router>
-
-      <StockStatusByNoProvider>
+<CHVStockReceiptContextProvider>
+<StockStatusByNoProvider>
         <CHVRRateFacilityProvider>
           <StockStatusProvider>
             <CommodityReportingRateProvider>
@@ -72,6 +73,8 @@ export default function PageLayout() {
           </StockStatusProvider>
         </CHVRRateFacilityProvider>
       </StockStatusByNoProvider>
+</CHVStockReceiptContextProvider>
+      
     </Router>
   )
 }

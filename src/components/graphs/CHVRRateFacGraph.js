@@ -92,12 +92,19 @@ const CHVRRateFacGraph = () => {
         ? <Loading2></Loading2>
         : <div>
           {!showLine
-            ? <HorizontalBar
+            ? <Bar
                 options={{
+                  animation: {
+                    duration: 3000 // general animation time
+                },
                 responsive: true
               }}
                 data={mydata}/>
             : <Line options={{
+              
+              animation: {
+                duration: 3000 // general animation time
+            },
               responsive: true
             }} data={mydata}></Line>
 }
