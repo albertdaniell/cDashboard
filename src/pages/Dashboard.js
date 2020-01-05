@@ -12,8 +12,12 @@ import {ReportingRateReportingRateOnTime} from '../contexts/CommodityReportingRa
 import CommodityRRate from '../components/graphs/CommodityRRate'
 import ReportingRateOverTimeTable from '../components/tables/ReportingRateOverTimeTable'
 import CHVStockReceiptGraph from '../components/graphs/CHVStockReceiptGraph'
+import {useContext} from 'react'
+import {PanelDataContext} from '../contexts/PanelDataContext'
+import DashboardPanels from '../components/DashboardPanels'
 
 export default function Dashboard() {
+  const {chvReportingRate, chvActualRRateOnTime, commodityDispensed, SOHActualReporting} = useContext(PanelDataContext)
   return (
     <div>
 
@@ -24,6 +28,10 @@ export default function Dashboard() {
       <div className="" style={{
         padding: 0
       }}>
+
+        <div className="row">
+          <DashboardPanels></DashboardPanels>
+        </div>
         <div className="row">
 
           <div className="col-lg-6">
@@ -40,29 +48,25 @@ export default function Dashboard() {
         </div>
 
         <div className="row">
-          <div className="col-lg-6">
-
-            
-          </div>
+          <div className="col-lg-6"></div>
 
           <div className="col-lg-6">
-            
 
-           {/* <ReportingRateOverTimeTable></ReportingRateOverTimeTable> */}
+            {/* <ReportingRateOverTimeTable></ReportingRateOverTimeTable> */}
           </div>
         </div>
 
         <div className="row">
           <div className="col-sm-12">
 
-          <ActualReports></ActualReports>
+            <ActualReports></ActualReports>
           </div>
         </div>
 
         <div className="row">
           <div className="col-sm-12">
 
-          <CHVStockReceiptGraph></CHVStockReceiptGraph>
+            <CHVStockReceiptGraph></CHVStockReceiptGraph>
           </div>
         </div>
 
@@ -73,7 +77,6 @@ export default function Dashboard() {
 
           </div>
         </div>
-
 
         <div className="row">
           <div className="col-sm-12">

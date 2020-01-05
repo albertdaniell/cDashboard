@@ -180,6 +180,15 @@ color: rgb(255, 115, 0);
 
 .navbarlinks{
   display: none;
+  
+}
+
+.navbarlinks .active{
+  background-color: rgb(231, 231, 231);
+  color: rgb(31, 31, 31);
+  border-radius: 0px;
+  border-left: 5px solid transparent;
+  font-weight: bold;
 }
 
 h4{
@@ -230,6 +239,59 @@ h4{
 
 .form-control{
   border-radius: 40px;
-  background-color: rgb(34, 34, 34);
+  background-color: rgb(48, 48, 48);
   color: rgb(255, 255, 255);
+}
+
+.myPanelBody{
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  min-height: 80px;
+}
+
+.myPanelBody .large{
+font-size: 25px;
+ text-align: right;
+ float: right;
+  color: white;
+}
+
+.myPanel{
+  margin-bottom: 30px;
+
+}
+
+.myPanelBody1{
+  background-color: rgb(37, 163, 69);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.myPanelBody2{
+  background-color: rgb(165, 8, 100);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.myPanelBody3{
+  background-color: rgb(48, 48, 48);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+.myPanelBody4{
+  background-color: rgb(43, 27, 112);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+
+.myPanelDiv{
+  padding:0;
+  
+
 }
