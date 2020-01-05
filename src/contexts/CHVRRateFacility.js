@@ -15,6 +15,8 @@ const CHVRRateFacilityProvider = (props) => {
     setdataPresent] = useState(false)
   const [ou,
     setou] = useState([])
+    const [periods,
+      setPeriods] = useState([])
 
   const [ouName,
     setouName] = useState([])
@@ -22,9 +24,17 @@ const CHVRRateFacilityProvider = (props) => {
   const [dataElement,
     setdataElement] = useState([])
 
+    const [ouLevel,
+      setouLevel] = useState('LEVEL-4')
+
+      const [ouID,
+        setOuID] = useState('JNvqpOnKfGR')
+
+    
+
   const getAllData = async() => {
-    const url2 = `analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;s4029egvhCv.REPORTING_RATE_ON_TIME&dimension=ou:LEVEL-4;JNvqpOnKfGR&filter=pe:LAST_MONTH&displayProperty=NAME`;
-    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:LEVEL-4;JNvqpOnKfGR&filter=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID`, constants.FETCH_OPTIONS)
+    const url2 = `analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;s4029egvhCv.REPORTING_RATE_ON_TIME&dimension=ou:${ouLevel};${ouID}&filter=pe:LAST_MONTH&displayProperty=NAME`;
+    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:LEVEL-4;${ouID}&filter=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID`, constants.FETCH_OPTIONS)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
     let myou = [];
@@ -41,6 +51,7 @@ const CHVRRateFacilityProvider = (props) => {
     //setou(await myalldata1json.rows[1])
     console.log(await myalldata1json)
     setdataElement(await myalldata1json.metaData.dimensions.dx)
+    setPeriods(await myalldata1json.metaData.dimensions.pe);
     setallData2(await myalldata1json.rows.slice().sort((a, b) => a[4] - b[4]))
 
   }
@@ -140,7 +151,9 @@ const CHVRRateFacilityProvider = (props) => {
       dataElement,
       graphData,
       dataPresent,
-      allData2
+      allData2,
+      periods,
+      
     }}>
       {props.children}</CHVRRateFacility.Provider>
   )

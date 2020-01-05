@@ -70,7 +70,7 @@ const ChvReportingRateContextProvider = (props) => {
     console.log("orgUnits", orgUnits)
     console.log("rowData", rowData)
     var newds = [];
-    orgUnits.forEach((id,index) => {
+    orgUnits.forEach((id, index) => {
       let aggData = [];
       var myds = [];
       let backgroundColor = ''
@@ -85,7 +85,7 @@ const ChvReportingRateContextProvider = (props) => {
       fetch(`  organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
         .then(res => res.json())
         .then((result) => {
-          orgUnitName= result.displayName
+          orgUnitName = result.displayName
           console.log(orgUnitName)
 
           let filtered = rowData
@@ -114,13 +114,12 @@ const ChvReportingRateContextProvider = (props) => {
 
           console.log("gdata", newds)
           setGraphData(newds)
+         setTimeout(() => {
+          setDataPresent(true)
+          setshowLoading(false)
+         }, 3000);
 
-        
-            setDataPresent(true)
-           
-          
-
-          //console.log(myds)
+          //  setDataPresent(true) console.log(myds)
 
         })
 
@@ -142,11 +141,7 @@ const ChvReportingRateContextProvider = (props) => {
 
   }, [periodAPI])
 
-  useEffect(() => {
-    setTimeout(() => {
-      setshowLoading(false)
-    }, 5000);
-  }, [graphData])
+ 
 
   useEffect(() => {
     // getOUNames();
@@ -172,7 +167,8 @@ const ChvReportingRateContextProvider = (props) => {
       rowData,
       changePeriodAPI,
       showLoading,
-      setshowLoading
+      setshowLoading,
+      periodAPI
     }}>
       {props.children}
     </ChvReportingRateContext.Provider>

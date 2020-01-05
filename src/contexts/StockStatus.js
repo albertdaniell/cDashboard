@@ -3,6 +3,7 @@ import constants from '../constants'
 
 export const StockStatus = createContext();
 
+
 const StockStatusProvider = (props) => {
 
   const [periodAPI,
@@ -126,7 +127,8 @@ const StockStatusProvider = (props) => {
       periods,
       graphData,
       dataPresent,
-      changePeriodAPI
+      changePeriodAPI,
+      periodAPI
     }}>
       {props.children}
 

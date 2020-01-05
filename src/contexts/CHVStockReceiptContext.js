@@ -125,7 +125,8 @@ const CHVStockReceiptContextProvider = (props) => {
       periods,
       graphData,
       dataPresent,
-      changePeriodAPI
+      changePeriodAPI,
+      periodAPI
     }}>
       {props.children}
 

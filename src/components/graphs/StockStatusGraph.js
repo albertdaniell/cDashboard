@@ -1,5 +1,12 @@
 import React, {useState, useContext, useEffect} from 'react'
-import {Line, Bar, Pie, Polar, HorizontalBar,Radar} from 'react-chartjs-2';
+import {
+  Line,
+  Bar,
+  Pie,
+  Polar,
+  HorizontalBar,
+  Radar
+} from 'react-chartjs-2';
 import {ChvReportingRateContext} from '../../contexts/ChvReportingRateContext';
 import Spacer from '../Spacer'
 import Loading2 from '../Loading2';
@@ -11,7 +18,14 @@ export default function CommodityRRate() {
   const [sortedMonths,
     setMonths] = useState([])
 
-  const {graphData, periods, dataPresent, changePeriodAPI, allData} = useContext(StockStatus)
+  const {
+    graphData,
+    periods,
+    dataPresent,
+    changePeriodAPI,
+    allData,
+    periodAPI
+  } = useContext(StockStatus)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
@@ -128,11 +142,13 @@ export default function CommodityRRate() {
           className="form-control"
           name="periods"
           onChange={(e) => changePeriodAPI(e.target.value)}>
+          <option value={periodAPI}>Select Month</option>
+          <option value="THIS_MONTH">This Month</option>
           <option value="LAST_MONTH">Last month</option>
           <option value="LAST_3_MONTHS">Last 3 months</option>
           <option value="LAST_6_MONTHS">Last 6 months</option>
           <option value="LAST_12_MONTHS">Last 12 Months</option>
-          <option value="LAST_BIMONTH">This Bi Month
+          <option value="THIS_BIMONTH">This Bi Month
           </option>
           <option value="LAST_BIMONTH">Last Bi Month</option>
           <option value="QUARTERS_LAST_YEAR">Quarters Last Year
@@ -167,9 +183,6 @@ export default function CommodityRRate() {
           : !dataPresent
             ? <Loading2></Loading2>
             : <Bar options={{
-              animation: {
-                duration: 3000 // general animation time
-            },
               responsive: true
             }} data={mydata}/>
 }

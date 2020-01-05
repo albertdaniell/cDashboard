@@ -123,7 +123,8 @@ const CommodityReportingRateProvider = (props) => {
       ou,
       periods,
       graphData,
-      dataPresent
+      dataPresent,
+      
     }}>
       {props.children}
     </CommodityReportingRate.Provider>

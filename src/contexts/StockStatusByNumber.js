@@ -115,7 +115,8 @@ const StockStatusByNoProvider = (props) => {
       periods,
       graphData,
       stockdataPresent,
-      changePeriodAPI
+      changePeriodAPI,
+      periodAPI
     }}> {props.children}
 
     </StockStatusByNo.Provider>

@@ -66,6 +66,43 @@ const ReportingRateOverTimeTable = () => {
         case '12':
           monthName = 'December ';
           break;
+
+          case 'Q1':
+            monthName = 'January ';
+            break;
+          case 'Q2':
+            monthName = 'February ';
+            break;
+          case 'Q3':
+            monthName = 'March ';
+            break;
+          case 'Q4':
+            monthName = 'April ';
+            break;
+          case 'Q5':
+            monthName = 'May ';
+            break;
+          case 'Q6':
+            monthName = 'June ';
+            break;
+          case 'Q7':
+            monthName = 'July ';
+            break;
+          case 'Q8':
+            monthName = 'August ';
+            break;
+          case 'Q9':
+            monthName = 'September ';
+            break;
+          case 'Q10':
+            monthName = 'October ';
+            break;
+          case 'Q11':
+            monthName = 'November ';
+            break;
+          case 'Q12':
+            monthName = 'December ';
+            break;
         default:
           break;
       }

@@ -11,7 +11,7 @@ const ReportingRRateonTime = () => {
         setShowLine] = useState(false)
     const [sortedMonths,
         setMonths] = useState([])
-    const {graphData,periods,ouNames, RROntimedataPresent,changePeriodAPI} = useContext(ReportingRateReportingRateOnTime)
+    const {graphData,periods,ouNames, RROntimedataPresent,changePeriodAPI,periodAPI} = useContext(ReportingRateReportingRateOnTime)
     const mydata = {
         labels: sortedMonths,
         datasets: graphData
@@ -65,6 +65,7 @@ const ReportingRRateonTime = () => {
               break;
             case '12':
               monthName = 'December ';
+              break;
               case 'Q1':
                 monthName = 'January ';
                 break;
@@ -100,7 +101,12 @@ const ReportingRRateonTime = () => {
                 break;
               case 'Q12':
                 monthName = 'December ';
+                
               break;
+
+              case '':
+                monthName = 'Year ';
+                break
             default:
               break;
           }
@@ -113,7 +119,7 @@ const ReportingRRateonTime = () => {
         });
     
         setMonths(formattedMonths)
-      }, [graphData])
+      }, [periods])
     return (
         <div className="col-sm-12 graphDiv">
            <div className="col-sm-4">
@@ -131,6 +137,8 @@ const ReportingRRateonTime = () => {
           className="form-control"
           name="periods"
           onChange={(e) => changePeriodAPI(e.target.value)}>
+             <option value={periodAPI}>Select Month</option>
+             <option value="THIS_MONTH">This Month</option>
           <option value="LAST_MONTH">Last month</option>
           <option value="LAST_3_MONTHS">Last 3 months</option>
           <option value="LAST_6_MONTHS">Last 6 months</option>

@@ -155,7 +155,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
 
     getOuNames()
 
-  }, [allData])
+  }, [ou])
 
   useEffect(() => {
 
@@ -181,7 +181,8 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       periods,
       ouNames,
       RROntimedataPresent,
-      changePeriodAPI
+      changePeriodAPI,
+      periodAPI
     }}>
       {props.children}
     </ReportingRateReportingRateOnTime.Provider>

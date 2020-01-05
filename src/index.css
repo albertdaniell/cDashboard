@@ -32,7 +32,7 @@ code {
 
 .sideNav{
   z-index: 1000;
-  background: #191919d2;
+  background: #191919b0;
   height: 100%;
   position: fixed;
   width:18%;
@@ -55,7 +55,7 @@ code {
   background-color: rgb(231, 231, 231);
   color: rgb(31, 31, 31);
   border-radius: 0px;
-  
+  border-left: 5px solid transparent;
   font-weight: bold;
 }
 
@@ -75,6 +75,7 @@ code {
 .sideNav a:hover{
   background: #ffffff27;
   color: white;
+  border-left: 5px solid transparent;
   border-radius: 0px;
 }
 
