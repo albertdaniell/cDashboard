@@ -5,4 +5,12 @@ const FETCH_OPTIONS = {
   }
 }
 
-export default {MY_PROXY,FETCH_OPTIONS}
+
+const TheDate=async()=>{
+  var d = await new Date();
+  let mydate=await d.getFullYear()
+
+  return mydate
+}
+
+export default {MY_PROXY,FETCH_OPTIONS,TheDate}
