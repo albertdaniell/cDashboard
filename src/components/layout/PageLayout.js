@@ -22,67 +22,69 @@ import CHVStockReceiptContextProvider from '../../contexts/CHVStockReceiptContex
 import ReceiptReportingRatesProvider from '../../contexts/ReceiptReportingRates'
 import PanelDataContextProvider from '../../contexts/PanelDataContext'
 import ReceiptReportPage from '../../pages/ReceiptReportPage'
-
+import ReceiptReportReportOntimeProvider from '../../contexts/ReceiptReportReportOntime'
 
 export default function PageLayout() {
 
   return (
 
     <Router>
-      <ReceiptReportingRatesProvider>
-        <PanelDataContextProvider>
-          <CHVStockReceiptContextProvider>
-            <StockStatusByNoProvider>
-              <CHVRRateFacilityProvider>
-                <StockStatusProvider>
-                  <CommodityReportingRateProvider>
-                    <ReportingRateReportingRateOnTimeProvider>
-                      <UserContextProvider>
-                        <ActualReportingExpectedProvider>
+      <ReceiptReportReportOntimeProvider>
+        <ReceiptReportingRatesProvider>
+          <PanelDataContextProvider>
+            <CHVStockReceiptContextProvider>
+              <StockStatusByNoProvider>
+                <CHVRRateFacilityProvider>
+                  <StockStatusProvider>
+                    <CommodityReportingRateProvider>
+                      <ReportingRateReportingRateOnTimeProvider>
+                        <UserContextProvider>
+                          <ActualReportingExpectedProvider>
 
-                          <ChvReportingRateContextProvider>
-                            <Loading></Loading>
-                            {/* <BackgroundLoading></BackgroundLoading> */}
+                            <ChvReportingRateContextProvider>
+                              <Loading></Loading>
+                              {/* <BackgroundLoading></BackgroundLoading> */}
 
-                            <div className="container-fluid" style={{}}>
+                              <div className="container-fluid" style={{}}>
 
-                              <div className="row">
-                                <SideNavWallpaper></SideNavWallpaper>
-                                <div className="col-sm-2 sideNav">
+                                <div className="row">
+                                  <SideNavWallpaper></SideNavWallpaper>
+                                  <div className="col-sm-2 sideNav">
 
-                                  <SideNav></SideNav>
-                                </div>
-                                <div className="col-sm-10 mainDiv">
-                                  <AppNav></AppNav>
+                                    <SideNav></SideNav>
+                                  </div>
+                                  <div className="col-sm-10 mainDiv">
+                                    <AppNav></AppNav>
 
-                                  <div>
-                                    <Route exact path="/" component={Dashboard}/>
-                                    <Route path="/users" component={Users}/>
-                                    <Route path="/commodityRR" component={CommodityRates}></Route>
-                                    <Route path="/stockstatus" component={StockStatusPage}></Route>
-                                    <Route path="/stockstatusbyno" component={StockStatusByNoPage}></Route>
-                                    <Route path="/receiptreports" component={ReceiptReportPage}></Route>
+                                    <div>
+                                      <Route exact path="/" component={Dashboard}/>
+                                      <Route path="/users" component={Users}/>
+                                      <Route path="/commodityRR" component={CommodityRates}></Route>
+                                      <Route path="/stockstatus" component={StockStatusPage}></Route>
+                                      <Route path="/stockstatusbyno" component={StockStatusByNoPage}></Route>
+                                      <Route path="/receiptreports" component={ReceiptReportPage}></Route>
+
+                                    </div>
 
                                   </div>
 
                                 </div>
 
                               </div>
+                            </ChvReportingRateContextProvider>
+                          </ActualReportingExpectedProvider>
 
-                            </div>
-                          </ChvReportingRateContextProvider>
-                        </ActualReportingExpectedProvider>
+                        </UserContextProvider>
+                      </ReportingRateReportingRateOnTimeProvider>
 
-                      </UserContextProvider>
-                    </ReportingRateReportingRateOnTimeProvider>
-
-                  </CommodityReportingRateProvider>
-                </StockStatusProvider>
-              </CHVRRateFacilityProvider>
-            </StockStatusByNoProvider>
-          </CHVStockReceiptContextProvider>
-        </PanelDataContextProvider>
-      </ReceiptReportingRatesProvider>
+                    </CommodityReportingRateProvider>
+                  </StockStatusProvider>
+                </CHVRRateFacilityProvider>
+              </StockStatusByNoProvider>
+            </CHVStockReceiptContextProvider>
+          </PanelDataContextProvider>
+        </ReceiptReportingRatesProvider>
+      </ReceiptReportReportOntimeProvider>
 
     </Router>
   )

@@ -145,7 +145,6 @@ function ReportingRate() {
           onChange={(e) => changePeriodAPI(e.target.value)}>
             <option value={periodAPI}>Select Month</option>
              <option value="THIS_MONTH">This Month</option>
-             <option value="THIS_MONTH">This Month</option>
           <option value="LAST_MONTH">Last month</option>
           <option value="LAST_3_MONTHS">Last 3 months</option>
           <option value="LAST_6_MONTHS">Last 6 months</option>

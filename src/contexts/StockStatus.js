@@ -33,10 +33,26 @@ const StockStatusProvider = (props) => {
   const getData = async() => {
     setdataPresent(false)
     const allData = await fetch(`  analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
-        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:THIS_MONTH;${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
-    setPeriods(await allDatajson.metaData.dimensions.pe);
+    //setPeriods(await allDatajson.metaData.dimensions.pe);
+
+    let myPeriods=[];
+    let filteredPeriods = await allDatajson
+    .metaData.dimensions.pe.slice().sort((a,b)=>a-b)
+    .map((d) => {
+      return d
+
+    })
+
+    myPeriods = filteredPeriods
+    myPeriods = [...new Set(myPeriods)]
+
+
+    setPeriods(myPeriods)
+    //setdataElement(myDataElements)
+
     setOu(await allDatajson.metaData.dimensions.ou);
     setDx(await allDatajson.metaData.dimensions.dx);
     setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]));

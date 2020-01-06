@@ -4,14 +4,15 @@ import Spacer from '../Spacer'
 import { ReportingRateReportingRateOnTime } from '../../contexts/ReportingRateReportingOnTime';
 import Loading from '../Loading';
 import Loading2 from '../Loading2';
+import { ReceiptReportReportOntime } from '../../contexts/ReceiptReportReportOntime';
 
-const ReportingRRateonTime = () => {
+const ReceiptRRateOnTimeGraph = () => {
 
     const [showLine,
         setShowLine] = useState(false)
     const [sortedMonths,
         setMonths] = useState([])
-    const {graphData,periods,ouNames, RROntimedataPresent,changePeriodAPI,periodAPI} = useContext(ReportingRateReportingRateOnTime)
+    const {graphData,periods,ouNames, RROntimedataPresent,changePeriodAPI,periodAPI} = useContext(ReceiptReportReportOntime)
     const mydata = {
         labels: sortedMonths,
         datasets: graphData
@@ -156,16 +157,11 @@ const ReportingRRateonTime = () => {
 
       <div className="col-sm-12">
       <h4>
-        <center>% Monthly CHV Reporting Rates over time  {
-          ouNames.length === 0?<span> ...</span>:
-          <div>
-            for {ouNames.map((ou)=>{
+        <center> % Monthly CHV Receipt Reporting Rates over time for {ouNames.map((ou)=>{
             return(
             <span>{ou} ,</span>
             )
-        })}
-          </div>
-          } </center>
+        })} </center>
       </h4>
       <Spacer></Spacer>
         </div>
@@ -194,4 +190,4 @@ const ReportingRRateonTime = () => {
     );
 }
 
-export default ReportingRRateonTime;
+export default ReceiptRRateOnTimeGraph;

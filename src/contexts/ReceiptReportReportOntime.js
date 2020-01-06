@@ -1,7 +1,7 @@
 import React, {createContext, useState, useEffect} from 'react'
 import constants from '../constants'
 
-export const ReportingRateReportingRateOnTime = createContext();
+export const ReceiptReportReportOntime = createContext();
 
 const fetchOptions = {
   headers: {
@@ -9,10 +9,10 @@ const fetchOptions = {
   }
 }
 
-const ReportingRateReportingRateOnTimeProvider = (props) => {
+const ReceiptReportReportOntimeProvider = (props) => {
 
   const [periodAPI,
-    setPeriodApi] = useState('LAST_3_MONTHS')
+    setPeriodApi] = useState('LAST_6_MONTHS')
   const [graphData,
     setGraphData] = useState([])
   const [RROntimedataPresent,
@@ -32,14 +32,14 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
   const [ouNames,
     setOuNames] = useState([])
 
-    const changePeriodAPI = (pe) => {
+  const changePeriodAPI = (pe) => {
 
-      setPeriodApi(pe)
-    }
+    setPeriodApi(pe)
+  }
 
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`  analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:THIS_MONTH;${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:THIS_MONTH;${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
 
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
@@ -73,7 +73,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
 
   }
   const getData2 = async() => {
-    const allData = await fetch(`analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:THIS_MONTH;LAST_6_MONTHS&dimension=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:THIS_MONTH;${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
 
     // setAllData2(await allDatajson.dataValues.slice().sort((a, b) => a.period -
@@ -101,10 +101,10 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       var colorA = 0.80;
 
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
-      if (dxvalue === "z2slLbjn7PM.REPORTING_RATE_ON_TIME") {
-        dataElement = "CHV Reporting Rate on time"
-      } else if (dxvalue === "z2slLbjn7PM.REPORTING_RATE") {
-        dataElement = "CHV Reporting Rate"
+      if (dxvalue === "s4029egvhCv.REPORTING_RATE_ON_TIME") {
+        dataElement = "CHV Receipt Reporting Rate on time"
+      } else if (dxvalue === "s4029egvhCv.REPORTING_RATE") {
+        dataElement = "CHV Receipt Reporting Rate"
 
       }
 
@@ -139,8 +139,6 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
     })
   }
 
-
-
   useEffect(() => {
     getData()
   }, [periodAPI])
@@ -171,7 +169,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
   }, [allData2, dx, ou])
 
   return (
-    <ReportingRateReportingRateOnTime.Provider
+    <ReceiptReportReportOntime.Provider
       value={{
       ou,
       dx,
@@ -185,9 +183,9 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       periodAPI
     }}>
       {props.children}
-    </ReportingRateReportingRateOnTime.Provider>
+    </ReceiptReportReportOntime.Provider>
   )
 
 }
 
-export default ReportingRateReportingRateOnTimeProvider;
+export default ReceiptReportReportOntimeProvider;

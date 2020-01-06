@@ -151,7 +151,10 @@ export default function StockStatusByNoGraph() {
 
       <div className="col-sm-12">
         <h4>
-          <center>Stock Status for {sortedMonths.map((month) => {
+  <center># Stock Status {
+    sortedMonths === undefined || sortedMonths.length === 0?<span>...</span>
+    :<div>
+      for {sortedMonths.map((month) => {
               return (
                 <span>{month}
                   ,
@@ -159,13 +162,15 @@ export default function StockStatusByNoGraph() {
               )
 
             })
-}</center>
+}
+    </div>
+    }</center>
         </h4>
         <Spacer></Spacer>
         {allData.rows === undefined || allData.rows.length === 0
-          ? <p style={{
-              color: 'red'
-            }}>No data for selected month(s)</p>
+          ?<p style={{
+            color: 'red',textAlign:'center'
+          }}>No data for selected month(s). Toggle the dropdown to select a month</p>
           : !stockdataPresent
             ? <Loading2></Loading2>
             : <Bar options={{

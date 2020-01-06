@@ -102,9 +102,9 @@ code {
   border-radius: 10px;
   margin-bottom: 20px;
   padding: 10px;
-  box-shadow: 2px 2px 8px 2px #b4b4b4;
+  box-shadow: 2px 2px 8px 2px #cecece;
   min-height: 300px;
-  text-align: center;
+  
 }
 
 .loadingDiv{
@@ -145,6 +145,7 @@ code {
   font-size: 25px;
   color: rgb(158, 158, 158);
   letter-spacing: 2px;
+  
 }
 
 .isLine{
@@ -172,10 +173,11 @@ color: rgb(255, 115, 0);
   z-index: 2000;
   bottom: 0;
   right: 0;
-  margin-right: 10px;
+  margin-right: 13px;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 4px;
+  transition: .5 ease-in-out;
 }
 
 .navbarlinks{
@@ -248,7 +250,7 @@ h4{
   padding: 10px;
   border-radius: 10px;
   color: white;
-  min-height: 80px;
+  min-height: 100px;
 }
 
 .myPanelBody .large{
@@ -256,34 +258,36 @@ font-size: 25px;
  text-align: right;
  float: right;
   color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .myPanel{
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
 }
 
 .myPanelBody1{
-  background-color: rgb(37, 163, 69);
+  background-color: rgb(25, 151, 57);
   padding: 10px;
   border-radius: 10px;
 }
 
 .myPanelBody2{
-  background-color: rgb(165, 8, 100);
+  background-color: rgb(179, 30, 117);
   padding: 10px;
   border-radius: 10px;
 }
 
 .myPanelBody3{
-  background-color: rgb(48, 48, 48);
+  background-color: rgb(184, 113, 7);
   padding: 10px;
   border-radius: 10px;
 }
 
 
 .myPanelBody4{
-  background-color: rgb(43, 27, 112);
+  background-color: rgb(73, 58, 143);
   padding: 10px;
   border-radius: 10px;
 }
@@ -292,6 +296,6 @@ font-size: 25px;
 
 .myPanelDiv{
   padding:0;
-  
+  margin-bottom: 10px;
 
 }

@@ -176,11 +176,11 @@ export default function CommodityRRate() {
 }</center>
         </h4>
         <Spacer></Spacer>
-        {allData.rows === undefined || allData.rows.length == 0
+        {allData.rows === undefined || allData.rows.length == 0 
           ? <p style={{
-              color: 'red'
-            }}>No data for selected month(s)</p>
-          : !dataPresent
+              color: 'red',textAlign:'center'
+            }}>No data for selected month(s). Toggle the dropdown to select a month</p>
+          : !dataPresent || sortedMonths === undefined || sortedMonths.length === 0
             ? <Loading2></Loading2>
             : <Bar options={{
               responsive: true

@@ -7,6 +7,7 @@ import ActualReports from '../components/graphs/ActualReports'
 import Loading from '../components/Loading'
 import CommodityRRate from '../components/graphs/CommodityRRate'
 import ReceiptReportingGraph from '../components/graphs/ReceiptReportingGraph'
+import ReceiptRRateOnTimeGraph from '../components/graphs/ReceiptRRateOnTimeGraph'
 
 export default function ReceiptReportPage() {
   return (
@@ -23,6 +24,12 @@ export default function ReceiptReportPage() {
         <div className="row">
           <div className="col-sm-12">
            <ReceiptReportingGraph></ReceiptReportingGraph>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-sm-12">
+           <ReceiptRRateOnTimeGraph></ReceiptRRateOnTimeGraph>
           </div>
         </div>
 

@@ -5,7 +5,7 @@ import {Route, NavLink, BrowserRouter as Router, Switch} from 'react-router-dom'
 
 const AppNav = () => {
 
-  const {userData, dataPresent,userCredentials} = useContext(UserContext);
+  const {userData, dataPresent, userCredentials} = useContext(UserContext);
   return (
     <div>
       <nav class="navbar navbar-default">
@@ -69,13 +69,7 @@ const AppNav = () => {
             <ul class="nav navbar-nav navbar-right">
               <li></li>
               <li class="dropdown">
-                <a
-                  href="#"
-                  class="dropdown-toggle"
-                  data-toggle="dropdown"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="false">
+                <NavLink activeClassName="active" to="/users">
                   <span
                     style={{
                     padding: 5,
@@ -94,7 +88,7 @@ const AppNav = () => {
                     </span>
 }
 
-                </a>
+                </NavLink>
 
               </li>
             </ul>

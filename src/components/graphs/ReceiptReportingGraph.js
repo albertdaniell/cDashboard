@@ -190,7 +190,7 @@ const ReceiptReportingGraph = () => {
 
       <div className="col-sm-12">
         <h4>
-<center>Reporting Rates over time for {formatedMonths.map((month)=>{
+<center># Reporting Rates over time for {formatedMonths.map((month)=>{
     return(
     <span>{month}, </span>
     )

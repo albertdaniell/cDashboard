@@ -17,7 +17,6 @@ import {PanelDataContext} from '../contexts/PanelDataContext'
 import DashboardPanels from '../components/DashboardPanels'
 
 export default function Dashboard() {
-  const {chvReportingRate, chvActualRRateOnTime, commodityDispensed, SOHActualReporting} = useContext(PanelDataContext)
   return (
     <div>
 

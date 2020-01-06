@@ -19,7 +19,7 @@ const User = () => {
             <Spacer></Spacer>
             Name: {userData.displayName}
             <br></br>
-            Email: {userCredentials.username}
+            Username: {userCredentials.username}
             <br></br>
             Created: {userCredentials.created}
             <br></br>
@@ -32,20 +32,30 @@ const User = () => {
           </div>
 
           <div className="col-sm-6">
-           <div className="col-sm-12 graphDiv">
-           <h4>User Access Details</h4>
-         <Spacer></Spacer>
-            Read: {userAccess.read?"true":"false"}
-            <br></br>
-            Write: {userAccess.write?"true":"false"}
-            <br></br>
-            Update: {userAccess.update?"true":"false"}
-            <br></br>
-            Delete: {userAccess.delete?"true":"false"}
+            <div className="col-sm-12 graphDiv">
+              <h4>User Access Details</h4>
+              <Spacer></Spacer>
+              Read: {userAccess.read
+                ? "true"
+                : "false"}
+              <br></br>
+              Write: {userAccess.write
+                ? "true"
+                : "false"}
+              <br></br>
+              Update: {userAccess.update
+                ? "true"
+                : "false"}
+              <br></br>
+              Delete: {userAccess.delete
+                ? "true"
+                : "false"}
 
-            <br></br>
-            Manage: {userAccess.manage?"true":"false"}
-           </div>
+              <br></br>
+              Manage: {userAccess.manage
+                ? "true"
+                : "false"}
+            </div>
           </div>
 
         </div>
