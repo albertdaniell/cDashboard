@@ -12,7 +12,7 @@ const fetchOptions = {
 const ReceiptReportReportOntimeProvider = (props) => {
 
   const [periodAPI,
-    setPeriodApi] = useState('LAST_6_MONTHS')
+    setPeriodApi] = useState('LAST_12_MONTHS')
   const [graphData,
     setGraphData] = useState([])
   const [RROntimedataPresent,
@@ -39,11 +39,11 @@ const ReceiptReportReportOntimeProvider = (props) => {
 
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:THIS_MONTH;${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:${periodAPI};&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
 
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
-    setPeriods(await allDatajson.metaData.dimensions.pe)
+    setPeriods(await allDatajson.metaData.dimensions.pe.slice().sort((a,b)=>a+b))
     setOu(await allDatajson.metaData.dimensions.ou)
     setDx(await allDatajson.metaData.dimensions.dx)
     setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]))
@@ -73,7 +73,7 @@ const ReceiptReportReportOntimeProvider = (props) => {
 
   }
   const getData2 = async() => {
-    const allData = await fetch(`analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:THIS_MONTH;${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
 
     // setAllData2(await allDatajson.dataValues.slice().sort((a, b) => a.period -

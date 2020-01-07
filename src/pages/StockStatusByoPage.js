@@ -6,7 +6,7 @@ import ActualReportingExpectedProvider from '../contexts/ActualReportingExpected
 import ActualReports from '../components/graphs/ActualReports'
 import Loading from '../components/Loading'
 import CommodityRRate from '../components/graphs/CommodityRRate'
-import  StockSatusByNoGraph from '../components/graphs/StockSatusByNoGraph'
+import StockSatusByNoGraph from '../components/graphs/StockSatusByNoGraph'
 
 export default function StockStatusByNoPage() {
   return (
@@ -14,7 +14,7 @@ export default function StockStatusByNoPage() {
 
       <h2 className="pageHeading">
         <i class="fas fa-store"></i>
-       Stock Status By Number</h2>
+        Stock Status By Number</h2>
 
       <div className="container-fluid" style={{
         padding: 0
@@ -22,9 +22,10 @@ export default function StockStatusByNoPage() {
 
         <div className="row">
           <div className="col-sm-12">
-     <StockSatusByNoGraph></StockSatusByNoGraph>
+          <StockSatusByNoGraph></StockSatusByNoGraph>
           </div>
         </div>
+
 
       </div>
 

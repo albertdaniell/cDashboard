@@ -3,12 +3,20 @@ import {Line, Bar} from 'react-chartjs-2';
 import {ChvReportingRateContext} from '../../contexts/ChvReportingRateContext';
 import Spacer from '../Spacer'
 import Loading2 from '../Loading2';
+import sortMonths from '../../constants/sortMonths'
 function ReportingRate() {
   const [sortedMonths,
     setMonths] = useState([])
   const [data,
     setdata] = useState([])
-  const {graphData, periods, dataName, isData, changePeriodAPI,periodAPI} = useContext(ChvReportingRateContext)
+  const {
+    graphData,
+    periods,
+    dataName,
+    isData,
+    changePeriodAPI,
+    periodAPI
+  } = useContext(ChvReportingRateContext)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
@@ -23,105 +31,8 @@ function ReportingRate() {
       console.log(p)
 
     })
-    let holdSortedMonths = [...periods];
-    let formattedMonths = [];
-    holdSortedMonths.forEach(originalMonth => {
-      let formattedMonth;
-      let year;
-      let monthValue;
-      let monthName;
-
-      year = originalMonth.slice(0, 4);
-      monthValue = originalMonth.slice(4, 6);
-
-      switch (monthValue) {
-        case '01':
-          monthName = 'January ';
-          break;
-        case '02':
-          monthName = 'February ';
-          break;
-        case '03':
-          monthName = 'March ';
-          break;
-        case '04':
-          monthName = 'April ';
-          break;
-        case '05':
-          monthName = 'May ';
-          break;
-        case '06':
-          monthName = 'June ';
-          break;
-        case '07':
-          monthName = 'July ';
-          break;
-        case '08':
-          monthName = 'August ';
-          break;
-        case '09':
-          monthName = 'September ';
-          break;
-        case '10':
-          monthName = 'October ';
-          break;
-        case '11':
-          monthName = 'November ';
-          break;
-        case '12':
-          monthName = 'December ';
-          break;
-        case 'Q1':
-          monthName = 'January';
-          break;
-        case 'Q2':
-          monthName = 'February ';
-          break;
-        case 'Q3':
-          monthName = 'March ';
-          break;
-        case 'Q4':
-          monthName = 'April ';
-          break;
-        case 'Q5':
-          monthName = 'May ';
-          break;
-        case 'Q6':
-          monthName = 'June ';
-          break;
-        case 'Q7':
-          monthName = 'July ';
-          break;
-        case 'Q8':
-          monthName = 'August ';
-          break;
-        case 'Q9':
-          monthName = 'September ';
-          break;
-        case 'Q10':
-          monthName = 'October ';
-          break;
-        case 'Q11':
-          monthName = 'November ';
-          break;
-        case 'Q12':
-          monthName = 'December ';
-          break
-
-        case '':
-          monthName = 'Year ';
-          break
-        default:
-          break;
-      }
-
-      formattedMonth = `${monthName} ${year}`
-      formattedMonths = [
-        ...formattedMonths,
-        formattedMonth
-      ];
-    });
-
+   
+    let formattedMonths= sortMonths(periods)
     setMonths(formattedMonths)
 
   }, [graphData])
@@ -143,8 +54,8 @@ function ReportingRate() {
           className="form-control"
           name="periods"
           onChange={(e) => changePeriodAPI(e.target.value)}>
-            <option value={periodAPI}>Select Month</option>
-             <option value="THIS_MONTH">This Month</option>
+          <option value={periodAPI}>Select Month</option>
+          <option value="THIS_MONTH">This Month</option>
           <option value="LAST_MONTH">Last month</option>
           <option value="LAST_3_MONTHS">Last 3 months</option>
           <option value="LAST_6_MONTHS">Last 6 months</option>
@@ -160,7 +71,13 @@ function ReportingRate() {
       </div>
       <div className="col-sm-12">
         <h4>
-          <center>{dataName}</center>
+          <center>
+            % CHV Reporting rate {sortedMonths.length === 0 || sortedMonths === undefined
+              ? null
+              : <span>
+                for {sortedMonths.length}
+                month(s)</span>
+}</center>
         </h4>
         <Spacer></Spacer>
       </div>
@@ -171,20 +88,21 @@ function ReportingRate() {
           {showLine
             ? <Line
                 options={{
-                  lineTension:"0",
-                  animation: {
-                    duration: 3000 // general animation time
+                lineTension: "0",
+                animation: {
+                  duration: 3000
                 },
                 responsive: true
               }}
                 data={mydata}></Line>
-            : <Bar options={{
+            : <Bar
+              options={{
               animation: {
-                duration: 3000 // general animation time
-            },
-              responsive: true,
-            
-            }} data={mydata}></Bar>
+                duration: 3000
+              },
+              responsive: true
+            }}
+              data={mydata}></Bar>
 }
         </div>
 }

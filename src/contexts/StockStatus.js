@@ -33,7 +33,7 @@ const StockStatusProvider = (props) => {
   const getData = async() => {
     setdataPresent(false)
     const allData = await fetch(`  analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
-        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:THIS_MONTH;${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     //setPeriods(await allDatajson.metaData.dimensions.pe);
@@ -61,6 +61,29 @@ const StockStatusProvider = (props) => {
   const changePeriodAPI = (pe) => {
 
     setPeriodApi(pe)
+  }
+
+  const getOuNames = () => {
+    let myounames = []
+    ou.forEach((id, index) => {
+      let orgName;
+      let orgUnitId = id
+      fetch(`organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
+        .then(res => res.json())
+        .then((result) => {
+          //alert(myounames)
+          orgName = result.displayName
+          // myounames = [   ...myounames,   result.displayName ]
+
+          myounames[index] = orgName;
+          setOuNames([...myounames])
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+
+    })
+
   }
 
   const getgraphData = () => {
@@ -133,6 +156,10 @@ const StockStatusProvider = (props) => {
     getgraphData()
   }, [allData2])
 
+  useEffect(() => {
+    getOuNames()
+  }, [ou])
+
   return (
     <StockStatus.Provider
       value={{
@@ -144,7 +171,8 @@ const StockStatusProvider = (props) => {
       graphData,
       dataPresent,
       changePeriodAPI,
-      periodAPI
+      periodAPI,
+      ouNames
     }}>
       {props.children}
 
