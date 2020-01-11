@@ -6,6 +6,7 @@ import Loading2 from '../Loading2';
 import {CommodityReportingRate} from '../../contexts/CommodityReportingRates';
 import { StockStatusByNo } from '../../contexts/StockStatusByNumber';
 import sortMonths from '../../constants/sortMonths';
+import TogglePeriod from '../TogglePeriod';
 
 export default function StockStatusByNoGraph() {
 
@@ -26,25 +27,8 @@ export default function StockStatusByNoGraph() {
   return (
     <div className="col-sm-12 graphDiv">
       <div className="col-sm-4">
-        <select
-          className="form-control"
-          name="periods"
-          onChange={(e) => changePeriodAPI(e.target.value)}>
-             <option value={periodAPI}>Select Month</option>
-             <option value="THIS_MONTH">This Month</option>
-          <option value="LAST_MONTH">Last month</option>
-          <option value="LAST_3_MONTHS">Last 3 months</option>
-          <option value="LAST_6_MONTHS">Last 6 months</option>
-          <option value="LAST_12_MONTHS">Last 12 Months</option>
-          <option value="THIS_BIMONTH">This Bi Month
-          </option>
-          <option value="LAST_BIMONTH">Last Bi Month</option>
-          <option value="QUARTERS_LAST_YEAR">Quarters Last Year
-          </option>
-          <option value="LAST_YEAR">Last Year
-          </option>
+      <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
 
-        </select>
       </div>
 
       <div className="col-sm-4"></div>

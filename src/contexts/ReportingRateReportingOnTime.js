@@ -39,7 +39,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
 
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`  analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
 
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
@@ -55,7 +55,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
     ou.forEach((id, index) => {
       let orgName;
       let orgUnitId = id
-      fetch(`organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
+      fetch(`/api/organisationUnits/${orgUnitId}`)
         .then(res => res.json())
         .then((result) => {
           //alert(myounames)
@@ -66,19 +66,19 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
           setOuNames([...myounames])
         })
         .catch((e) => {
-          console.log(e)
+         // console.log(e)
         })
 
     })
 
   }
   const getData2 = async() => {
-    const allData = await fetch(`analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:THIS_MONTH;LAST_6_MONTHS&dimension=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`/api/analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:THIS_MONTH;LAST_6_MONTHS&dimension=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
 
     // setAllData2(await allDatajson.dataValues.slice().sort((a, b) => a.period -
     // b.period));
-    console.log("this is data2", await allDatajson)
+    //console.log("this is data2", await allDatajson)
     const sortedrowData = await allDatajson.dataValues
     // .slice() .sort((a, b) => a[2] - b[2]) setAllData2(await sortedrowData)
     // setPeriods(await allDatajson.metaData.dimensions.pe) setOu(await
@@ -135,7 +135,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       setGraphData(newds)
       setdataPresent(true)
       // allData2.forEach((data)=>{ })
-      console.log(dataElement)
+     // console.log(dataElement)
     })
   }
 
@@ -157,12 +157,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
 
   }, [ou])
 
-  useEffect(() => {
-
-    // getData2()
-    getOuNames()
-
-  }, [ou])
+ 
 
   useEffect(() => {
     setTimeout(() => {

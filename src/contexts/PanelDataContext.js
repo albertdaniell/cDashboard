@@ -17,7 +17,7 @@ const PanelDataContextProvider = (props) => {
   const [SOHActualReporting,
     setSOHActualReporting] = useState('');
   const getData1 = async() => {
-    const allData = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const allData = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`)
     const allDatajson = await allData.json()
     const chvReportingRateData = await allDatajson.rows
     let filteredData = await chvReportingRateData.map((data) => {
@@ -28,7 +28,7 @@ const PanelDataContextProvider = (props) => {
   }
 
   const getData2 = async() => {
-    const allData = await fetch(`analytics.json?dimension=dx:s4029egvhCv.ACTUAL_REPORTS_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const allData = await fetch(`/api/analytics.json?dimension=dx:s4029egvhCv.ACTUAL_REPORTS_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`)
     const allDatajson = await allData.json()
     const chvActualRRateOnTimeData = await allDatajson.rows
     let filteredData = await chvActualRRateOnTimeData.map((data) => {
@@ -39,7 +39,7 @@ const PanelDataContextProvider = (props) => {
   }
 
   const getData3 = async() => {
-    const allData = await fetch(`analytics.json?dimension=dx:ozYIEpvgLnb.ACTUAL_REPORTS_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const allData = await fetch(`/api/analytics.json?dimension=dx:ozYIEpvgLnb.ACTUAL_REPORTS_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`)
     const allDatajson = await allData.json()
     const commodityDispensedData = await allDatajson.rows
     let filteredData = await commodityDispensedData.map((data) => {
@@ -50,7 +50,7 @@ const PanelDataContextProvider = (props) => {
   }
 
   const getData4 = async() => {
-    const allData = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const allData = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`)
     const allDatajson = await allData.json()
     const SOHActualReportingData = await allDatajson.rows
     let filteredData = await SOHActualReportingData.map((data) => {

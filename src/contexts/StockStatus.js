@@ -32,8 +32,8 @@ const StockStatusProvider = (props) => {
 
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`  analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
-        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`/api/analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
+        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     //setPeriods(await allDatajson.metaData.dimensions.pe);
@@ -68,7 +68,7 @@ const StockStatusProvider = (props) => {
     ou.forEach((id, index) => {
       let orgName;
       let orgUnitId = id
-      fetch(`organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
+      fetch(`/api/organisationUnits/${orgUnitId}`)
         .then(res => res.json())
         .then((result) => {
           //alert(myounames)
@@ -102,13 +102,13 @@ const StockStatusProvider = (props) => {
       var colorA = 0.80;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
-      fetch(`  dataElements/${indicatorid}`, constants.FETCH_OPTIONS)
+      fetch(`/api/dataElements/${indicatorid}`)
         .then(res => res.json())
         .then((result) => {
 
           indicatorName = result.displayName
         //inidcatorsList[index] = indicatorName;
-          console.log("indicator results,", result.displayName)
+        //  console.log("indicator results,", result.displayName)
 
           let filtered = allData2.filter((data) => {
             // alert(data[0])
@@ -118,7 +118,7 @@ const StockStatusProvider = (props) => {
             return data[2];
           })
           aggData = filtered
-          console.log("agg data,", filtered)
+         // console.log("agg data,", filtered)
 
           setTimeout(() => {
 
@@ -141,7 +141,7 @@ const StockStatusProvider = (props) => {
           }, 400);
         })
         .catch((e) => {
-          console.log(e)
+         // console.log(e)
           setdataPresent(false)
         })
 

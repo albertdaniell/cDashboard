@@ -1,13 +1,26 @@
-import React, {useContext} from 'react';
+import React, {useContext,useState,useEffect} from 'react'
 import {UserContext} from '../contexts/UserContext';
 import Spacer from '../components/Spacer';
+import {useSpring, animated} from 'react-spring'
 
 const User = () => {
   const {userData, userCredentials, userAccess} = useContext(UserContext);
   // console.log(userData.userCredentials.username) const
   // {userCredentials}=.userCredentials
+  const [myopacity,setOpacity]=useState(0)
+
+  const props = useSpring({
+    opacity: myopacity,
+    from: { opacity: 0},
+  })
+
+  useEffect(() => {
+   setTimeout(() => {
+    setOpacity(1)
+   }, 100);
+  }, [])
   return (
-    <div>
+    <animated.div style={props}>
       <h2 className="pageHeading">
         <i class="fas fa-user"></i>
         User Account</h2>
@@ -60,7 +73,7 @@ const User = () => {
 
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 }
 

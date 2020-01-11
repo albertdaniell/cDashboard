@@ -34,7 +34,7 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getData = async() => {
 
-    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS)
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
 
@@ -65,7 +65,7 @@ const ActualReportingExpectedProvider = (props) => {
     setou(myou)
     setdataElement(myDataElements)
     setou2(await myalldata1json.metaData.dimensions.ou)
-    console.log(await myalldata1json)
+   // console.log(await myalldata1json)
    // setdataElement(await myalldata1json.metaData.dimensions.dx)
    // alert(await myalldata1json.metaData.dimensions.dx)
     setPeriod(await myalldata1json.metaData.dimensions.pe)
@@ -75,9 +75,9 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getData2 = async() => {
 
-    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`, constants.FETCH_OPTIONS)
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`)
     const myalldata1json = await myalldata1.json()
-    console.log(await myalldata1json)
+    //console.log(await myalldata1json)
   //  setallData2(await myalldata1json.dataValues)
 
   }
@@ -155,7 +155,7 @@ const ActualReportingExpectedProvider = (props) => {
     ou.forEach((orgUnitId, index) => {
       let ouName;
 
-      fetch(`  organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
+      fetch(`/api/organisationUnits/${orgUnitId}`)
         .then(res => res.json())
         .then((result) => {
           ouName = result.displayName

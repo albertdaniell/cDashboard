@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useContext,useState,useEffect} from 'react'
+
 import ChvReportingRateContextProvider from '../contexts/ChvReportingRateContext'
 import Test from './Test'
 import ReportingRate from '../components/graphs/ReportingRate'
@@ -12,13 +13,28 @@ import {ReportingRateReportingRateOnTime} from '../contexts/CommodityReportingRa
 import CommodityRRate from '../components/graphs/CommodityRRate'
 import ReportingRateOverTimeTable from '../components/tables/ReportingRateOverTimeTable'
 import CHVStockReceiptGraph from '../components/graphs/CHVStockReceiptGraph'
-import {useContext} from 'react'
 import {PanelDataContext} from '../contexts/PanelDataContext'
 import DashboardPanels from '../components/DashboardPanels'
 
+import {useSpring, animated} from 'react-spring'
+
+
 export default function Dashboard() {
+
+  const [myopacity,setOpacity]=useState(0)
+
+  const props = useSpring({
+    opacity: myopacity,
+    from: { opacity: 0},
+  })
+
+  useEffect(() => {
+   setTimeout(() => {
+    setOpacity(1)
+   }, 100);
+  }, [])
   return (
-    <div>
+    <animated.div style={props}>
 
       <h2 className="pageHeading">
         <i class="fas fa-tachometer-alt"></i>
@@ -87,6 +103,6 @@ export default function Dashboard() {
 
       </div>
 
-    </div>
+    </animated.div>
   )
 }

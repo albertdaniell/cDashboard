@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext,useState,useEffect} from 'react'
 import SideNav from '../SideNav'
 import AppNav from '../AppNav'
 import {Route, Link, BrowserRouter as Router} from 'react-router-dom'
@@ -23,9 +23,33 @@ import ReceiptReportingRatesProvider from '../../contexts/ReceiptReportingRates'
 import PanelDataContextProvider from '../../contexts/PanelDataContext'
 import ReceiptReportPage from '../../pages/ReceiptReportPage'
 import ReceiptReportReportOntimeProvider from '../../contexts/ReceiptReportReportOntime'
+import {useSpring, animated} from 'react-spring'
+
 
 export default function PageLayout() {
+  const [myopacity,setOpacity]=useState(0)
 
+  const props = useSpring({
+    opacity: myopacity,
+    from: { opacity: 0},
+  })
+
+  useEffect(() => {
+   setTimeout(() => {
+    setOpacity(1)
+   }, 3000);
+  }, [])
+
+  useEffect(() => {
+    window.onbeforeunload = (e) => {
+      console.log('Stop this');
+      
+      window.location.replace("https://kecstock.jsi.com/api/apps/CStock-App/index.html")
+      e.preventDefault()
+      e.returnValue = '';
+    };
+    
+  }, [])
   return (
 
     <Router>
@@ -45,7 +69,7 @@ export default function PageLayout() {
                               <Loading></Loading>
                               {/* <BackgroundLoading></BackgroundLoading> */}
 
-                              <div className="container-fluid" style={{}}>
+                              <animated.div className="container-fluid" style={props}>
 
                                 <div className="row">
                                   <SideNavWallpaper></SideNavWallpaper>
@@ -56,7 +80,7 @@ export default function PageLayout() {
                                   <div className="col-sm-10 mainDiv">
                                     <AppNav></AppNav>
 
-                                    <div>
+                                    <animated.div style={props}>
                                       <Route exact path="/" component={Dashboard}/>
                                       <Route path="/users" component={Users}/>
                                       <Route path="/commodityRR" component={CommodityRates}></Route>
@@ -64,13 +88,13 @@ export default function PageLayout() {
                                       <Route path="/stockstatusbyno" component={StockStatusByNoPage}></Route>
                                       <Route path="/receiptreports" component={ReceiptReportPage}></Route>
 
-                                    </div>
+                                    </animated.div>
 
                                   </div>
 
                                 </div>
 
-                              </div>
+                              </animated.div>
                             </ChvReportingRateContextProvider>
                           </ActualReportingExpectedProvider>
 

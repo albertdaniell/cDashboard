@@ -1,4 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react'
+import {useSpring, animated} from 'react-spring'
 import {
   Line,
   Bar,
@@ -13,6 +14,7 @@ import Loading2 from '../Loading2';
 import {CommodityReportingRate} from '../../contexts/CommodityReportingRates';
 import {StockStatus} from '../../contexts/StockStatus';
 import sortMonths from '../../constants/sortMonths';
+import TogglePeriod from '../TogglePeriod';
 
 export default function CommodityRRate() {
 
@@ -37,29 +39,25 @@ export default function CommodityRRate() {
     let formattedMonths= sortMonths(periods)
     setMonths(formattedMonths)
   }, [graphData])
+  const [myopacity,setOpacity]=useState(0)
+  const props = useSpring({
+    opacity: myopacity,
+    from: { opacity: 0},
+  })
 
+  useEffect(() => {
+   setTimeout(() => {
+    setOpacity(1)
+   }, 100);
+  }, [])
+
+
+  
   return (
-    <div className="col-sm-12 graphDiv">
+  
+    <animated.div className="col-sm-12 graphDiv" style={props}>
       <div className="col-sm-4">
-        <select
-          className="form-control"
-          name="periods"
-          onChange={(e) => changePeriodAPI(e.target.value)}>
-          <option value={periodAPI}>Select Month</option>
-          <option value="THIS_MONTH">This Month</option>
-          <option value="LAST_MONTH">Last month</option>
-          <option value="LAST_3_MONTHS">Last 3 months</option>
-          <option value="LAST_6_MONTHS">Last 6 months</option>
-          <option value="LAST_12_MONTHS">Last 12 Months</option>
-          <option value="THIS_BIMONTH">This Bi Month
-          </option>
-          <option value="LAST_BIMONTH">Last Bi Month</option>
-          <option value="QUARTERS_LAST_YEAR">Quarters Last Year
-          </option>
-          <option value="LAST_YEAR">Last Year
-          </option>
-
-        </select>
+       <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
       </div>
 
       <div className="col-sm-4"></div>
@@ -68,15 +66,17 @@ export default function CommodityRRate() {
 
       <div className="col-sm-12">
         <h4>
-          <center>#Stock Status {ouNames.map((name) => {
+          <center>#Stock Status {ouNames.length === 0 || ouNames ===undefined ?null: <span>
+            for {ouNames.map((name) => {
               return (
-                <span> for {name}
+                <span>  {name}
                   ,
                 </span>
               )
 
             })
-}</center>
+}
+            </span>} </center>
         </h4>
         <Spacer></Spacer>
         {allData.rows === undefined || allData.rows.length == 0 
@@ -92,6 +92,6 @@ export default function CommodityRRate() {
         {/* <button onClick={() => changePeriodAPI()}>Change</button> */}
 
       </div>
-    </div>
+    </animated.div>
   )
 }

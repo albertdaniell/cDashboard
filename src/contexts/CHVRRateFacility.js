@@ -33,8 +33,8 @@ const CHVRRateFacilityProvider = (props) => {
     
 
   const getAllData = async() => {
-    const url2 = `analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;s4029egvhCv.REPORTING_RATE_ON_TIME&dimension=ou:${ouLevel};${ouID}&filter=pe:LAST_MONTH&displayProperty=NAME`;
-    const myalldata1 = await fetch(`analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:LEVEL-4;${ouID}&filter=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID`, constants.FETCH_OPTIONS)
+    const url2 = `/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;s4029egvhCv.REPORTING_RATE_ON_TIME&dimension=ou:${ouLevel};${ouID}&filter=pe:LAST_MONTH&displayProperty=NAME`;
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:LEVEL-4;${ouID}&filter=pe:LAST_MONTH&displayProperty=NAME&outputIdScheme=UID`)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
     let myou = [];
@@ -49,7 +49,7 @@ const CHVRRateFacilityProvider = (props) => {
     myou = filtered
     setou(myou)
     //setou(await myalldata1json.rows[1])
-    console.log(await myalldata1json)
+    //console.log(await myalldata1json)
     setdataElement(await myalldata1json.metaData.dimensions.dx)
     setPeriods(await myalldata1json.metaData.dimensions.pe);
     setallData2(await myalldata1json.rows.slice().sort((a, b) => a[4] - b[4]))
@@ -62,7 +62,7 @@ const CHVRRateFacilityProvider = (props) => {
     ou.forEach((ouid, index) => {
       let orgName;
 
-      fetch(`organisationUnits/${ouid}`, constants.FETCH_OPTIONS)
+      fetch(`/api/organisationUnits/${ouid}`)
         .then(res => res.json())
         .then((result) => {
 

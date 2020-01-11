@@ -28,13 +28,13 @@ const UserContextProvider = (props) => {
     // )
     // console.log("cookie",x)
 
-    const userdetails = await fetch(`  me/`, constants.FETCH_OPTIONS)
+    const userdetails = await fetch(`/api/me/`)
     const userdetails2 = await userdetails.json()
 
     setUserData(userdetails2)
     setUserCredentials(await userdetails2.userCredentials)
     setUserAccess(await userdetails2.userCredentials.access)
-    console.log("Uset data", await userdetails2.userCredentials)
+   // console.log("Uset data", await userdetails2.userCredentials)
     setDataPresent(true)
 
   }
@@ -42,7 +42,7 @@ const UserContextProvider = (props) => {
   useEffect(() => {
     setTimeout(() => {
       getUserData()
-    }, 200);
+    }, 2500);
   }, [])
 
   return (

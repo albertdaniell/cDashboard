@@ -29,9 +29,10 @@ const StockStatusByNoProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
+    setPeriods([])
     let stockstatusid = ".VAhKn4YLOtX"
     setdataPresent(false)
-    const allData = await fetch(`analytics.json?dimension=VAhKn4YLOtX:aVuisZ9bgxJ;JkW5RXtoxjj;YxgCPnP2Mbn;fkBysl2P7tC&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&filter=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1GdTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`/api/analytics.json?dimension=VAhKn4YLOtX:aVuisZ9bgxJ;JkW5RXtoxjj;YxgCPnP2Mbn;fkBysl2P7tC&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&filter=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1GdTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe);
@@ -44,6 +45,7 @@ const StockStatusByNoProvider = (props) => {
     setPeriodApi(pe)
   }
   const getgraphData = () => {
+  
     let newds = [];
     dx.map((dxid) => {
         let catOptid=dxid
@@ -56,10 +58,10 @@ const StockStatusByNoProvider = (props) => {
       var colorA = 0.80;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
-      fetch(`categoryOptions/${catOptid}`,constants.FETCH_OPTIONS)
+      fetch(`/api/categoryOptions/${catOptid}`)
         .then(res => res.json())
         .then((result) => {
-            console.log("stockstatus by n res",result)
+           // console.log("stockstatus by n res",result)
           catOptionName = result.displayName
 
           let filtered = allData2.filter((data) => {
@@ -71,7 +73,7 @@ const StockStatusByNoProvider = (props) => {
           })
 
           aggData = filtered
-          console.log("agg data,", filtered)
+          //console.log("agg data,", filtered)
 
           setTimeout(() => {
 

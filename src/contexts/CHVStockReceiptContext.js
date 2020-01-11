@@ -31,7 +31,7 @@ const CHVStockReceiptContextProvider = (props) => {
 
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`analytics.json?dimension=dx:chAbRNgZ1Qd;ecB7rZwaUoF;M7vO6YvJFb2;yMqmnRfQey4;C6eXw6p3gQA;IO39vQgTuVk;CzPh5DcAbok;hSwm9GimbS2;PNhjC5E3gKn;MAWC8U4qAYj;gQCchJdm4DW;EIqvaR92eWt;jP8gCXQQYHr;wn9dgrzJ1qF;AhIinSzBdTW;adF5ghDhvFi;XGSDunjprxW;FkXYpKFt9hD&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`, constants.FETCH_OPTIONS);
+    const allData = await fetch(`/api/analytics.json?dimension=dx:chAbRNgZ1Qd;ecB7rZwaUoF;M7vO6YvJFb2;yMqmnRfQey4;C6eXw6p3gQA;IO39vQgTuVk;CzPh5DcAbok;hSwm9GimbS2;PNhjC5E3gKn;MAWC8U4qAYj;gQCchJdm4DW;EIqvaR92eWt;jP8gCXQQYHr;wn9dgrzJ1qF;AhIinSzBdTW;adF5ghDhvFi;XGSDunjprxW;FkXYpKFt9hD&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe);
@@ -61,13 +61,13 @@ const CHVStockReceiptContextProvider = (props) => {
       var colorA = 0.80;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
-      fetch(`  dataElements/${indicatorid}`, constants.FETCH_OPTIONS)
+      fetch(`/api/dataElements/${indicatorid}`)
         .then(res => res.json())
         .then((result) => {
 
           indicatorName = result.displayName
         //inidcatorsList[index] = indicatorName;
-          console.log("indicator results,", result.displayName)
+          //console.log("indicator results,", result.displayName)
 
           let filtered = allData2.filter((data) => {
             // alert(data[0])
@@ -77,7 +77,7 @@ const CHVStockReceiptContextProvider = (props) => {
             return data[2];
           })
           aggData = filtered
-          console.log("agg data,", filtered)
+         // console.log("agg data,", filtered)
 
           setTimeout(() => {
 
@@ -100,7 +100,7 @@ const CHVStockReceiptContextProvider = (props) => {
           }, 0);
         })
         .catch((e) => {
-          console.log(e)
+        //  console.log(e)
           setdataPresent(false)
         })
 

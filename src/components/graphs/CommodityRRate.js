@@ -36,7 +36,7 @@ export default function CommodityRRate() {
       </h4>
       <Spacer></Spacer>
 
-      {graphData.length === 0
+      {graphData.length === 0 || graphData === undefined
         ? <Loading2></Loading2>
         : <Bar options={{
           animation: {

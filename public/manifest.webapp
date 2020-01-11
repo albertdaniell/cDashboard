@@ -1,0 +1,31 @@
+{
+    "version": "0.1",
+    "name": "CStock App",
+    "short_name": "CStock App",
+    "description": "My App is a Packaged App",
+    "launch_path": "./index.html",
+    "appType": "APP",
+    "start_url": "/",
+    "icons": {
+        "16": "./logo1.png",
+        "48": "./logo1.png",
+        "128": "./logo1.png"
+       
+    },
+    "developer": {
+        "name": "Albert Daniel Agoya",
+        "url": ""
+    },
+    "default_locale": "en",
+    "activities": {
+        "dhis": {
+            "href": "*",
+            "namespace": "my-namespace86"
+        }
+    },
+    "authorities": [
+         "MY_APP_ADD_NEW",
+         "MY_APP_UPDATE",
+         "MY_APP_DELETE"
+    ]
+}

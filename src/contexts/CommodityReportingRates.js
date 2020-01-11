@@ -34,11 +34,11 @@ const CommodityReportingRateProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
-    const allData = await fetch(`analytics.json?dimension=dx:zUdUMvPpY7S;PflRNbAv3hO;B9jXSyRn4RH;bHf4q8pPzFJ;YfVM' +
+    const allData = await fetch(`/api/analytics.json?dimension=dx:zUdUMvPpY7S;PflRNbAv3hO;B9jXSyRn4RH;bHf4q8pPzFJ;YfVM' +
         'oUlquDz;VPuHdZpv4sJ;Bt8Nedvaaee;hGMiQ4teZXa;q33nlys1mqT;Nbo7dLam7WC;eGe4UZ0eK5W;' +
         'MsJfgHV4ez4;j8f50aOYx6H;mcgnywJOgh7;XdJbnISaGY1;OOoaCN5rIRd;JSU8L0xCkf4;pQc0IAdW' +
         'prU&dimension=pe:LAST_3_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
-        '9jvRNAGL`, constants.FETCH_OPTIONS);
+        '9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe)
@@ -62,12 +62,12 @@ const CommodityReportingRateProvider = (props) => {
       var colorA = 0.80;
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
 
-      fetch(`indicators/${indicatorid}`, constants.FETCH_OPTIONS)
+      fetch(`/api/indicators/${indicatorid}`)
         .then(res => res.json())
         .then((result) => {
 
           indicatorName = result.displayName
-          console.log("indicator results,", result.displayName)
+          //console.log("indicator results,", result.displayName)
 
           let filtered = allData2.filter((data) => {
             // alert(data[0])
@@ -77,7 +77,7 @@ const CommodityReportingRateProvider = (props) => {
             return data[2];
           })
           aggData = filtered
-          console.log("agg data,", filtered)
+         // console.log("agg data,", filtered)
 
           setTimeout(() => {
 
@@ -100,7 +100,7 @@ const CommodityReportingRateProvider = (props) => {
           }, 400);
         })
         .catch((e) => {
-          console.log(e)
+         // console.log(e)
         })
 
     })

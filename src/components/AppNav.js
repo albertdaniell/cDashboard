@@ -67,7 +67,9 @@ const AppNav = () => {
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li></li>
+              <li>
+                <a href="https://kecstock.jsi.com/api/apps/CStock-App/index.html"><i class="fas fa-redo"></i> Reload Page</a>
+              </li>
               <li class="dropdown">
                 <NavLink activeClassName="active" to="/users">
                   <span

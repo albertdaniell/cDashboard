@@ -37,12 +37,12 @@ const ChvReportingRateContextProvider = (props) => {
 
     setPeriodApi(pe)
   }
-  const url = `  analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:${periodAPI}&displayProperty=NAME&`
+  const url = `/api/analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:${periodAPI}&displayProperty=NAME&`
   const orgUniturl = `organisationUnits`
   const getData = async() => {
     setDataPresent(false)
 
-    const allData = await fetch(url, constants.FETCH_OPTIONS);
+    const allData = await fetch(url);
     const allData2 = await allData.json();
     const setmydata = setData([
       ...allMetaData,
@@ -67,8 +67,8 @@ const ChvReportingRateContextProvider = (props) => {
   }
 
   const getOUNames = () => {
-    console.log("orgUnits", orgUnits)
-    console.log("rowData", rowData)
+   // console.log("orgUnits", orgUnits)
+   // console.log("rowData", rowData)
     var newds = [];
     orgUnits.forEach((id, index) => {
       let aggData = [];
@@ -82,11 +82,11 @@ const ChvReportingRateContextProvider = (props) => {
 
       let orgUnitId = id
       var orgUnitName = "";
-      fetch(`  organisationUnits/${orgUnitId}`, constants.FETCH_OPTIONS)
+      fetch(`/api/organisationUnits/${orgUnitId}`)
         .then(res => res.json())
         .then((result) => {
           orgUnitName = result.displayName
-          console.log(orgUnitName)
+         // console.log(orgUnitName)
 
           let filtered = rowData
             .slice()
@@ -112,18 +112,18 @@ const ChvReportingRateContextProvider = (props) => {
             data
           ]
 
-          console.log("gdata", newds)
+         // console.log("gdata", newds)
           setGraphData(newds)
          setTimeout(() => {
           setDataPresent(true)
           setshowLoading(false)
-         }, 3000);
+         }, 5000);
 
           //  setDataPresent(true) console.log(myds)
 
         })
 
-      console.log(newds)
+     // console.log(newds)
       //setGraphData([newds])
       return newds
 
@@ -136,7 +136,7 @@ const ChvReportingRateContextProvider = (props) => {
   }
 
   useEffect(() => {
-    console.log("haahha")
+   // console.log("haahha")
     getData();
 
   }, [periodAPI])
@@ -146,11 +146,11 @@ const ChvReportingRateContextProvider = (props) => {
   useEffect(() => {
     // getOUNames();
     const mygraphdata = getOUNames()
-    console.log(mygraphdata)
+   // console.log(mygraphdata)
 
     // setGraphData([...graphData,mygraphdata])
 
-    console.log("graph data.....", graphData)
+   // console.log("graph data.....", graphData)
   }, [periods])
 
   // useEffect(() => {   console.log("The data changed", graphData)

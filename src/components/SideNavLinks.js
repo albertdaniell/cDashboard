@@ -2,34 +2,64 @@ import React from 'react';
 import {Route, NavLink, BrowserRouter as Router, Switch} from 'react-router-dom'
 
 const SideNavLinks = () => {
+  const navlinks = [
+    {
+      linkName: "Dashboard",
+      activeClass: "active",
+      to: "/",
+      icon: "fas fa-tachometer-alt"
+    }, {
+      linkName: "C. Reporting Rate",
+      activeClass: "active",
+      to: "/commodityRR",
+      icon: "fas fa-medkit"
+    }, {
+      linkName: "Stock Status",
+      activeClass: "active",
+      to: "/stockstatus",
+      icon: "fas fa-store"
+    }, {
+      linkName: "Stock Status By No.",
+      activeClass: "active",
+      to: "/stockstatusbyno",
+      icon: "fas fa-notes-medical"
+    }, {
+      linkName: "Receipt Reports",
+      activeClass: "active",
+      to: "/receiptreports",
+      icon: "fas fa-file-invoice"
+    }, {
+      linkName: "User Account",
+      activeClass: "active",
+      to: "/users",
+      icon: "fas fa-user"
+    }, {
+      linkName: "Tables",
+      activeClass: "",
+      to: "#",
+      icon: "fas fa-user"
+    },
+
+   
+  ]
+  let myLinks = navlinks.map((link) => {
+
+    return (
+  <div>
+        <NavLink exact activeClassName={link.activeClass} to={link.to}>
+        <i class={link.icon}></i>
+        {link.linkName}</NavLink>
+  </div>
+    )
+  })
   return (
+
     <div>
 
-      <NavLink exact activeClassName="active" to="/">
-        <i class="fas fa-tachometer-alt"></i>
-        Dashboard</NavLink>
+      {myLinks}
+      <a href="/dhis-web-dashboard-integration/index.html"> <i className="fas fa-home"></i> Back to kecstock</a>
 
-      <NavLink activeClassName="active" to="/commodityRR">
-        <i class="fas fa-medkit"></i>
-        C. Reporting Rate</NavLink>
-      <NavLink activeClassName="active" to="/stockstatus">
-        <i class="fas fa-store"></i>
-        Stock Status</NavLink>
 
-      <NavLink activeClassName="active" to="/stockstatusbyno">
-        <i class="fas fa-notes-medical"></i>
-        Stock Status By No.</NavLink>
-      <NavLink activeClassName="active" to='receiptreports'>
-        <i class="fas fa-user"></i>
-        Receipt Reports</NavLink>
-
-      <NavLink activeClassName="active" to="/users">
-        <i class="fas fa-user"></i>
-        User Account</NavLink>
-
-      <NavLink activeClassName="" to="#">
-        <i class="fas fa-user"></i>
-        Tables</NavLink>
     </div>
   );
 }
