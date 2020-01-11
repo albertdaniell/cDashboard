@@ -12,6 +12,11 @@ const fetchOptions = {
 export const CommodityReportingRate = createContext();
 
 const CommodityReportingRateProvider = (props) => {
+
+  const [periodAPI,
+    setPeriodApi] = useState('LAST_3_MONTHS')
+
+
   const [graphData,
     setGraphData] = useState([])
 
@@ -34,10 +39,11 @@ const CommodityReportingRateProvider = (props) => {
     setOuNames] = useState([])
 
   const getData = async() => {
+    setdataPresent(false)
     const allData = await fetch(`/api/analytics.json?dimension=dx:zUdUMvPpY7S;PflRNbAv3hO;B9jXSyRn4RH;bHf4q8pPzFJ;YfVM' +
         'oUlquDz;VPuHdZpv4sJ;Bt8Nedvaaee;hGMiQ4teZXa;q33nlys1mqT;Nbo7dLam7WC;eGe4UZ0eK5W;' +
         'MsJfgHV4ez4;j8f50aOYx6H;mcgnywJOgh7;XdJbnISaGY1;OOoaCN5rIRd;JSU8L0xCkf4;pQc0IAdW' +
-        'prU&dimension=pe:LAST_3_MONTHS&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
+        'prU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw' +
         '9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
@@ -45,6 +51,34 @@ const CommodityReportingRateProvider = (props) => {
     setOu(await allDatajson.metaData.dimensions.ou)
     setDx(await allDatajson.metaData.dimensions.dx)
     setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]))
+  }
+
+  const changePeriodAPI = (pe) => {
+
+    setPeriodApi(pe)
+  }
+
+  const getOuNames = () => {
+    let myounames = []
+    ou.forEach((id, index) => {
+      let orgName;
+      let orgUnitId = id
+      fetch(`/api/organisationUnits/${orgUnitId}`)
+        .then(res => res.json())
+        .then((result) => {
+          //alert(myounames)
+          orgName = result.displayName
+          // myounames = [   ...myounames,   result.displayName ]
+
+          myounames[index] = orgName;
+          setOuNames([...myounames])
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+
+    })
+
   }
 
   const getgraphData = () => {
@@ -92,6 +126,14 @@ const CommodityReportingRateProvider = (props) => {
               data
             ]
 
+
+          newds=newds.slice().sort((a, b) =>{
+            if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
+            if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+            return 0;
+           })
+
+
             setGraphData(newds)
 
             setTimeout(() => {
@@ -108,11 +150,15 @@ const CommodityReportingRateProvider = (props) => {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [periodAPI])
 
   useEffect(() => {
     getgraphData()
   }, [allData2])
+
+  useEffect(() => {
+    getOuNames()
+  }, [ou])
 
   return (
     <CommodityReportingRate.Provider
@@ -124,6 +170,9 @@ const CommodityReportingRateProvider = (props) => {
       periods,
       graphData,
       dataPresent,
+      changePeriodAPI,
+      periodAPI,
+      ouNames
       
     }}>
       {props.children}

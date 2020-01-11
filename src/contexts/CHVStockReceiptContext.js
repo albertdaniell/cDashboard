@@ -55,7 +55,7 @@ const CHVStockReceiptContextProvider = (props) => {
       let indicatorid = indi;
       let aggData = [];
       let backgroundColor = ''
-      var colorR = Math.floor(Math.random() * 225) + 1;
+      var colorR = Math.floor(Math.random() * 235) + 1;
       var colorG = Math.floor(Math.random() * 255) + 1;
       var colorB = Math.floor(Math.random() * 205) + 1;
       var colorA = 0.80;
@@ -91,6 +91,14 @@ const CHVStockReceiptContextProvider = (props) => {
               ...newds,
               data
             ]
+
+
+          newds=newds.slice().sort((a, b) =>{
+            if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
+            if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+            return 0;
+           })
+
 
             setGraphData(newds)
 

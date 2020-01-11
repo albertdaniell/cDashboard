@@ -5,13 +5,14 @@ import Spacer from '../Spacer'
 import Loading2 from '../Loading2';
 import {CommodityReportingRate} from '../../contexts/CommodityReportingRates';
 import sortMonths from '../../constants/sortMonths';
+import TogglePeriod from '../TogglePeriod';
 
 export default function CommodityRRate() {
 
     const [sortedMonths,
         setMonths] = useState([])
 
-  const {graphData, periods, dataPresent,allData} = useContext(CommodityReportingRate)
+  const {graphData,ouNames, periods, dataPresent,allData,changePeriodAPI,periodAPI} = useContext(CommodityReportingRate)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
@@ -24,27 +25,49 @@ export default function CommodityRRate() {
 
   return (
     <div className="col-sm-12 graphDiv">
-      <h4>
-  <center>Commodity Reporting Rates for {
-      sortedMonths.map((month)=>{
-          return(
-              <span>{month} </span>
-          )
 
-      })
-      }</center>
-      </h4>
-      <Spacer></Spacer>
+<div className="col-sm-4">
+       <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
+      </div>
 
-      {graphData.length === 0 || graphData === undefined
-        ? <Loading2></Loading2>
-        : <Bar options={{
-          animation: {
-            duration: 3000 // general animation time
-        },
-          responsive: true
-        }} data={mydata}/>
+      <div className="col-sm-4"></div>
+      <div className="col-sm-4"></div>
+      <br></br>
+
+
+      
+    <div className="col-sm-12">
+
+    <h4>
+          <center>% Commodity Reporting Rates {ouNames.length === 0 || ouNames ===undefined ?null: <span>
+            for {ouNames.map((name) => {
+              return (
+                <span>  {name}
+                  ,
+                </span>
+              )
+
+            })
 }
+            </span>} </center>
+        </h4>
+        <Spacer></Spacer>
+    </div>
+     
+
+      {allData.rows === undefined || allData.rows.length == 0 
+          ? <p style={{
+              color: 'red',textAlign:'center'
+            }}>No data for selected month(s). Toggle the dropdown to select a month</p>
+          : !dataPresent || sortedMonths === undefined || sortedMonths.length === 0
+            ? <Loading2></Loading2>
+            : <Bar options={{
+              responsive: true
+            }} data={mydata}/>
+}
+  
+
+
     </div>
   )
 }

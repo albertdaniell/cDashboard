@@ -132,6 +132,14 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
         data
       ]
 
+
+      newds=newds.slice().sort((a, b) =>{
+        if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
+        if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+        return 0;
+       })
+
+
       setGraphData(newds)
       setdataPresent(true)
       // allData2.forEach((data)=>{ })

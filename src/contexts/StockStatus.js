@@ -7,7 +7,7 @@ export const StockStatus = createContext();
 const StockStatusProvider = (props) => {
 
   const [periodAPI,
-    setPeriodApi] = useState('LAST_MONTH')
+    setPeriodApi] = useState('LAST_3_MONTHS')
 
   const [graphData,
     setGraphData] = useState([])
@@ -132,6 +132,14 @@ const StockStatusProvider = (props) => {
               ...newds,
               data
             ]
+
+
+          newds=newds.slice().sort((a, b) =>{
+            if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
+            if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+            return 0;
+           })
+
 
             setGraphData(newds)
 

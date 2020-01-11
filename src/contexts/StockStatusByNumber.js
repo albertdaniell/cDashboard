@@ -88,6 +88,14 @@ const StockStatusByNoProvider = (props) => {
               data
             ]
 
+
+          newds=newds.slice().sort((a, b) =>{
+            if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
+            if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+            return 0;
+           })
+
+
             setGraphData(newds)
 
             setTimeout(() => {
