@@ -8,8 +8,11 @@
     "@testing-library/user-event": "^7.1.2",
     "build": "^0.1.4",
     "chart.js": "^2.9.3",
+    "html2canvas": "^1.0.0-rc.5",
+    "jspdf": "^1.5.3",
     "react": "^16.12.0",
     "react-chartjs-2": "^2.8.0",
+    "react-csv": "^1.1.2",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
@@ -36,5 +39,4 @@
       "last 1 safari version"
     ]
   }
-  
 }

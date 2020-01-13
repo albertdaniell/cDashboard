@@ -15,9 +15,11 @@ import {CommodityReportingRate} from '../../contexts/CommodityReportingRates';
 import {StockStatus} from '../../contexts/StockStatus';
 import sortMonths from '../../constants/sortMonths';
 import TogglePeriod from '../TogglePeriod';
+import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
+import SavePdfImage from '../SavePdfImage';
 
 export default function CommodityRRate() {
-
+  const {saveToPdf}=useContext(SaveToPdfContext)
   const [sortedMonths,
     setMonths] = useState([])
 
@@ -61,7 +63,9 @@ export default function CommodityRRate() {
       </div>
 
       <div className="col-sm-4"></div>
-      <div className="col-sm-4"></div>
+      <div className="col-sm-4">
+     
+      </div>
       <br></br>
 
       <div className="col-sm-12">
@@ -79,7 +83,8 @@ export default function CommodityRRate() {
             </span>} </center>
         </h4>
         <Spacer></Spacer>
-        {allData.rows === undefined || allData.rows.length == 0 
+       <div className="theGraph">
+       {allData.rows === undefined || allData.rows.length == 0 
           ? <p style={{
               color: 'red',textAlign:'center'
             }}>No data for selected month(s). Toggle the dropdown to select a month</p>
@@ -89,6 +94,7 @@ export default function CommodityRRate() {
               responsive: true
             }} data={mydata}/>
 }
+       </div>
         {/* <button onClick={() => changePeriodAPI()}>Change</button> */}
 
       </div>

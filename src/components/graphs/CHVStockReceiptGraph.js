@@ -16,8 +16,11 @@ import {StockStatus} from '../../contexts/StockStatus';
 import {CHVStockReceiptContext} from '../../contexts/CHVStockReceiptContext';
 import sortMonths from '../../constants/sortMonths';
 import TogglePeriod from '../TogglePeriod';
+import SavePdfImage from '../SavePdfImage';
+import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
 
 export default function CHVStockReceiptGraph() {
+  const {saveToPdf}=useContext(SaveToPdfContext)
 
   const [sortedMonths,
     setMonths] = useState([])
@@ -41,7 +44,11 @@ export default function CHVStockReceiptGraph() {
       </div>
 
       <div className="col-sm-4"></div>
-      <div className="col-sm-4"></div>
+      <div className="col-sm-4">
+   
+      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
+    
+      </div>
       <br></br>
 
       <div className="col-sm-12">
@@ -57,7 +64,8 @@ export default function CHVStockReceiptGraph() {
 }</center>
         </h4>
         <Spacer></Spacer>
-        {allData.rows === undefined || allData.rows.length == 0
+     <div className="theGraph">
+     {allData.rows === undefined || allData.rows.length == 0
           ? <p style={{
               color: 'red'
             }}>No data for selected month(s)</p>
@@ -78,6 +86,7 @@ export default function CHVStockReceiptGraph() {
             }}
               data={mydata}/>
 }
+     </div>
         {/* <button onClick={() => changePeriodAPI()}>Change</button> */}
 
       </div>

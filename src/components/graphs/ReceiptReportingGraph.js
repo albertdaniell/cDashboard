@@ -13,6 +13,8 @@ import ReceiptReportingRatesProvider, {ReceiptReportingRates} from '../../contex
 import Spacer from '../Spacer';
 import Loading2 from '../Loading2';
 import sortMonths from '../../constants/sortMonths';
+import SavePdfImage from '../SavePdfImage';
+import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
 
 const fetchOptions = {
   headers: {
@@ -21,6 +23,7 @@ const fetchOptions = {
 }
 
 const ReceiptReportingGraph = () => {
+  const {saveToPdf}=useContext(SaveToPdfContext)
   const [ouNames,
     setouNames] = useState([])
 
@@ -87,7 +90,11 @@ const ReceiptReportingGraph = () => {
 
       </div>
       <div className="col-sm-4"></div>
-      <div className="col-sm-4"></div>
+      <div className="col-sm-4">
+    
+      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
+    
+      </div>
       <br></br>
 
       <div className="col-sm-12">
@@ -103,7 +110,7 @@ const ReceiptReportingGraph = () => {
     
       {ouName.length === 0
         ? <Loading2></Loading2>
-        : <div>
+        : <div className="theGraph">
           {!showLine
             ? <Bar
                 options={{

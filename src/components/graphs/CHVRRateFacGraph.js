@@ -14,6 +14,9 @@ import Spacer from '../Spacer';
 import Loading2 from '../Loading2';
 import {CHVRRateFacility} from '../../contexts/CHVRRateFacility';
 import sortMonths from '../../constants/sortMonths';
+import TogglePeriod from '../TogglePeriod';
+import SavePdfImage from '../SavePdfImage';
+import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
 
 const fetchOptions = {
   headers: {
@@ -22,11 +25,12 @@ const fetchOptions = {
 }
 
 const CHVRRateFacGraph = () => {
+  const {saveToPdf}=useContext(SaveToPdfContext)
   const [sortedMonths,
     setMonths] = useState([])
   const [ouNames,
     setouNames] = useState([])
-  const {graphData, ou, ouName, dataPresent,periods} = useContext(CHVRRateFacility)
+  const {graphData, ou, ouName, dataPresent,periods,periodAPI,changePeriodAPI} = useContext(CHVRRateFacility)
   const mydata = {
     labels: ouName,
     datasets: graphData
@@ -86,10 +90,17 @@ const CHVRRateFacGraph = () => {
 }</button>
 
       </div>
-      <div className="col-sm-4"></div>
-      <div className="col-sm-4"></div>
-      <br></br>
+      <div className="col-sm-4">
+       <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
+      </div>
 
+      <div className="col-sm-4">
+     
+      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
+     
+      </div>
+     
+      <br></br>
       <div className="col-sm-12">
         <h4>
 <center>Reporting Rates over time for {sortedMonths.map((pe)=>{return(<span> {pe} ,</span>)})}</center>
@@ -99,7 +110,7 @@ const CHVRRateFacGraph = () => {
 
       {!dataPresent
         ? <Loading2></Loading2>
-        : <div>
+        : <div className="theGraph">
           {!showLine
             ? <Bar
                 options={{

@@ -5,7 +5,10 @@ import Spacer from '../Spacer'
 import Loading2 from '../Loading2';
 import sortMonths from '../../constants/sortMonths'
 import TogglePeriod from '../TogglePeriod';
+import SavePdfImage from '../SavePdfImage';
+import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
 function ReportingRate() {
+  const {saveToPdf}=useContext(SaveToPdfContext)
   const [sortedMonths,
     setMonths] = useState([])
   const [data,
@@ -54,6 +57,12 @@ function ReportingRate() {
       <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
 
       </div>
+
+      <div className="col-sm-4">
+     
+      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
+      
+      </div>
       <div className="col-sm-12">
         <h4>
           <center>
@@ -69,7 +78,7 @@ function ReportingRate() {
 
       {!isData
         ? <Loading2></Loading2>
-        : <div>
+        : <div className="theGraph">
           {showLine
             ? <Line
                 options={{

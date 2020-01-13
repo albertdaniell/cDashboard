@@ -1,4 +1,4 @@
-import React, {useContext,useState,useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import SideNav from '../SideNav'
 import AppNav from '../AppNav'
 import {Route, Link, BrowserRouter as Router} from 'react-router-dom'
@@ -24,91 +24,92 @@ import PanelDataContextProvider from '../../contexts/PanelDataContext'
 import ReceiptReportPage from '../../pages/ReceiptReportPage'
 import ReceiptReportReportOntimeProvider from '../../contexts/ReceiptReportReportOntime'
 import {useSpring, animated} from 'react-spring'
-
+import SaveToPdfContextProvider from '../../contexts/SaveToPdfContext'
 
 export default function PageLayout() {
-  const [myopacity,setOpacity]=useState(0)
+  const [myopacity,
+    setOpacity] = useState(0)
 
   const props = useSpring({
     opacity: myopacity,
-    from: { opacity: 0},
+    from: {
+      opacity: 0
+    }
   })
 
   useEffect(() => {
-   setTimeout(() => {
-    setOpacity(1)
-   }, 3000);
+    setTimeout(() => {
+      setOpacity(1)
+    }, 3000);
   }, [])
 
   useEffect(() => {
-    window.onbeforeunload = (e) => {
-      console.log('Stop this');
-      
-      window.location.replace("https://kecstock.jsi.com/api/apps/CStock-App/index.html")
-      e.preventDefault()
-      e.returnValue = '';
-    };
-    
+    // window.onbeforeunload = (e) => {   console.log('Stop this');
+    // window.location.replace("https://kecstock.jsi.com/api/apps/CStock-App/index.ht
+    // ml")   e.preventDefault()   e.returnValue = ''; };
+
   }, [])
   return (
 
     <Router>
-      <ReceiptReportReportOntimeProvider>
-        <ReceiptReportingRatesProvider>
-          <PanelDataContextProvider>
-            <CHVStockReceiptContextProvider>
-              <StockStatusByNoProvider>
-                <CHVRRateFacilityProvider>
-                  <StockStatusProvider>
-                    <CommodityReportingRateProvider>
-                      <ReportingRateReportingRateOnTimeProvider>
-                        <UserContextProvider>
-                          <ActualReportingExpectedProvider>
+      <SaveToPdfContextProvider>
+        <ReceiptReportReportOntimeProvider>
+          <ReceiptReportingRatesProvider>
+            <PanelDataContextProvider>
+              <CHVStockReceiptContextProvider>
+                <StockStatusByNoProvider>
+                  <CHVRRateFacilityProvider>
+                    <StockStatusProvider>
+                      <CommodityReportingRateProvider>
+                        <ReportingRateReportingRateOnTimeProvider>
+                          <UserContextProvider>
+                            <ActualReportingExpectedProvider>
 
-                            <ChvReportingRateContextProvider>
-                              <Loading></Loading>
-                              {/* <BackgroundLoading></BackgroundLoading> */}
+                              <ChvReportingRateContextProvider>
+                                <Loading></Loading>
+                                {/* <BackgroundLoading></BackgroundLoading> */}
 
-                              <animated.div className="container-fluid" style={props}>
+                                <animated.div className="container-fluid" style={props}>
 
-                                <div className="row">
-                                  <SideNavWallpaper></SideNavWallpaper>
-                                  <div className="col-sm-2 sideNav">
+                                  <div className="row">
+                                    <SideNavWallpaper></SideNavWallpaper>
+                                    <div className="col-sm-2 sideNav">
 
-                                    <SideNav></SideNav>
+                                      <SideNav></SideNav>
+                                    </div>
+                                    <div className="col-sm-10 mainDiv">
+                                      <AppNav></AppNav>
+
+                                      <animated.div style={props}>
+                                        <Route exact path="/" component={Dashboard}/>
+                                        <Route path="/users" component={Users}/>
+                                        <Route path="/commodityRR" component={CommodityRates}></Route>
+                                        <Route path="/stockstatus" component={StockStatusPage}></Route>
+                                        <Route path="/stockstatusbyno" component={StockStatusByNoPage}></Route>
+                                        <Route path="/receiptreports" component={ReceiptReportPage}></Route>
+
+                                      </animated.div>
+
+                                    </div>
+
                                   </div>
-                                  <div className="col-sm-10 mainDiv">
-                                    <AppNav></AppNav>
 
-                                    <animated.div style={props}>
-                                      <Route exact path="/" component={Dashboard}/>
-                                      <Route path="/users" component={Users}/>
-                                      <Route path="/commodityRR" component={CommodityRates}></Route>
-                                      <Route path="/stockstatus" component={StockStatusPage}></Route>
-                                      <Route path="/stockstatusbyno" component={StockStatusByNoPage}></Route>
-                                      <Route path="/receiptreports" component={ReceiptReportPage}></Route>
+                                </animated.div>
+                              </ChvReportingRateContextProvider>
+                            </ActualReportingExpectedProvider>
 
-                                    </animated.div>
+                          </UserContextProvider>
+                        </ReportingRateReportingRateOnTimeProvider>
 
-                                  </div>
-
-                                </div>
-
-                              </animated.div>
-                            </ChvReportingRateContextProvider>
-                          </ActualReportingExpectedProvider>
-
-                        </UserContextProvider>
-                      </ReportingRateReportingRateOnTimeProvider>
-
-                    </CommodityReportingRateProvider>
-                  </StockStatusProvider>
-                </CHVRRateFacilityProvider>
-              </StockStatusByNoProvider>
-            </CHVStockReceiptContextProvider>
-          </PanelDataContextProvider>
-        </ReceiptReportingRatesProvider>
-      </ReceiptReportReportOntimeProvider>
+                      </CommodityReportingRateProvider>
+                    </StockStatusProvider>
+                  </CHVRRateFacilityProvider>
+                </StockStatusByNoProvider>
+              </CHVStockReceiptContextProvider>
+            </PanelDataContextProvider>
+          </ReceiptReportingRatesProvider>
+        </ReceiptReportReportOntimeProvider>
+      </SaveToPdfContextProvider>
 
     </Router>
   )

@@ -7,8 +7,11 @@ import Loading2 from '../Loading2';
 import {ReceiptReportReportOntime} from '../../contexts/ReceiptReportReportOntime';
 import sortMonths from '../../constants/sortMonths';
 import TogglePeriod from '../TogglePeriod';
+import SavePdfImage from '../SavePdfImage';
+import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
 
 const ReceiptRRateOnTimeGraph = () => {
+  const {saveToPdf}=useContext(SaveToPdfContext)
 
   const [showLine,
     setShowLine] = useState(false)
@@ -47,7 +50,11 @@ const ReceiptRRateOnTimeGraph = () => {
       <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
 
       </div>
-      <div className="col-sm-4"></div>
+      <div className="col-sm-4">
+      
+      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
+      
+      </div>
       <br></br>
 
       <div className="col-sm-12">
@@ -66,7 +73,7 @@ const ReceiptRRateOnTimeGraph = () => {
 
       {!RROntimedataPresent
         ? <Loading2></Loading2>
-        : <div>
+        : <div className="theGraph">
           {showLine
             ? <Line
                 options={{

@@ -7,9 +7,13 @@ import {CommodityReportingRate} from '../../contexts/CommodityReportingRates';
 import { StockStatusByNo } from '../../contexts/StockStatusByNumber';
 import sortMonths from '../../constants/sortMonths';
 import TogglePeriod from '../TogglePeriod';
+import SavePdfImage from '../SavePdfImage';
+import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
 
 export default function StockStatusByNoGraph() {
 
+  
+  const {saveToPdf}=useContext(SaveToPdfContext)
   const [sortedMonths,
     setMonths] = useState([])
 
@@ -32,7 +36,11 @@ export default function StockStatusByNoGraph() {
       </div>
 
       <div className="col-sm-4"></div>
-      <div className="col-sm-4"></div>
+      <div className="col-sm-4">
+      
+      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
+      
+      </div>
       <br></br>
 
       <div className="col-sm-12">
@@ -42,7 +50,8 @@ export default function StockStatusByNoGraph() {
 }</center>
         </h4>
         <Spacer></Spacer>
-        {allData.rows === undefined || allData.rows.length === 0
+       <div className="theGraph">
+       {allData.rows === undefined || allData.rows.length === 0
           ?<p style={{
             color: 'red',textAlign:'center'
           }}>No data for selected month(s). Toggle the dropdown to select a month</p>
@@ -55,6 +64,7 @@ export default function StockStatusByNoGraph() {
               responsive: true
             }} data={mydata}/>
 }
+       </div>
         {/* <button onClick={() => changePeriodAPI()}>Change</button> */}
 
       </div>
