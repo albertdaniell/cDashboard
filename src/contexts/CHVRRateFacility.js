@@ -88,20 +88,31 @@ const CHVRRateFacilityProvider = (props) => {
     dataElement.map((de) => {
 
       let aggData = []
+      var colorR = Math.floor(Math.random() * 255) + 1;
+      var colorG = Math.floor(Math.random() * 255) + 1;
+      var colorB = Math.floor(Math.random() * 255) + 1;
+      var colorA = 0.85;
+      let backgroundColor=`rgba(${colorR},${colorG},${colorB},${colorA})`
 
       let dataElementName = de
       let dataElementName2 = de
       if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS") {
         dataElementName2 = "CHV Actual Reports"
+        backgroundColor=`rgba(175, 204, 42, .8)`
       } else if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME") {
         dataElementName2 = "CHV Actual Reports on Time"
+        backgroundColor=`rgba(200, 94, 108, .8)`
       } else if (dataElementName === "z2slLbjn7PM.EXPECTED_REPORTS") {
         dataElementName2 = "CHV Expected Reports"
+        backgroundColor=`rgba(64, 121, 208, .8)`
       } else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE") {
         dataElementName2 = "CHV Reporting Rate"
+        backgroundColor=`rgba(241,103,186,.80)`
       } else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE_ON_TIME") {
         dataElementName2 = "CHV Reporting Rate on Time"
+        backgroundColor=`rgba(112,223,173,.8)`
       }
+
 
       let filtered = allData2.filter((data) => {
         return data[0] === dataElementName
@@ -114,16 +125,12 @@ const CHVRRateFacilityProvider = (props) => {
 
       aggData = filtered
 
-      var colorR = Math.floor(Math.random() * 255) + 1;
-      var colorG = Math.floor(Math.random() * 255) + 1;
-      var colorB = Math.floor(Math.random() * 255) + 1;
-      var colorA = 0.85;
+   
       var data = {
         data: aggData,
         label: dataElementName2,
-        backgroundColor: `rgba(${colorR},${colorG},${colorB},${colorA})`
+        backgroundColor: backgroundColor
       }
-
       newds = [
         ...newds,
         data

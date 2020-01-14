@@ -36,10 +36,10 @@ const ReceiptRRateOnTimeGraph = () => {
   }, [periods])
   return (
     <div className="col-sm-12 graphDiv">
-      <div className="col-sm-4">
+      <div className="col-sm-2">
         <button
           className="btn btn-default btn-sm"
-          onClick={() => setShowLine(!showLine)}>Toggle Line/Bar {showLine
+          onClick={() => setShowLine(!showLine)}>{showLine
             ? <i class="fas fa-chart-line fa-2x isLine"></i>
             : <i class="far fa-chart-bar fa-2x isBar"></i>
 }</button>

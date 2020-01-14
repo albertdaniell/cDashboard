@@ -86,6 +86,12 @@ const ChvReportingRateContextProvider = (props) => {
         .then(res => res.json())
         .then((result) => {
           orgUnitName = result.displayName
+          if (orgUnitId === "u4t9H8XyU9P"){
+            backgroundColor='rgba(230, 123, 12, .8)'
+          }
+          else if(orgUnitId === "whor1AvaeeB"){
+            backgroundColor='rgba(56, 104, 212, .8)'
+          }
          // console.log(orgUnitName)
 
           let filtered = rowData

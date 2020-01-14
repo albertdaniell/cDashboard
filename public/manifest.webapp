@@ -20,7 +20,7 @@
     "activities": {
         "dhis": {
             "href": "*",
-            "namespace": "my-namespace111"
+            "namespace": "my-namespace115"
         }
     },
     "authorities": [

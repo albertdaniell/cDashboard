@@ -63,6 +63,26 @@ const StockStatusByNoProvider = (props) => {
         .then((result) => {
            // console.log("stockstatus by n res",result)
           catOptionName = result.displayName
+          if(catOptionName === "Adequate"){
+           
+            backgroundColor=`rgba(150, 200, 64, 1)`
+          }
+
+          else if(catOptionName === "Overstocked"){
+            backgroundColor=`rgba(130, 161, 201, .8)`
+          }
+
+          else if(catOptionName === "Stockout"){
+            backgroundColor=`rgba(150, 30, 30, .8)`
+          }
+
+          else if(catOptionName === "Understocked"){
+            backgroundColor = `rgba(239, 84, 249, .8)`
+          }
+
+          else{
+            backgroundColor=backgroundColor
+          }
 
           let filtered = allData2.filter((data) => {
             // alert(data[0])

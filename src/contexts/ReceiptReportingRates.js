@@ -90,14 +90,19 @@ const ReceiptReportingRatesProvider = (props) => {
 
       if (dataElementName === "s4029egvhCv.ACTUAL_REPORTS") {
         dataElementName2 = "Monthly CHV Receipt Actual Reports"
+        backgroundColor=`rgba(175, 204, 42, .8)`
       } else if (dataElementName === "s4029egvhCv.ACTUAL_REPORTS_ON_TIME") {
         dataElementName2 = "Monthly  CHV Receipt Actual Reports on Time"
+        backgroundColor=`rgba(200, 94, 108, .8)`
       } else if (dataElementName === "s4029egvhCv.EXPECTED_REPORTS") {
         dataElementName2 = "Monthly  CHV Receipt Expected Reports"
+        backgroundColor=`rgba(64, 121, 208, .8)`
       } else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE") {
         dataElementName2 = "Monthly CHV SOH Reporting Rate"
+        backgroundColor=`rgba(241,103,186,.80)`
       } else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE_ON_TIME") {
         dataElementName2 = "Monthly CHV SOH Reporting Rate on time"
+        backgroundColor=`rgba(112,223,173,.8)`
       }
 
       let filtered = allData2.filter((data) => {

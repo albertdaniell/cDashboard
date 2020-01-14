@@ -103,8 +103,10 @@ const ReceiptReportReportOntimeProvider = (props) => {
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
       if (dxvalue === "s4029egvhCv.REPORTING_RATE_ON_TIME") {
         dataElement = "CHV Receipt Reporting Rate on time"
+        backgroundColor=`rgba(112,223,173,.8)`
       } else if (dxvalue === "s4029egvhCv.REPORTING_RATE") {
         dataElement = "CHV Receipt Reporting Rate"
+        backgroundColor=`rgba(241,103,186,.80)`
 
       }
 

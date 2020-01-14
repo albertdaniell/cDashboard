@@ -100,20 +100,26 @@ const ActualReportingExpectedProvider = (props) => {
         var colorA = 0.85;
         let backgroundColor= `rgba(${colorR},${colorG},${colorB},${colorA})`
 
+ 
         if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS") {
           dataElementName2 = "Monthly CHV SOH Actual Reports"
+          backgroundColor=`rgba(175, 204, 42, .8)`
         } else if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME") {
           dataElementName2 = "Monthly  CHV SOH Actual Reports on Time"
+          backgroundColor=`rgba(200, 94, 108, .8)`
         } else if (dataElementName === "z2slLbjn7PM.EXPECTED_REPORTS") {
           dataElementName2 = "Monthly  CHV SOH Expected Reports"
+          backgroundColor=`rgba(64, 121, 208, .8)`
         }
 
         else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE") {
           dataElementName2 = "Monthly CHV SOH Reporting Rate"
+          backgroundColor=`rgba(241,103,186,.80)`
         }
 
         else if (dataElementName === "z2slLbjn7PM.REPORTING_RATE_ON_TIME") {
           dataElementName2 = "Monthly CHV SOH Reporting Rate on time"
+          backgroundColor=`rgba(112,223,173,.8)`
         }
 
         let filtered = allData2.filter((data) => {
