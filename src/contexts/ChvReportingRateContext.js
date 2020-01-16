@@ -6,7 +6,8 @@ export const ChvReportingRateContext = createContext();
 const ChvReportingRateContextProvider = (props) => {
   const [periodAPI,
     setPeriodApi] = useState('LAST_12_MONTHS')
-
+    const [allData2,
+      setallData2] = useState([])
   const [showLoading,
     setshowLoading] = useState(true)
 
@@ -31,13 +32,23 @@ const ChvReportingRateContextProvider = (props) => {
   const [isData,
     setDataPresent] = useState(false)
 
+    const [ouAPI,setouAPI]=useState('USER_ORGUNIT')
+    const [defaultou,setdefaultou]=useState('USER_ORGUNIT')
+
+  const changeOrgAPI=(ou)=>{
+    //alert(ou)
+    setouAPI(ou)
+
+  }
+
+
   // end of states
 
   const changePeriodAPI = (pe) => {
 
     setPeriodApi(pe)
   }
-  const url = `/api/analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&dimension=pe:${periodAPI}&displayProperty=NAME&`
+  const url = `/api/analytics?dimension=dx:z2slLbjn7PM.REPORTING_RATE&dimension=ou:${ouAPI}&dimension=pe:${periodAPI}&displayProperty=NAME&`
   const orgUniturl = `organisationUnits`
   const getData = async() => {
     setDataPresent(false)
@@ -61,6 +72,7 @@ const ChvReportingRateContextProvider = (props) => {
     //Test();
 
     setPeriods(await myperiods);
+    setallData2(await allData2.rows)
 
     // console.log("All Metadata:",allMetaData) console.log(setmydata)
     // console.log(await allData2)
@@ -153,7 +165,7 @@ const ChvReportingRateContextProvider = (props) => {
    // console.log("haahha")
     getData();
 
-  }, [periodAPI])
+  }, [periodAPI,ouAPI])
 
  
 
@@ -182,7 +194,11 @@ const ChvReportingRateContextProvider = (props) => {
       changePeriodAPI,
       showLoading,
       setshowLoading,
-      periodAPI
+      periodAPI,
+      changeOrgAPI,
+      ouAPI,
+      defaultou,
+      allData2
     }}>
       {props.children}
     </ChvReportingRateContext.Provider>

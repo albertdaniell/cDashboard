@@ -30,11 +30,21 @@ const ActualReportingExpectedProvider = (props) => {
 
     const [pe,
       setPeriod] = useState([])
+    const [ouAPI,setouAPI]=useState('USER_ORGUNIT')
+    const [defaultou,setdefaultou]=useState('USER_ORGUNIT')
+
+  const changeOrgAPI=(ou)=>{
+    //alert(ou)
+    setouAPI(ou)
+
+  }
 
 
   const getData = async() => {
+    setdataPresent(false)
+    
 
-    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`)
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=ou:${ouAPI}&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
 
@@ -65,7 +75,7 @@ const ActualReportingExpectedProvider = (props) => {
     setou(myou)
     setdataElement(myDataElements)
     setou2(await myalldata1json.metaData.dimensions.ou)
-   // console.log(await myalldata1json)
+    console.log(await myalldata1json)
    // setdataElement(await myalldata1json.metaData.dimensions.dx)
    // alert(await myalldata1json.metaData.dimensions.dx)
     setPeriod(await myalldata1json.metaData.dimensions.pe)
@@ -75,9 +85,9 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getData2 = async() => {
 
-    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`)
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:${ouAPI}&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`)
     const myalldata1json = await myalldata1.json()
-    //console.log(await myalldata1json)
+    console.log(await myalldata1json)
   //  setallData2(await myalldata1json.dataValues)
 
   }
@@ -100,7 +110,6 @@ const ActualReportingExpectedProvider = (props) => {
         var colorA = 0.85;
         let backgroundColor= `rgba(${colorR},${colorG},${colorB},${colorA})`
 
- 
         if (dataElementName === "z2slLbjn7PM.ACTUAL_REPORTS") {
           dataElementName2 = "Monthly CHV SOH Actual Reports"
           backgroundColor=`rgba(175, 204, 42, .8)`
@@ -143,15 +152,17 @@ const ActualReportingExpectedProvider = (props) => {
           ...newds,
           data
         ]
-  
-        
-       
+
+
         newds=newds.slice().sort((a, b) =>{
           if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
           if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
           return 0;
          })
 
+  
+        
+       
 
       })
 
@@ -189,7 +200,7 @@ const ActualReportingExpectedProvider = (props) => {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [ouAPI])
 
   useEffect(() => {
     // alert(0)
@@ -205,6 +216,10 @@ const ActualReportingExpectedProvider = (props) => {
     getOrgNames()
   }, [allData2])
 
+  
+
+  
+
   return (
     <ActualReportingExpected.Provider
       value={{
@@ -216,7 +231,10 @@ const ActualReportingExpectedProvider = (props) => {
       ouName,
       dataPresent,
       pe,
-      ou2
+      ou2,
+      changeOrgAPI,
+      ouAPI,
+      defaultou
     }}>
       {props.children}
 

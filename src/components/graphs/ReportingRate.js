@@ -7,6 +7,9 @@ import sortMonths from '../../constants/sortMonths'
 import TogglePeriod from '../TogglePeriod';
 import SavePdfImage from '../SavePdfImage';
 import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
+import OrgsComponent from '../OrgsComponent';
+import ToggleGraphOptions from '../ToggleGraphOptions';
+import NoData from '../NoData';
 function ReportingRate() {
   const {saveToPdf}=useContext(SaveToPdfContext)
   const [sortedMonths,
@@ -19,7 +22,12 @@ function ReportingRate() {
     dataName,
     isData,
     changePeriodAPI,
-    periodAPI
+    periodAPI,
+    changeOrgAPI,
+    allMetaData,
+    ouAPI,
+    defaultou,
+    allData2
   } = useContext(ChvReportingRateContext)
   const mydata = {
     labels: sortedMonths,
@@ -28,6 +36,19 @@ function ReportingRate() {
 
   const [showLine,
     setShowLine] = useState(false)
+
+    const [orgsModalOpen,
+      setorgsModal] = useState(false)
+
+  const toggleOrgsModal = (e) => {
+    e.preventDefault()
+    setorgsModal(!orgsModalOpen)
+  }
+
+  const toggleLine = (e) => {
+    // e.preventDefault()
+    setShowLine(!showLine)
+  }
 
   useEffect(() => {
     console.log(periods[0])
@@ -43,14 +64,19 @@ function ReportingRate() {
 
   return (
     <div className="col-sm-12 graphDiv" style={{}}>
-      <div className="col-sm-2">
-        <button
-          className="btn btn-default btn-sm"
-          onClick={() => setShowLine(!showLine)}>{showLine
-            ? <i class="fas fa-chart-line fa-2x isLine"></i>
-            : <i class="far fa-chart-bar fa-2x isBar"></i>
-}</button>
-
+        {orgsModalOpen
+        ? <OrgsComponent
+            defaultou={defaultou}
+            ouAPI={ouAPI}
+            changeOrgAPI={changeOrgAPI}
+            toggleOrgsModal={toggleOrgsModal}></OrgsComponent>
+        : null
+}
+<div className="col-sm-4">
+        <ToggleGraphOptions
+          showLine={showLine}
+          toggleLine={toggleLine}
+          toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
       </div>
       <div className="col-sm-4">
 
@@ -79,7 +105,13 @@ function ReportingRate() {
       {!isData
         ? <Loading2></Loading2>
         : <div className="theGraph">
-          {showLine
+        
+         {allData2 === undefined || allData2.length == 0 ?
+          <center>
+          <NoData></NoData>
+        </center>:
+          <div>
+              {showLine
             ? <Line
                 options={{
                 lineTension: "0",
@@ -98,6 +130,8 @@ function ReportingRate() {
             }}
               data={mydata}></Bar>
 }
+          </div>
+        }
         </div>
 }
 

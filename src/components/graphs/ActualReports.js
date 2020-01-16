@@ -14,7 +14,10 @@ import Spacer from '../Spacer';
 import Loading2 from '../Loading2';
 import sortMonths from '../../constants/sortMonths';
 import SavePdfImage from '../SavePdfImage';
-import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
+import {SaveToPdfContext} from '../../contexts/SaveToPdfContext';
+import OrgsComponent from '../OrgsComponent';
+import ToggleGraphOptions from '../ToggleGraphOptions';
+import NoData from '../NoData';
 
 const fetchOptions = {
   headers: {
@@ -23,27 +26,50 @@ const fetchOptions = {
 }
 
 const ActualReports = () => {
-  const {saveToPdf}=useContext(SaveToPdfContext)
+  const {saveToPdf} = useContext(SaveToPdfContext)
+
   const [ouNames,
     setouNames] = useState([])
 
-    const [formatedMonths,setMonths]=useState([])
-  const {graphData, ou, ouName, dataPresent,pe} = useContext(ActualReportingExpected)
+  const [formatedMonths,
+    setMonths] = useState([])
+  const {
+    graphData,
+    ou,
+    ouName,
+    dataPresent,
+    pe,
+    changeOrgAPI,
+    allData2,
+    defaultou,
+    ouAPI
+  } = useContext(ActualReportingExpected)
   const mydata = {
     labels: ouName,
     datasets: graphData
   }
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    let formattedMonths= sortMonths(pe)
+    let formattedMonths = sortMonths(pe)
     setMonths(formattedMonths)
-  },[pe])
-
-
+  }, [pe])
 
   const [showLine,
     setShowLine] = useState(false)
+
+  const [orgsModalOpen,
+    setorgsModal] = useState(false)
+
+  const toggleOrgsModal = (e) => {
+    e.preventDefault()
+    setorgsModal(!orgsModalOpen)
+  }
+
+  const toggleLine = (e) => {
+    // e.preventDefault()
+    setShowLine(!showLine)
+  }
 
   useEffect(() => {
 
@@ -78,51 +104,62 @@ const ActualReports = () => {
 
   }, [graphData])
   return (
-    <div className="col-sm-12 graphDiv" style={{
-     
-    }}>
-      <div className="col-sm-2">
-        <button
-          className="btn btn-default btn-sm"
-          onClick={() => setShowLine(!showLine)}>{showLine
-            ? <i class="fas fa-chart-line fa-2x isLine"></i>
-            : <i class="far fa-chart-bar fa-2x isBar"></i>
-}</button>
+    <div className="col-sm-12 graphDiv" style={{}}>
 
+      {orgsModalOpen
+        ? <OrgsComponent
+            defaultou={defaultou}
+            ouAPI={ouAPI}
+            changeOrgAPI={changeOrgAPI}
+            toggleOrgsModal={toggleOrgsModal}></OrgsComponent>
+        : null
+}
+      <div className="col-sm-4">
+        <ToggleGraphOptions
+          showLine={showLine}
+          toggleLine={toggleLine}
+          toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
       </div>
       <div className="col-sm-4"></div>
       <div className="col-sm-4">
-     
-      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
-      
+
+        {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
+
       </div>
       <br></br>
 
       <div className="col-sm-12">
         <h4>
-<center>Reporting Rates over time for {formatedMonths}</center>
+          <center>Reporting Rates over time for {formatedMonths}</center>
         </h4>
         <Spacer></Spacer>
       </div>
-    
+
       {ouName.length === 0
         ? <Loading2></Loading2>
         : <div className="theGraph">
-          {!showLine
-            ? <Bar
-                options={{
+          {allData2 === undefined || allData2.length === 0
+            ? <center><NoData></NoData></center>
+            : <div>
+              {!showLine
+                ? <Bar
+                    options={{
+                    animation: {
+                      duration: 3000
+                    },
+                    responsive: true
+                  }}
+                    data={mydata}/>
+                : <Line
+                  options={{
                   animation: {
-                    duration: 3000 // general animation time
-                },
-                responsive: true
-              }}
-                data={mydata}/>
-            : <Line options={{
-              animation: {
-                duration: 3000 // general animation time
-            },
-              responsive: true
-            }} data={mydata}></Line>
+                    duration: 3000
+                  },
+                  responsive: true
+                }}
+                  data={mydata}></Line>
+}
+            </div>
 }
         </div>
 }

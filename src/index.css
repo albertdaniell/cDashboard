@@ -331,3 +331,60 @@ font-size: 25px;
 ::-webkit-scrollbar-thumb:hover {
   background: #000000; 
 }
+
+
+
+
+.orgComp p:active{
+  color: red;
+  background-color: aqua;
+}
+
+.orgComp p:hover{
+  cursor: pointer;
+  color: red;
+}
+
+.orgComp{
+  background-color: rgba(0, 0, 0,.8);
+ 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  min-height: 100%;
+  max-height: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  margin-right: 10px;
+  
+  z-index: 2000;
+
+  
+  font-size: 12px;
+ 
+}
+
+.orgCompDiv{
+  background-color: white;
+  color: black;
+  min-height: 500px;
+  max-height: 500px;
+  min-width: 400px;
+  max-width: 400px;
+  border-radius: 4px;
+  margin-top: 20px;
+  overflow: auto;
+  box-shadow: 2px 2px 8px 2px #313131;
+
+}
+
+.dropdown li .btn{
+  border: 0px solid transparent;
+  display: block;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  border-radius: 0;
+}

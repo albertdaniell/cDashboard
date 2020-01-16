@@ -9,6 +9,7 @@ import sortMonths from '../../constants/sortMonths';
 import TogglePeriod from '../TogglePeriod';
 import SavePdfImage from '../SavePdfImage';
 import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
+import NoData from '../NoData';
 
 export default function StockStatusByNoGraph() {
 
@@ -52,9 +53,10 @@ export default function StockStatusByNoGraph() {
         <Spacer></Spacer>
        <div className="theGraph">
        {allData.rows === undefined || allData.rows.length === 0
-          ?<p style={{
-            color: 'red',textAlign:'center'
-          }}>No data for selected month(s). Toggle the dropdown to select a month</p>
+          ?
+          <center>
+            <NoData></NoData>
+          </center>
           : !stockdataPresent
             ? <Loading2></Loading2>
             : <Bar options={{
