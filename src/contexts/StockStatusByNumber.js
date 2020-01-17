@@ -28,11 +28,22 @@ const StockStatusByNoProvider = (props) => {
   const [ouNames,
     setOuNames] = useState([])
 
+  const [ouAPI,
+    setouAPI] = useState('USER_ORGUNIT')
+  const [defaultou,
+    setdefaultou] = useState('USER_ORGUNIT')
+
+  const changeOrgAPI = (ou) => {
+    //alert(ou)
+    setouAPI(ou)
+
+  }
+
   const getData = async() => {
     setPeriods([])
     let stockstatusid = ".VAhKn4YLOtX"
     setdataPresent(false)
-    const allData = await fetch(`/api/analytics.json?dimension=VAhKn4YLOtX:aVuisZ9bgxJ;JkW5RXtoxjj;YxgCPnP2Mbn;fkBysl2P7tC&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&filter=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1GdTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`);
+    const allData = await fetch(`/api/analytics.json?dimension=VAhKn4YLOtX:aVuisZ9bgxJ;JkW5RXtoxjj;YxgCPnP2Mbn;fkBysl2P7tC&dimension=pe:${periodAPI}&filter=ou:${ouAPI}&filter=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1GdTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe);
@@ -45,10 +56,10 @@ const StockStatusByNoProvider = (props) => {
     setPeriodApi(pe)
   }
   const getgraphData = () => {
-  
+
     let newds = [];
     dx.map((dxid) => {
-        let catOptid=dxid
+      let catOptid = dxid
       let catOptionName = "99"
       let aggData = [];
       let backgroundColor = ''
@@ -61,27 +72,19 @@ const StockStatusByNoProvider = (props) => {
       fetch(`/api/categoryOptions/${catOptid}`)
         .then(res => res.json())
         .then((result) => {
-           // console.log("stockstatus by n res",result)
+          // console.log("stockstatus by n res",result)
           catOptionName = result.displayName
-          if(catOptionName === "Adequate"){
-           
-            backgroundColor=`rgba(150, 200, 64, 1)`
-          }
+          if (catOptionName === "Adequate") {
 
-          else if(catOptionName === "Overstocked"){
-            backgroundColor=`rgba(130, 161, 201, .8)`
-          }
-
-          else if(catOptionName === "Stockout"){
-            backgroundColor=`rgba(150, 30, 30, .8)`
-          }
-
-          else if(catOptionName === "Understocked"){
+            backgroundColor = `rgba(150, 200, 64, 1)`
+          } else if (catOptionName === "Overstocked") {
+            backgroundColor = `rgba(130, 161, 201, .8)`
+          } else if (catOptionName === "Stockout") {
+            backgroundColor = `rgba(150, 30, 30, .8)`
+          } else if (catOptionName === "Understocked") {
             backgroundColor = `rgba(239, 84, 249, .8)`
-          }
-
-          else{
-            backgroundColor=backgroundColor
+          } else {
+            backgroundColor = backgroundColor
           }
 
           let filtered = allData2.filter((data) => {
@@ -108,13 +111,15 @@ const StockStatusByNoProvider = (props) => {
               data
             ]
 
-
-          newds=newds.slice().sort((a, b) =>{
-            if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
-            if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
-            return 0;
-           })
-
+            newds = newds
+              .slice()
+              .sort((a, b) => {
+                if (a.label.toLowerCase() < b.label.toLowerCase()) 
+                  return -1;
+                if (a.label.toLowerCase() > b.label.toLowerCase()) 
+                  return 1;
+                return 0;
+              })
 
             setGraphData(newds)
 
@@ -130,7 +135,7 @@ const StockStatusByNoProvider = (props) => {
 
   useEffect(() => {
     getData()
-  }, [periodAPI])
+  }, [periodAPI,ouAPI])
 
   useEffect(() => {
     getgraphData()
@@ -146,12 +151,16 @@ const StockStatusByNoProvider = (props) => {
       graphData,
       stockdataPresent,
       changePeriodAPI,
-      periodAPI
-    }}> {props.children}
+      periodAPI,
+      changeOrgAPI,
+      ouAPI,
+      defaultou
+    }}>
+      {props.children}
 
     </StockStatusByNo.Provider>
 
-)
+  )
 }
 
 export default StockStatusByNoProvider;

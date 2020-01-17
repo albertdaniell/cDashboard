@@ -29,9 +29,21 @@ const CHVStockReceiptContextProvider = (props) => {
   const [ouNames,
     setOuNames] = useState([])
 
+
+    const [pe,
+      setPeriod] = useState([])
+    const [ouAPI,setouAPI]=useState('USER_ORGUNIT')
+    const [defaultou,setdefaultou]=useState('USER_ORGUNIT')
+
+  const changeOrgAPI=(ou)=>{
+    //alert(ou)
+    setouAPI(ou)
+
+  }
+
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`/api/analytics.json?dimension=dx:chAbRNgZ1Qd;ecB7rZwaUoF;M7vO6YvJFb2;yMqmnRfQey4;C6eXw6p3gQA;IO39vQgTuVk;CzPh5DcAbok;hSwm9GimbS2;PNhjC5E3gKn;MAWC8U4qAYj;gQCchJdm4DW;EIqvaR92eWt;jP8gCXQQYHr;wn9dgrzJ1qF;AhIinSzBdTW;adF5ghDhvFi;XGSDunjprxW;FkXYpKFt9hD&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
+    const allData = await fetch(`/api/analytics.json?dimension=dx:chAbRNgZ1Qd;ecB7rZwaUoF;M7vO6YvJFb2;yMqmnRfQey4;C6eXw6p3gQA;IO39vQgTuVk;CzPh5DcAbok;hSwm9GimbS2;PNhjC5E3gKn;MAWC8U4qAYj;gQCchJdm4DW;EIqvaR92eWt;jP8gCXQQYHr;wn9dgrzJ1qF;AhIinSzBdTW;adF5ghDhvFi;XGSDunjprxW;FkXYpKFt9hD&dimension=pe:${periodAPI}&filter=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     setPeriods(await allDatajson.metaData.dimensions.pe);
@@ -117,7 +129,7 @@ const CHVStockReceiptContextProvider = (props) => {
 
   useEffect(() => {
     getData()
-  }, [periodAPI])
+  }, [periodAPI,ouAPI])
 
   useEffect(() => {
     getgraphData()
@@ -134,7 +146,10 @@ const CHVStockReceiptContextProvider = (props) => {
       graphData,
       dataPresent,
       changePeriodAPI,
-      periodAPI
+      periodAPI,
+      changeOrgAPI,
+      ouAPI,
+      defaultou,
     }}>
       {props.children}
 

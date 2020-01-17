@@ -8,10 +8,13 @@ import {ReceiptReportReportOntime} from '../../contexts/ReceiptReportReportOntim
 import sortMonths from '../../constants/sortMonths';
 import TogglePeriod from '../TogglePeriod';
 import SavePdfImage from '../SavePdfImage';
-import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
+import {SaveToPdfContext} from '../../contexts/SaveToPdfContext';
+import OrgsComponent from '../OrgsComponent';
+import ToggleGraphOptions from '../ToggleGraphOptions';
+import NoData from '../NoData';
 
 const ReceiptRRateOnTimeGraph = () => {
-  const {saveToPdf}=useContext(SaveToPdfContext)
+  const {saveToPdf} = useContext(SaveToPdfContext)
 
   const [showLine,
     setShowLine] = useState(false)
@@ -23,37 +26,60 @@ const ReceiptRRateOnTimeGraph = () => {
     ouNames,
     RROntimedataPresent,
     changePeriodAPI,
-    periodAPI
+    periodAPI,
+    allData2,
+    changeOrgAPI,
+    ouAPI,
+    defaultou
   } = useContext(ReceiptReportReportOntime)
   const mydata = {
     labels: sortedMonths,
     datasets: graphData
   }
 
+  const [orgsModalOpen,
+    setorgsModal] = useState(false)
+
+  const toggleOrgsModal = () => {
+   
+    setorgsModal(!orgsModalOpen)
+  }
+
+  const toggleLine = (e) => {
+    // e.preventDefault()
+    setShowLine(!showLine)
+  }
+
   useEffect(() => {
-    let formattedMonths= sortMonths(periods)
+    let formattedMonths = sortMonths(periods)
     setMonths(formattedMonths)
   }, [periods])
   return (
     <div className="col-sm-12 graphDiv">
-      <div className="col-sm-2">
-        <button
-          className="btn btn-default btn-sm"
-          onClick={() => setShowLine(!showLine)}>{showLine
-            ? <i class="fas fa-chart-line fa-2x isLine"></i>
-            : <i class="far fa-chart-bar fa-2x isBar"></i>
-}</button>
+      {orgsModalOpen
+        ? <OrgsComponent
+            defaultou={defaultou}
+            ouAPI={ouAPI}
+            changeOrgAPI={changeOrgAPI}
+            toggleOrgsModal={toggleOrgsModal}></OrgsComponent>
+        : null
+}
+
+      <div className="col-sm-4">
+        <ToggleGraphOptions
+          showLine={showLine}
+          toggleLine={toggleLine}
+          toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
+      </div>
+      <div className="col-sm-4">
+
+        <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
 
       </div>
       <div className="col-sm-4">
 
-      <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
+        {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
 
-      </div>
-      <div className="col-sm-4">
-      
-      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
-      
       </div>
       <br></br>
 
@@ -74,23 +100,30 @@ const ReceiptRRateOnTimeGraph = () => {
       {!RROntimedataPresent
         ? <Loading2></Loading2>
         : <div className="theGraph">
-          {showLine
-            ? <Line
-                options={{
-                animation: {
-                  duration: 3000
-                },
-                responsive: true
-              }}
-                data={mydata}></Line>
-            : <HorizontalBar
-              options={{
-              animation: {
-                duration: 3000
-              },
-              responsive: true
-            }}
-              data={mydata}/>
+          {allData2.length === 0 || allData2 === "undefined"
+            ? <center>
+                <NoData></NoData>
+              </center>
+            : <div>
+              {showLine
+                ? <Line
+                    options={{
+                    animation: {
+                      duration: 3000
+                    },
+                    responsive: true
+                  }}
+                    data={mydata}></Line>
+                : <HorizontalBar
+                  options={{
+                  animation: {
+                    duration: 3000
+                  },
+                  responsive: true
+                }}
+                  data={mydata}/>
+}
+            </div>
 }
         </div>
 }

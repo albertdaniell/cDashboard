@@ -12,7 +12,7 @@ const ToggleGraphOptions = (props) => {
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="true">
-
+          Graph Options 
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">

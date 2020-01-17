@@ -40,8 +40,8 @@ function ReportingRate() {
     const [orgsModalOpen,
       setorgsModal] = useState(false)
 
-  const toggleOrgsModal = (e) => {
-    e.preventDefault()
+  const toggleOrgsModal = () => {
+    
     setorgsModal(!orgsModalOpen)
   }
 
@@ -51,9 +51,9 @@ function ReportingRate() {
   }
 
   useEffect(() => {
-    console.log(periods[0])
+   // console.log(periods[0])
     periods.map((p) => {
-      console.log(p)
+     // console.log(p)
 
     })
    

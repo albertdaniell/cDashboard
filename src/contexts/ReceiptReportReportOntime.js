@@ -37,13 +37,24 @@ const ReceiptReportReportOntimeProvider = (props) => {
     setPeriodApi(pe)
   }
 
+  const [ouAPI,
+    setouAPI] = useState('USER_ORGUNIT')
+  const [defaultou,
+    setdefaultou] = useState('USER_ORGUNIT')
+
+  const changeOrgAPI = (ou) => {
+    //alert(ou)
+    setouAPI(ou)
+
+  }
+
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`/api/analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:${periodAPI};&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
+    const allData = await fetch(`/api/analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:${periodAPI};&filter=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`);
 
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
-    setPeriods(await allDatajson.metaData.dimensions.pe.slice().sort((a,b)=>a+b))
+    setPeriods(await allDatajson.metaData.dimensions.pe.slice().sort((a, b) => a + b))
     setOu(await allDatajson.metaData.dimensions.ou)
     setDx(await allDatajson.metaData.dimensions.dx)
     setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]))
@@ -66,19 +77,18 @@ const ReceiptReportReportOntimeProvider = (props) => {
           setOuNames([...myounames])
         })
         .catch((e) => {
-        //  console.log(e)
+          //  console.log(e)
         })
 
     })
 
   }
   const getData2 = async() => {
-    const allData = await fetch(`/api/analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
+    const allData = await fetch(`/api/analytics.json?dimension=dx:s4029egvhCv.REPORTING_RATE_ON_TIME;s4029egvhCv.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
 
     // setAllData2(await allDatajson.dataValues.slice().sort((a, b) => a.period -
-    // b.period));
-    //console.log("this is data2", await allDatajson)
+    // b.period)); console.log("this is data2", await allDatajson)
     const sortedrowData = await allDatajson.dataValues
     // .slice() .sort((a, b) => a[2] - b[2]) setAllData2(await sortedrowData)
     // setPeriods(await allDatajson.metaData.dimensions.pe) setOu(await
@@ -103,10 +113,10 @@ const ReceiptReportReportOntimeProvider = (props) => {
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
       if (dxvalue === "s4029egvhCv.REPORTING_RATE_ON_TIME") {
         dataElement = "CHV Receipt Reporting Rate on time"
-        backgroundColor=`rgba(112,223,173,.8)`
+        backgroundColor = `rgba(112,223,173,.8)`
       } else if (dxvalue === "s4029egvhCv.REPORTING_RATE") {
         dataElement = "CHV Receipt Reporting Rate"
-        backgroundColor=`rgba(241,103,186,.80)`
+        backgroundColor = `rgba(241,103,186,.80)`
 
       }
 
@@ -134,24 +144,25 @@ const ReceiptReportReportOntimeProvider = (props) => {
         data
       ]
 
-
-      newds=newds.slice().sort((a, b) =>{
-        if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
-        if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
-        return 0;
-       })
-
+      newds = newds
+        .slice()
+        .sort((a, b) => {
+          if (a.label.toLowerCase() < b.label.toLowerCase()) 
+            return -1;
+          if (a.label.toLowerCase() > b.label.toLowerCase()) 
+            return 1;
+          return 0;
+        })
 
       setGraphData(newds)
       setdataPresent(true)
-      // allData2.forEach((data)=>{ })
-     // console.log(dataElement)
+      // allData2.forEach((data)=>{ }) console.log(dataElement)
     })
   }
 
   useEffect(() => {
     getData()
-  }, [periodAPI])
+  }, [periodAPI,ouAPI])
 
   useEffect(() => {
 
@@ -190,7 +201,10 @@ const ReceiptReportReportOntimeProvider = (props) => {
       ouNames,
       RROntimedataPresent,
       changePeriodAPI,
-      periodAPI
+      periodAPI,
+      changeOrgAPI,
+      ouAPI,
+      defaultou
     }}>
       {props.children}
     </ReceiptReportReportOntime.Provider>

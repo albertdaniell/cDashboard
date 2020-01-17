@@ -61,8 +61,8 @@ const ActualReports = () => {
   const [orgsModalOpen,
     setorgsModal] = useState(false)
 
-  const toggleOrgsModal = (e) => {
-    e.preventDefault()
+  const toggleOrgsModal = () => {
+
     setorgsModal(!orgsModalOpen)
   }
 
@@ -82,7 +82,7 @@ const ActualReports = () => {
         .then(res => res.json())
         .then((result) => {
           orgName = result.displayName
-          console.log("or name", orgName)
+         // console.log("or name", orgName)
         })
 
       //formattedMonth = `${monthName} ${year}`
@@ -91,7 +91,7 @@ const ActualReports = () => {
           ...formattedOrgs,
           orgName
         ];
-        console.log(formattedOrgs)
+       // console.log(formattedOrgs)
         setouNames(formattedOrgs)
       }, 0);
 
@@ -99,7 +99,7 @@ const ActualReports = () => {
     //alert(formattedOrgs)
 
     setTimeout(() => {
-      console.log(ouNames)
+      //console.log(ouNames)
     }, 0);
 
   }, [graphData])

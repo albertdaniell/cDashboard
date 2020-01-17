@@ -37,9 +37,18 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       setPeriodApi(pe)
     }
 
+    const [ouAPI,setouAPI]=useState('USER_ORGUNIT')
+    const [defaultou,setdefaultou]=useState('USER_ORGUNIT')
+
+  const changeOrgAPI=(ou)=>{
+    //alert(ou)
+    setouAPI(ou)
+
+  }
+
   const getData = async() => {
     setdataPresent(false)
-    const allData = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
+    const allData = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`);
 
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
@@ -73,7 +82,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
 
   }
   const getData2 = async() => {
-    const allData = await fetch(`/api/analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:THIS_MONTH;LAST_6_MONTHS&dimension=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
+    const allData = await fetch(`/api/analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:THIS_MONTH;LAST_6_MONTHS&dimension=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
 
     // setAllData2(await allDatajson.dataValues.slice().sort((a, b) => a.period -
@@ -154,7 +163,7 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
 
   useEffect(() => {
     getData()
-  }, [periodAPI])
+  }, [periodAPI,ouAPI])
 
   useEffect(() => {
 
@@ -188,7 +197,10 @@ const ReportingRateReportingRateOnTimeProvider = (props) => {
       ouNames,
       RROntimedataPresent,
       changePeriodAPI,
-      periodAPI
+      periodAPI,
+      changeOrgAPI,
+      ouAPI,
+      defaultou
     }}>
       {props.children}
     </ReportingRateReportingRateOnTime.Provider>

@@ -1,7 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react'
 import {createContext} from 'react'
 
-
 export const UserOrgs = createContext();
 
 const UserOrgsProvider = (props) => {
@@ -33,6 +32,20 @@ const UserOrgsProvider = (props) => {
 
   const [selectedChild3,
     setSelectedChild3] = useState('')
+  const [selectedChild4,
+    setSelectedChild4] = useState('')
+
+  const [childorgs4,
+    setChildOrgs4] = useState([])
+
+  const [childorgsNames4,
+    setChildOrgsNames4] = useState([])
+
+    const [selectedChild5,
+      setSelectedChild5] = useState('')
+
+      const [childorgs5,
+        setChildOrgs5] = useState([])
 
   const getOrgs1 = async() => {
     let data1 = await fetch(`/api/organisationUnits?userOnly=true`);
@@ -70,7 +83,6 @@ const UserOrgsProvider = (props) => {
         })
 
     })
- 
 
   }
 
@@ -111,7 +123,6 @@ const UserOrgsProvider = (props) => {
         })
 
     })
-   
 
   }
 
@@ -221,6 +232,73 @@ const UserOrgsProvider = (props) => {
 
   }
 
+  const getOrgChild4 = async(ouid) => {
+    //setChildOrgs2([]) const {organisationUnits}=orgs
+    setSelectedChild4(ouid)
+    setFocusOrg(ouid)
+
+    let data1 = await fetch(`/api/organisationUnits/${ouid}?userOnly=true`);
+    let data1json = data1.json();
+    console.log(await data1json)
+    const {children} = await data1json
+    setChildOrgs4(await children)
+
+  }
+
+  const getOrgName5 = () => {
+    //const {organisationUnits}=orgs
+    let childorgsData = [];
+    childorgs4.map((ou) => {
+
+      let childorgsDataName = "";
+      fetch(`/api/organisationUnits/${ou.id}`)
+        .then(res => res.json())
+        .then((result) => {
+          let ouName;
+          childorgsDataName = result.displayName
+          //console.log("zzzzz", ouName)
+          let data = {
+            "ouName": result.displayName,
+            "ouId": ou.id,
+            "pId": selectedChild4
+          }
+
+          childorgsData = [
+            ...childorgsData,
+            data
+          ]
+
+          childorgsData = childorgsData
+            .slice()
+            .sort((a, b) => {
+              if (a.ouName.toLowerCase() < b.ouName.toLowerCase()) 
+                return -1;
+              if (a.ouName.toLowerCase() > b.ouName.toLowerCase()) 
+                return 1;
+              return 0;
+            })
+          setChildOrgsNames4(childorgsData)
+
+        })
+
+    })
+
+  }
+
+  const getOrgChild5 = async(ouid) => {
+    //setChildOrgs2([]) const {organisationUnits}=orgs
+    setSelectedChild5(ouid)
+    setFocusOrg(ouid)
+
+    let data1 = await fetch(`/api/organisationUnits/${ouid}?userOnly=true`);
+    let data1json = data1.json();
+    console.log(await data1json)
+    const {children} = await data1json
+    setChildOrgs5(await children)
+
+  }
+
+
   useEffect(() => {
     getOrgs1()
   }, [])
@@ -240,6 +318,10 @@ const UserOrgsProvider = (props) => {
   useEffect(() => {
     getOrgName4()
   }, [childorgs3])
+
+  useEffect(() => {
+    getOrgName5()
+  }, [childorgs4])
   return (
     <UserOrgs.Provider
       value={{
@@ -257,7 +339,14 @@ const UserOrgsProvider = (props) => {
       getOrgChild3,
       selectedChild3,
       childorgsNames3,
-      forcusOrg
+      forcusOrg,
+      childorgs4,
+      getOrgChild4,
+      selectedChild4,
+      childorgsNames4,
+      getOrgChild5,
+      childorgs5,
+      selectedChild5,
     }}>
       {props.children}
     </UserOrgs.Provider>

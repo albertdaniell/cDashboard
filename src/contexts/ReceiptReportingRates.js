@@ -31,9 +31,19 @@ const ReceiptReportingRatesProvider = (props) => {
   const [pe,
     setPeriod] = useState([])
 
+    const [ouAPI,setouAPI]=useState('USER_ORGUNIT')
+    const [defaultou,setdefaultou]=useState('USER_ORGUNIT')
+
+  const changeOrgAPI=(ou)=>{
+    //alert(ou)
+    setouAPI(ou)
+
+  }
+
+
   const getData = async() => {
 
-    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:s4029egvhCv.ACTUAL_REPORTS;s4029egvhCv.EXPECTED_REPORTS;s4029egvhCv.ACTUAL_REPORTS_ON_TIME&dimension=pe:THIS_MONTH;LAST_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`)
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:s4029egvhCv.ACTUAL_REPORTS;s4029egvhCv.EXPECTED_REPORTS;s4029egvhCv.ACTUAL_REPORTS_ON_TIME&dimension=pe:THIS_MONTH;LAST_MONTH&filter=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
 
@@ -63,7 +73,7 @@ const ReceiptReportingRatesProvider = (props) => {
 
   const getData2 = async() => {
 
-    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:USER_ORGUNIT&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`)
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:${ouAPI}&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`)
     const myalldata1json = await myalldata1.json()
    // console.log(await myalldata1json)
     //  setallData2(await myalldata1json.dataValues)
@@ -169,7 +179,7 @@ const ReceiptReportingRatesProvider = (props) => {
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [ouAPI])
 
   useEffect(() => {
     // alert(0)
@@ -196,7 +206,10 @@ const ReceiptReportingRatesProvider = (props) => {
       ouName,
       dataPresent,
       pe,
-      ou2
+      ou2,
+      changeOrgAPI,
+      ouAPI,
+      defaultou
     }}>
       {props.children}
 

@@ -56,7 +56,7 @@ const CHVRRateFacGraph = () => {
         .then(res => res.json())
         .then((result) => {
           orgName = result.displayName
-          console.log("or name", orgName)
+         // console.log("or name", orgName)
         })
 
       //formattedMonth = `${monthName} ${year}`
@@ -65,7 +65,7 @@ const CHVRRateFacGraph = () => {
           ...formattedOrgs,
           orgName
         ];
-        console.log(formattedOrgs)
+        //console.log(formattedOrgs)
         setouNames(formattedOrgs)
       }, 6000);
 
@@ -73,7 +73,7 @@ const CHVRRateFacGraph = () => {
     //alert(formattedOrgs)
 
     setTimeout(() => {
-      console.log(ouNames)
+      //console.log(ouNames)
     }, 3000);
 
   }, [graphData])

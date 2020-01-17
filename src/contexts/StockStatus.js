@@ -3,7 +3,6 @@ import constants from '../constants'
 
 export const StockStatus = createContext();
 
-
 const StockStatusProvider = (props) => {
 
   const [periodAPI,
@@ -30,25 +29,41 @@ const StockStatusProvider = (props) => {
   const [ouNames,
     setOuNames] = useState([])
 
+  const [pe,
+    setPeriod] = useState([])
+  const [ouAPI,
+    setouAPI] = useState('USER_ORGUNIT')
+  const [defaultou,
+    setdefaultou] = useState('USER_ORGUNIT')
+
+  const changeOrgAPI = (ou) => {
+    //alert(ou)
+    setouAPI(ou)
+
+  }
+
   const getData = async() => {
     setdataPresent(false)
     const allData = await fetch(`/api/analytics.json?dimension=dx:IYVjjC42J0C;UriZTcAqQhS;Da2hUTlhuev;tlLJoasHsnx;KU1G' +
-        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`);
+        'dTyABV1;BnNTJQvpssM;GAWSnGyeBEp;hPRee4vfcHk;IpzMGXo8pSm;m72B7CKg78l;SrscdcMTFzi;MfIPOuz50f6;ObK4JLoDLNy;sHsyHc1kmIU;vHL3aYvAkhb;iH9jNGP7dQu;P0Cy5mBXijV;N8OFIqhmBjU&dimension=pe:${periodAPI}&filter=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`);
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
     //setPeriods(await allDatajson.metaData.dimensions.pe);
 
-    let myPeriods=[];
+    let myPeriods = [];
     let filteredPeriods = await allDatajson
-    .metaData.dimensions.pe.slice().sort((a,b)=>a-b)
-    .map((d) => {
-      return d
+      .metaData
+      .dimensions
+      .pe
+      .slice()
+      .sort((a, b) => a - b)
+      .map((d) => {
+        return d
 
-    })
+      })
 
     myPeriods = filteredPeriods
     myPeriods = [...new Set(myPeriods)]
-
 
     setPeriods(myPeriods)
     //setdataElement(myDataElements)
@@ -90,9 +105,9 @@ const StockStatusProvider = (props) => {
 
     let graphData = [];
     let newds = [];
-    dx.map((indi,index) => {
+    dx.map((indi, index) => {
       let indicatorName = ""
-      let inidcatorsList=[]
+      let inidcatorsList = []
       let indicatorid = indi;
       let aggData = [];
       let backgroundColor = ''
@@ -107,8 +122,8 @@ const StockStatusProvider = (props) => {
         .then((result) => {
 
           indicatorName = result.displayName
-        //inidcatorsList[index] = indicatorName;
-        //  console.log("indicator results,", result.displayName)
+          // inidcatorsList[index] = indicatorName;  console.log("indicator results,",
+          // result.displayName)
 
           let filtered = allData2.filter((data) => {
             // alert(data[0])
@@ -118,7 +133,7 @@ const StockStatusProvider = (props) => {
             return data[2];
           })
           aggData = filtered
-         // console.log("agg data,", filtered)
+          // console.log("agg data,", filtered)
 
           setTimeout(() => {
 
@@ -133,13 +148,15 @@ const StockStatusProvider = (props) => {
               data
             ]
 
-
-          newds=newds.slice().sort((a, b) =>{
-            if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
-            if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
-            return 0;
-           })
-
+            newds = newds
+              .slice()
+              .sort((a, b) => {
+                if (a.label.toLowerCase() < b.label.toLowerCase()) 
+                  return -1;
+                if (a.label.toLowerCase() > b.label.toLowerCase()) 
+                  return 1;
+                return 0;
+              })
 
             setGraphData(newds)
 
@@ -149,7 +166,7 @@ const StockStatusProvider = (props) => {
           }, 400);
         })
         .catch((e) => {
-         // console.log(e)
+          // console.log(e)
           setdataPresent(false)
         })
 
@@ -158,7 +175,7 @@ const StockStatusProvider = (props) => {
 
   useEffect(() => {
     getData()
-  }, [periodAPI])
+  }, [periodAPI,ouAPI])
 
   useEffect(() => {
     getgraphData()
@@ -180,7 +197,10 @@ const StockStatusProvider = (props) => {
       dataPresent,
       changePeriodAPI,
       periodAPI,
-      ouNames
+      ouNames,
+      changeOrgAPI,
+      ouAPI,
+      defaultou
     }}>
       {props.children}
 

@@ -75,7 +75,7 @@ const ActualReportingExpectedProvider = (props) => {
     setou(myou)
     setdataElement(myDataElements)
     setou2(await myalldata1json.metaData.dimensions.ou)
-    console.log(await myalldata1json)
+   // console.log(await myalldata1json)
    // setdataElement(await myalldata1json.metaData.dimensions.dx)
    // alert(await myalldata1json.metaData.dimensions.dx)
     setPeriod(await myalldata1json.metaData.dimensions.pe)
@@ -87,7 +87,7 @@ const ActualReportingExpectedProvider = (props) => {
 
     const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:${ouAPI}&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`)
     const myalldata1json = await myalldata1.json()
-    console.log(await myalldata1json)
+   // console.log(await myalldata1json)
   //  setallData2(await myalldata1json.dataValues)
 
   }
