@@ -61,6 +61,13 @@ const ActualReports = () => {
   const [orgsModalOpen,
     setorgsModal] = useState(false)
 
+  const [PeriodsModalOpen,
+    setPeriodsModal] = useState(false)
+
+  const togglePeriodModal = () => {
+    setPeriodsModal(!PeriodsModalOpen)
+  }
+
   const toggleOrgsModal = () => {
 
     setorgsModal(!orgsModalOpen)
@@ -82,7 +89,7 @@ const ActualReports = () => {
         .then(res => res.json())
         .then((result) => {
           orgName = result.displayName
-         // console.log("or name", orgName)
+          // console.log("or name", orgName)
         })
 
       //formattedMonth = `${monthName} ${year}`
@@ -91,7 +98,7 @@ const ActualReports = () => {
           ...formattedOrgs,
           orgName
         ];
-       // console.log(formattedOrgs)
+        // console.log(formattedOrgs)
         setouNames(formattedOrgs)
       }, 0);
 
@@ -116,6 +123,7 @@ const ActualReports = () => {
 }
       <div className="col-sm-4">
         <ToggleGraphOptions
+          togglePeriodModal={togglePeriodModal}
           showLine={showLine}
           toggleLine={toggleLine}
           toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
@@ -139,7 +147,9 @@ const ActualReports = () => {
         ? <Loading2></Loading2>
         : <div className="theGraph">
           {allData2 === undefined || allData2.length === 0
-            ? <center><NoData></NoData></center>
+            ? <center>
+                <NoData></NoData>
+              </center>
             : <div>
               {!showLine
                 ? <Bar

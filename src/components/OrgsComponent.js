@@ -88,7 +88,8 @@ const OrgsComponent = (props) => {
               width: '',
               background: 'white',
               padding: 10,
-              bottom: 20,
+              marginBottom:20,
+              bottom:50,
               float: 'right',
               padding: 15
             }}

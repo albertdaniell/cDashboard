@@ -12,6 +12,7 @@ import {SaveToPdfContext} from '../../contexts/SaveToPdfContext';
 import OrgsComponent from '../OrgsComponent';
 import ToggleGraphOptions from '../ToggleGraphOptions';
 import NoData from '../NoData';
+import PeriodsComponent from '../PeriodsComponent';
 
 const ReceiptRRateOnTimeGraph = () => {
   const {saveToPdf} = useContext(SaveToPdfContext)
@@ -40,8 +41,15 @@ const ReceiptRRateOnTimeGraph = () => {
   const [orgsModalOpen,
     setorgsModal] = useState(false)
 
+  const [PeriodsModalOpen,
+    setPeriodsModal] = useState(false)
+
+  const togglePeriodModal = () => {
+    setPeriodsModal(!PeriodsModalOpen)
+  }
+
   const toggleOrgsModal = () => {
-   
+
     setorgsModal(!orgsModalOpen)
   }
 
@@ -65,17 +73,22 @@ const ReceiptRRateOnTimeGraph = () => {
         : null
 }
 
+      {PeriodsModalOpen
+        ? <PeriodsComponent
+            togglePeriodModal={togglePeriodModal}
+            changePeriodAPI={changePeriodAPI}
+            periodAPI={periodAPI}></PeriodsComponent>
+        : null
+}
+
       <div className="col-sm-4">
         <ToggleGraphOptions
+          togglePeriodModal={togglePeriodModal}
           showLine={showLine}
           toggleLine={toggleLine}
           toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
       </div>
-      <div className="col-sm-4">
-
-        <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
-
-      </div>
+      <div className="col-sm-4"></div>
       <div className="col-sm-4">
 
         {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}

@@ -6,12 +6,13 @@ import Loading2 from '../Loading2';
 import sortMonths from '../../constants/sortMonths'
 import TogglePeriod from '../TogglePeriod';
 import SavePdfImage from '../SavePdfImage';
-import { SaveToPdfContext } from '../../contexts/SaveToPdfContext';
+import {SaveToPdfContext} from '../../contexts/SaveToPdfContext';
 import OrgsComponent from '../OrgsComponent';
 import ToggleGraphOptions from '../ToggleGraphOptions';
 import NoData from '../NoData';
+import PeriodsComponent from '../PeriodsComponent';
 function ReportingRate() {
-  const {saveToPdf}=useContext(SaveToPdfContext)
+  const {saveToPdf} = useContext(SaveToPdfContext)
   const [sortedMonths,
     setMonths] = useState([])
   const [data,
@@ -37,11 +38,18 @@ function ReportingRate() {
   const [showLine,
     setShowLine] = useState(false)
 
-    const [orgsModalOpen,
-      setorgsModal] = useState(false)
+  const [orgsModalOpen,
+    setorgsModal] = useState(false)
+
+  const [PeriodsModalOpen,
+    setPeriodsModal] = useState(false)
+
+  const togglePeriodModal = () => {
+    setPeriodsModal(!PeriodsModalOpen)
+  }
 
   const toggleOrgsModal = () => {
-    
+
     setorgsModal(!orgsModalOpen)
   }
 
@@ -51,20 +59,20 @@ function ReportingRate() {
   }
 
   useEffect(() => {
-   // console.log(periods[0])
+    // console.log(periods[0])
     periods.map((p) => {
-     // console.log(p)
+      // console.log(p)
 
     })
-   
-    let formattedMonths= sortMonths(periods)
+
+    let formattedMonths = sortMonths(periods)
     setMonths(formattedMonths)
 
   }, [graphData])
 
   return (
     <div className="col-sm-12 graphDiv" style={{}}>
-        {orgsModalOpen
+      {orgsModalOpen
         ? <OrgsComponent
             defaultou={defaultou}
             ouAPI={ouAPI}
@@ -72,22 +80,26 @@ function ReportingRate() {
             toggleOrgsModal={toggleOrgsModal}></OrgsComponent>
         : null
 }
-<div className="col-sm-4">
+      {PeriodsModalOpen
+        ? <PeriodsComponent
+            togglePeriodModal={togglePeriodModal}
+            changePeriodAPI={changePeriodAPI}
+            periodAPI={periodAPI}></PeriodsComponent>
+        : null
+}
+      <div className="col-sm-4">
         <ToggleGraphOptions
+          togglePeriodModal={togglePeriodModal}
           showLine={showLine}
           toggleLine={toggleLine}
           toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
       </div>
-      <div className="col-sm-4">
-
-      <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
-
-      </div>
+      <div className="col-sm-4"></div>
 
       <div className="col-sm-4">
-     
-      {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
-      
+
+        {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
+
       </div>
       <div className="col-sm-12">
         <h4>
@@ -105,33 +117,33 @@ function ReportingRate() {
       {!isData
         ? <Loading2></Loading2>
         : <div className="theGraph">
-        
-         {allData2 === undefined || allData2.length == 0 ?
-          <center>
-          <NoData></NoData>
-        </center>:
-          <div>
+
+          {allData2 === undefined || allData2.length == 0
+            ? <center>
+                <NoData></NoData>
+              </center>
+            : <div>
               {showLine
-            ? <Line
-                options={{
-                lineTension: "0",
-                animation: {
-                  duration: 3000
-                },
-                responsive: true
-              }}
-                data={mydata}></Line>
-            : <Bar
-              options={{
-              animation: {
-                duration: 3000
-              },
-              responsive: true
-            }}
-              data={mydata}></Bar>
+                ? <Line
+                    options={{
+                    lineTension: "0",
+                    animation: {
+                      duration: 3000
+                    },
+                    responsive: true
+                  }}
+                    data={mydata}></Line>
+                : <Bar
+                  options={{
+                  animation: {
+                    duration: 3000
+                  },
+                  responsive: true
+                }}
+                  data={mydata}></Bar>
 }
-          </div>
-        }
+            </div>
+}
         </div>
 }
 

@@ -59,8 +59,15 @@ const ReceiptReportingGraph = () => {
   const [orgsModalOpen,
     setorgsModal] = useState(false)
 
+  const [PeriodsModalOpen,
+    setPeriodsModal] = useState(false)
+
+  const togglePeriodModal = () => {
+    setPeriodsModal(!PeriodsModalOpen)
+  }
+
   const toggleOrgsModal = () => {
-   
+
     setorgsModal(!orgsModalOpen)
   }
 

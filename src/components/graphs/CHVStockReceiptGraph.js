@@ -21,6 +21,7 @@ import {SaveToPdfContext} from '../../contexts/SaveToPdfContext';
 import OrgsComponent from '../OrgsComponent';
 import ToggleGraphOptions from '../ToggleGraphOptions';
 import NoData from '../NoData';
+import PeriodsComponent from '../PeriodsComponent';
 
 export default function CHVStockReceiptGraph() {
   const {saveToPdf} = useContext(SaveToPdfContext)
@@ -51,8 +52,15 @@ export default function CHVStockReceiptGraph() {
   const [orgsModalOpen,
     setorgsModal] = useState(false)
 
+  const [PeriodsModalOpen,
+    setPeriodsModal] = useState(false)
+
+  const togglePeriodModal = () => {
+    setPeriodsModal(!PeriodsModalOpen)
+  }
+
   const toggleOrgsModal = () => {
- 
+
     setorgsModal(!orgsModalOpen)
   }
 
@@ -78,16 +86,22 @@ export default function CHVStockReceiptGraph() {
         : null
 }
 
+      {PeriodsModalOpen
+        ? <PeriodsComponent
+            togglePeriodModal={togglePeriodModal}
+            changePeriodAPI={changePeriodAPI}
+            periodAPI={periodAPI}></PeriodsComponent>
+        : null
+}
+
       <div className="col-sm-4">
         <ToggleGraphOptions
+          togglePeriodModal={togglePeriodModal}
           showLine={showLine}
           toggleLine={toggleLine}
           toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
       </div>
-      <div className="col-sm-4">
-        <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
-
-      </div>
+      <div className="col-sm-4"></div>
 
       <div className="col-sm-4">
 
@@ -111,7 +125,9 @@ export default function CHVStockReceiptGraph() {
         <Spacer></Spacer>
         <div className="theGraph">
           {allData.rows === undefined || allData.rows.length == 0
-            ?<center><NoData></NoData></center>
+            ? <center>
+                <NoData></NoData>
+              </center>
             : !dataPresent
               ? <Loading2></Loading2>
               : <Bar

@@ -18,6 +18,7 @@ import {SaveToPdfContext} from '../../contexts/SaveToPdfContext';
 import NoData from '../NoData';
 import OrgsComponent from '../OrgsComponent';
 import ToggleGraphOptions from '../ToggleGraphOptions';
+import PeriodsComponent from '../PeriodsComponent';
 
 export default function CommodityRRate() {
   const {saveToPdf} = useContext(SaveToPdfContext)
@@ -47,8 +48,14 @@ export default function CommodityRRate() {
   const [orgsModalOpen,
     setorgsModal] = useState(false)
 
+  const [PeriodsModalOpen,
+    setPeriodsModal] = useState(false)
+
+  const togglePeriodModal = () => {
+    setPeriodsModal(!PeriodsModalOpen)
+  }
   const toggleOrgsModal = () => {
-    
+
     setorgsModal(!orgsModalOpen)
   }
 
@@ -73,15 +80,22 @@ export default function CommodityRRate() {
         : null
 }
 
+      {PeriodsModalOpen
+        ? <PeriodsComponent
+            togglePeriodModal={togglePeriodModal}
+            changePeriodAPI={changePeriodAPI}
+            periodAPI={periodAPI}></PeriodsComponent>
+        : null
+}
+
       <div className="col-sm-4">
         <ToggleGraphOptions
+          togglePeriodModal={togglePeriodModal}
           showLine={showLine}
           toggleLine={toggleLine}
           toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
       </div>
-      <div className="col-sm-4">
-        <TogglePeriod changePeriodAPI={changePeriodAPI} periodAPI={periodAPI}></TogglePeriod>
-      </div>
+      <div className="col-sm-4"></div>
 
       <div className="col-sm-4">
 

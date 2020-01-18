@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ToggleGraphOptions = (props) => {
-  const {toggleLine, toggleOrgsModal, showLine} = props
+  const {toggleLine, toggleOrgsModal, togglePeriodModal, showLine} = props
   return (
     <div>
       <div class="dropdown">
@@ -12,8 +12,8 @@ const ToggleGraphOptions = (props) => {
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="true">
-          Graph Options 
-          <span class="caret"></span>
+          <i class="fas fa-ellipsis-v"></i>
+
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
           <li>
@@ -26,7 +26,7 @@ const ToggleGraphOptions = (props) => {
           </li>
           <li>
 
-            <button className="btn btn-default btn-sm">
+            <button onClick={() => togglePeriodModal()} className="btn btn-default btn-sm">
               Filter By Period
             </button>
 
