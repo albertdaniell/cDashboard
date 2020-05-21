@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -9,49 +9,47 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-.sideNavWall{
-  
+.sideNavWall {
   height: 100%;
   position: fixed;
-  width:18%;
+  width: 18%;
   color: white;
   overflow: auto;
   padding: 10;
   z-index: 500;
-  background-image: url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80');
+  /* background-image: url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80'); */
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  
 }
 
-.sideNav{
+.sideNav {
   z-index: 1000;
-  background: #191919b9;
+  background: #191919;
   height: 100%;
   position: fixed;
-  width:18%;
+  width: 18%;
   color: white;
   overflow: auto;
   padding: 0;
-  
+  font-size: 13px;
 }
-.sideNav a{
+.sideNav a {
   display: block;
- 
   color: white;
-  padding: 20px;
-  transition: .2s ease;
-  border-bottom: 1px solid rgb(133, 133, 133);
+  padding: 15px;
+  transition: 0.2s ease;
+  /* border-bottom: 1px solid rgb(133, 133, 133); */
   text-decoration: none;
+  margin-left: 5px;
 }
 
-.sideNav .active{
+.sideNav .active {
   background-color: rgb(231, 231, 231);
   color: rgb(31, 31, 31);
   border-radius: 0px;
@@ -59,55 +57,50 @@ code {
   font-weight: bold;
 }
 
-.sideNav .active .fas{
-  
+.sideNav .active .fas {
   color: #191919;
   border-radius: 4px;
-  
 }
 
-.sideNav .fas,.navbar-nav .fas{
-  margin-right: 20px;
+.sideNav .fas,
+.navbar-nav .fas {
+  margin-right: 30px;
   color: rgb(255, 115, 0);
-  transition: .2s ease;
+  transition: 0.2s ease;
 }
 
-.sideNav a:hover{
+.sideNav a:hover {
   background: #ffffff27;
   color: white;
   border-left: 5px solid transparent;
   border-radius: 0px;
 }
 
-.sideNav a:hover .fas{
-  
+.sideNav a:hover .fas {
   color: white;
 }
-.outerDiv{
-  padding:0;
+.outerDiv {
+  padding: 0;
 }
 
-
-.mainDiv{
+.mainDiv {
   width: 82%;
-  padding:20;
-  margin-top:10px;
+  padding: 20;
+  margin-top: 10px;
 
-  float:right;
-
+  float: right;
 }
 
-.graphDiv{
+.graphDiv {
   background-color: white;
   border-radius: 10px;
   margin-bottom: 20px;
   padding: 10px;
   box-shadow: 2px 2px 8px 2px #cecece;
   min-height: 300px;
-  
 }
 
-.loadingDiv{
+.loadingDiv {
   background-color: white;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -115,64 +108,60 @@ code {
   width: 100%;
 }
 
-.loadingDivContent{
+.loadingDivContent {
   width: 20%;
   height: 20%;
   margin-left: 40%;
   margin-top: 5%;
 }
 
-.loadingDivimg{
+.loadingDivimg {
   height: 250px;
 }
 
-.pageHeading{
+.pageHeading {
   margin-bottom: 20px;
 }
 
-.pageHeading .fas{
+.pageHeading .fas {
   margin-right: 20px;
 }
 
-.sideHead .fas{
+.sideHead .fas {
   color: rgb(167, 167, 167);
   font-size: 25px;
-  
 }
 
-.sideHead{
+.sideHead {
   padding: 20px;
- 
+
   color: rgb(255, 255, 255);
- 
+
   background-color: rgb(32, 32, 32);
-  
+
   border-radius: 4px;
-  
 }
 
-.isLine{
-margin-left: 20px;
-font-size: 20px;
-color: rgb(255, 115, 0);
- 
+.isLine {
+  margin-left: 20px;
+  font-size: 20px;
+  color: rgb(255, 115, 0);
 }
 
-.isBar{
+.isBar {
   margin-left: 20px;
   font-size: 20px;
   color: rgb(0, 60, 255);
 }
 
-.btn{
+.btn {
   border-radius: 4px;
 }
 
-
-.bgloading{
+.bgloading {
   background-color: rgb(41, 41, 41);
   color: white;
-  position:fixed;
+  position: fixed;
   z-index: 2000;
   bottom: 0;
   right: 0;
@@ -180,15 +169,14 @@ color: rgb(255, 115, 0);
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 4px;
-  transition: .5 ease-in-out;
+  transition: 0.5 ease-in-out;
 }
 
-.navbarlinks{
+.navbarlinks {
   display: none;
-  
 }
 
-.navbarlinks .active{
+.navbarlinks .active {
   background-color: rgb(231, 231, 231);
   color: rgb(31, 31, 31);
   border-radius: 0px;
@@ -196,7 +184,7 @@ color: rgb(255, 115, 0);
   font-weight: bold;
 }
 
-h4{
+h4 {
   font-size: 12px;
   font-weight: bold;
 }
@@ -206,55 +194,54 @@ h4{
     background-color: lightblue;
     font-size: 11px;
   }
-  .mainDiv{
-    width:100%;
+  .mainDiv {
+    width: 100%;
   }
 
-  .sideNav{
+  .sideNav {
     display: none;
   }
 
-  .sideNavWall{
+  .sideNavWall {
     display: none;
   }
-  h2{
+  h2 {
     font-size: 18px;
   }
 
-  h4{
+  h4 {
     font-size: 13px;
   }
-  .graphDiv{
-    height:100%; 
+  .graphDiv {
+    height: 100%;
   }
-  .navbar-nav{
-    display:block
+  .navbar-nav {
+    display: block;
   }
 
-  .loadingDivimg{
+  .loadingDivimg {
     height: 100px;
   }
-.loadingDivContent{
-  width: 100%;
-  height: 100%;
-  margin-left: 0%;
-  margin-top: 10%;
-}
+  .loadingDivContent {
+    width: 100%;
+    height: 100%;
+    margin-left: 0%;
+    margin-top: 10%;
+  }
 }
 
-.form-control{
+.form-control {
   border-radius: 4px;
-  background-color:#0c73ba;
+  background-color: #0c73ba;
   color: rgb(255, 255, 255);
-  
 }
 
-option{
+option {
   background-color: whitesmoke;
   color: black;
 }
 
-.myPanelBody{
+.myPanelBody {
   background-color: rgb(255, 255, 255);
   padding: 10px;
   border-radius: 10px;
@@ -262,53 +249,47 @@ option{
   min-height: 100px;
 }
 
-.myPanelBody .large{
-font-size: 25px;
- text-align: right;
- float: right;
+.myPanelBody .large {
+  font-size: 25px;
+  text-align: right;
+  float: right;
   color: white;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-.myPanel{
+.myPanel {
   margin-bottom: 20px;
-
 }
 
-.myPanelBody1{
+.myPanelBody1 {
   background-color: rgb(25, 151, 57);
   padding: 10px;
   border-radius: 10px;
 }
 
-.myPanelBody2{
+.myPanelBody2 {
   background-color: rgb(179, 30, 117);
   padding: 10px;
   border-radius: 10px;
 }
 
-.myPanelBody3{
+.myPanelBody3 {
   background-color: rgb(184, 113, 7);
   padding: 10px;
   border-radius: 10px;
 }
 
-
-.myPanelBody4{
+.myPanelBody4 {
   background-color: rgb(73, 58, 143);
   padding: 10px;
   border-radius: 10px;
 }
 
-
-
-.myPanelDiv{
-  padding:0;
+.myPanelDiv {
+  padding: 0;
   margin-bottom: 10px;
-
 }
-
 
 /* width */
 ::-webkit-scrollbar {
@@ -317,37 +298,34 @@ font-size: 25px;
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(104, 104, 104); 
+  background: rgb(104, 104, 104);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #000000; 
+  background: #000000;
 }
 
-
-
-
-.orgComp p:active{
+.orgComp p:active {
   color: red;
   background-color: aqua;
 }
 
-.orgComp p:hover{
+.orgComp p:hover {
   cursor: pointer;
   color: red;
 }
 
-.orgComp{
-  background-color: rgba(0, 0, 0,.8);
- 
+.orgComp {
+  background-color: rgba(0, 0, 0, 0.8);
+
   position: fixed;
   bottom: 0;
   left: 0;
@@ -358,15 +336,13 @@ font-size: 25px;
   min-width: 100%;
   max-width: 100%;
   margin-right: 10px;
-  
+
   z-index: 2000;
 
-  
   font-size: 12px;
- 
 }
 
-.orgCompDiv{
+.orgCompDiv {
   background-color: white;
   color: black;
   min-height: 550px;
@@ -376,15 +352,17 @@ font-size: 25px;
   margin-top: 10px;
   overflow: auto;
   box-shadow: 2px 2px 8px 2px #313131;
-
-
 }
 
-.dropdown li .btn{
+.dropdown li .btn {
   border: 0px solid transparent;
   display: block;
   padding: 10px;
   width: 100%;
   text-align: left;
   border-radius: 0;
+}
+
+#noDataImage:hover {
+  cursor: not-allowed;
 }

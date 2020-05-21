@@ -44,7 +44,7 @@ const ActualReportingExpectedProvider = (props) => {
     setdataPresent(false)
     
 
-    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=ou:${ouAPI}&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`)
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME&dimension=ou:${ouAPI}&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL`,fetchOptions)
     const myalldata1json = await myalldata1.json()
     setallData1(await myalldata1json)
 
@@ -85,7 +85,7 @@ const ActualReportingExpectedProvider = (props) => {
 
   const getData2 = async() => {
 
-    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:${ouAPI}&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`)
+    const myalldata1 = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.EXPECTED_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS;z2slLbjn7PM.ACTUAL_REPORTS_ON_TIME;z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=ou:${ouAPI}&filter=pe:LAST_MONTH&displayProperty=NAME&user=Fsw9jvRNAGL&outputIdScheme=UID`,fetchOptions)
     const myalldata1json = await myalldata1.json()
    // console.log(await myalldata1json)
   //  setallData2(await myalldata1json.dataValues)
@@ -178,7 +178,7 @@ const ActualReportingExpectedProvider = (props) => {
     ou.forEach((orgUnitId, index) => {
       let ouName;
 
-      fetch(`/api/organisationUnits/${orgUnitId}`)
+      fetch(`/api/organisationUnits/${orgUnitId}`,fetchOptions)
         .then(res => res.json())
         .then((result) => {
           ouName = result.displayName

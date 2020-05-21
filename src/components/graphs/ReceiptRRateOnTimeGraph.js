@@ -38,6 +38,58 @@ const ReceiptRRateOnTimeGraph = () => {
     datasets: graphData
   }
 
+  const tableHeaders=graphData.map((th)=>{
+    return(
+      <th>{th.label}</th>
+    )
+  })
+
+
+  const tableData2=graphData.map((th)=>{
+    return(
+  <span>
+      <td>{th.data[0]}</td>
+    <td>{th.data[1]}</td>
+  </span>
+    )
+  })
+
+  const tableData=sortedMonths.map((month)=>{
+    return(
+    
+     
+       <tr>
+            <td>
+{month}
+          
+        </td>
+       {tableData2}
+       </tr>
+       
+     
+        
+
+     
+    )
+  })
+//console.log(graphData.length+1)
+  const tableOrgUnits=ouNames.map((ou)=>{
+    return(
+     
+      <tbody>
+          <tr>
+        <td rowSpan={sortedMonths.length + 1 }>
+{ou}
+        </td>
+    
+      </tr>
+      {tableData}
+      </tbody>
+      
+    )
+  })
+
+
   const [orgsModalOpen,
     setorgsModal] = useState(false)
 
@@ -108,7 +160,11 @@ const ReceiptRRateOnTimeGraph = () => {
           </center>
         </h4>
         <Spacer></Spacer>
+
+        
       </div>
+
+
 
       {!RROntimedataPresent
         ? <Loading2></Loading2>

@@ -28,7 +28,7 @@ const UserContextProvider = (props) => {
     // )
     // console.log("cookie",x)
 
-    const userdetails = await fetch(`/api/me/`)
+    const userdetails = await fetch(`/api/me/`,fetchOptions)
     const userdetails2 = await userdetails.json()
 
     setUserData(userdetails2)

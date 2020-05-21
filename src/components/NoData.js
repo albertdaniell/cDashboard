@@ -20,7 +20,7 @@ const NoData = () => {
       }, [])
     return (
         <animated.div style={props2}>
-           <img src="https://image.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg" alt="No Data to Display" style={{height:'35%',width:'35%'}}/> 
+           <img id="noDataImage" src="https://image.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg" alt="No Data to Display" style={{height:'35%',width:'35%'}}/> 
            </animated.div>
     );
 }

@@ -157,9 +157,7 @@ const ChvReportingRateContextProvider = (props) => {
 
   }
 
-  const Test = () => {
-    // alert(0)
-  }
+  
 
   useEffect(() => {
    // console.log("haahha")

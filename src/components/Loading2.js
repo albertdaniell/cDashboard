@@ -1,17 +1,17 @@
-import React from 'react';
-import Loading from '../images/spinner2.png'
+import React from "react";
+import Loading from "../images/spinner2.png";
 
 const Loading2 = () => {
   return (
     <div className="col-sm-6 loadingDiv">
       <center>
-
         <div
           style={{
-          height: '4rem',
-          width: '4rem'
-        }}
-          class="ld-ext-right running">
+            height: "4rem",
+            width: "4rem",
+          }}
+          class="ld-ext-right running"
+        >
           <div class="ld ld-ball ld-squeeze"></div>
         </div>
 
@@ -22,6 +22,6 @@ const Loading2 = () => {
       </center>
     </div>
   );
-}
+};
 
 export default Loading2;

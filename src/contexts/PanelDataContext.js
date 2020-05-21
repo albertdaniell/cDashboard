@@ -6,16 +6,16 @@ export const PanelDataContext = createContext()
 const PanelDataContextProvider = (props) => {
 
   const [chvReportingRate,
-    setchvReportingRate] = useState('')
+    setchvReportingRate] = useState('__')
 
   const [chvActualRRateOnTime,
-    setchvActualRRateOnTime] = useState('')
+    setchvActualRRateOnTime] = useState('__')
 
   const [commodityDispensed,
-    setcommodityDispensed] = useState('')
+    setcommodityDispensed] = useState('__')
 
   const [SOHActualReporting,
-    setSOHActualReporting] = useState('');
+    setSOHActualReporting] = useState('__');
   const getData1 = async() => {
     const allData = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME&dimension=pe:THIS_MONTH&filter=ou:USER_ORGUNIT&displayProperty=NAME&user=Fsw9jvRNAGL`)
     const allDatajson = await allData.json()

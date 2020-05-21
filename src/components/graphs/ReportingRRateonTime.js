@@ -1,24 +1,22 @@
-import React, {useState, useContext, useEffect} from 'react'
-import {Line, Bar, HorizontalBar} from 'react-chartjs-2';
-import Spacer from '../Spacer'
-import {ReportingRateReportingRateOnTime} from '../../contexts/ReportingRateReportingOnTime';
-import Loading from '../Loading';
-import Loading2 from '../Loading2';
-import sortMonths from '../../constants/sortMonths';
-import TogglePeriod from '../TogglePeriod';
-import SavePdfImage from '../SavePdfImage';
-import {SaveToPdfContext} from '../../contexts/SaveToPdfContext';
-import OrgsComponent from '../OrgsComponent';
-import ToggleGraphOptions from '../ToggleGraphOptions';
-import NoData from '../NoData';
-import PeriodsComponent from '../PeriodsComponent';
+import React, { useState, useContext, useEffect } from "react";
+import { Line, Bar, HorizontalBar } from "react-chartjs-2";
+import Spacer from "../Spacer";
+import { ReportingRateReportingRateOnTime } from "../../contexts/ReportingRateReportingOnTime";
+import Loading from "../Loading";
+import Loading2 from "../Loading2";
+import sortMonths from "../../constants/sortMonths";
+import TogglePeriod from "../TogglePeriod";
+import SavePdfImage from "../SavePdfImage";
+import { SaveToPdfContext } from "../../contexts/SaveToPdfContext";
+import OrgsComponent from "../OrgsComponent";
+import ToggleGraphOptions from "../ToggleGraphOptions";
+import NoData from "../NoData";
+import PeriodsComponent from "../PeriodsComponent";
 
 const ReportingRRateonTime = () => {
-  const {saveToPdf} = useContext(SaveToPdfContext)
-  const [showLine,
-    setShowLine] = useState(false)
-  const [sortedMonths,
-    setMonths] = useState([])
+  const { saveToPdf } = useContext(SaveToPdfContext);
+  const [showLine, setShowLine] = useState(true);
+  const [sortedMonths, setMonths] = useState([]);
   const {
     graphData,
     periods,
@@ -29,123 +27,155 @@ const ReportingRRateonTime = () => {
     allData2,
     changeOrgAPI,
     ouAPI,
-    defaultou
-  } = useContext(ReportingRateReportingRateOnTime)
+    defaultou,
+  } = useContext(ReportingRateReportingRateOnTime);
   const mydata = {
     labels: sortedMonths,
-    datasets: graphData
-  }
+    datasets: graphData,
+  };
 
-  const [orgsModalOpen,
-    setorgsModal] = useState(false)
+  const [orgsModalOpen, setorgsModal] = useState(false);
 
-  const [PeriodsModalOpen,
-    setPeriodsModal] = useState(false)
+  const [PeriodsModalOpen, setPeriodsModal] = useState(false);
 
   const togglePeriodModal = () => {
-    setPeriodsModal(!PeriodsModalOpen)
-  }
+    setPeriodsModal(!PeriodsModalOpen);
+  };
 
   const toggleOrgsModal = () => {
-
-    setorgsModal(!orgsModalOpen)
-  }
+    setorgsModal(!orgsModalOpen);
+  };
 
   const toggleLine = (e) => {
     // e.preventDefault()
-    setShowLine(!showLine)
-  }
+    setShowLine(!showLine);
+  };
+  const tableHeaders = graphData.map((th) => {
+    return <th>{th.label}</th>;
+  });
+
+  const tableData2 = graphData.map((th) => {
+    return (
+      <span>
+        <td>{th.data[0]}</td>
+        <td>{th.data[1]}</td>
+      </span>
+    );
+  });
+
+  const tableData = sortedMonths.map((month) => {
+    return (
+      <tr>
+        <td>{month}</td>
+        {tableData2}
+      </tr>
+    );
+  });
+  //console.log(graphData.length+1)
+  const tableOrgUnits = ouNames.map((ou) => {
+    return (
+      <tbody>
+        <tr>
+          <td rowSpan={sortedMonths.length + 1}>{ou}</td>
+        </tr>
+        {tableData}
+      </tbody>
+    );
+  });
 
   useEffect(() => {
-
-    let formattedMonths = sortMonths(periods)
-    setMonths(formattedMonths)
-  }, [periods])
+    let formattedMonths = sortMonths(periods);
+    setMonths(formattedMonths);
+  }, [periods]);
   return (
     <div className="col-sm-12 graphDiv">
-      {orgsModalOpen
-        ? <OrgsComponent
-            defaultou={defaultou}
-            ouAPI={ouAPI}
-            changeOrgAPI={changeOrgAPI}
-            toggleOrgsModal={toggleOrgsModal}></OrgsComponent>
-        : null
-}
+      {orgsModalOpen ? (
+        <OrgsComponent
+          defaultou={defaultou}
+          ouAPI={ouAPI}
+          changeOrgAPI={changeOrgAPI}
+          toggleOrgsModal={toggleOrgsModal}
+        ></OrgsComponent>
+      ) : null}
 
-      {PeriodsModalOpen
-        ? <PeriodsComponent
-            togglePeriodModal={togglePeriodModal}
-            changePeriodAPI={changePeriodAPI}
-            periodAPI={periodAPI}></PeriodsComponent>
-        : null
-}
+      {PeriodsModalOpen ? (
+        <PeriodsComponent
+          togglePeriodModal={togglePeriodModal}
+          changePeriodAPI={changePeriodAPI}
+          periodAPI={periodAPI}
+        ></PeriodsComponent>
+      ) : null}
 
       <div className="col-sm-4">
         <ToggleGraphOptions
           togglePeriodModal={togglePeriodModal}
           showLine={showLine}
           toggleLine={toggleLine}
-          toggleOrgsModal={toggleOrgsModal}></ToggleGraphOptions>
+          toggleOrgsModal={toggleOrgsModal}
+        ></ToggleGraphOptions>
       </div>
       <div className="col-sm-4"></div>
       <div className="col-sm-4">
-
         {/* <SavePdfImage saveToPdf={saveToPdf}></SavePdfImage> */}
-
       </div>
       <br></br>
 
       <div className="col-sm-12">
         <h4>
-          <center>% Monthly CHV Reporting Rates over time {ouNames.length === 0
-              ? <span>
-                  ...</span>
-              : <div>
-                for {ouNames.map((ou) => {
-                  return (
-                    <span>{ou}
-                      ,</span>
-                  )
+          <center>
+            % Monthly CHV Reporting Rates over time{" "}
+            {ouNames.length === 0 ? (
+              <span>...</span>
+            ) : (
+              <div>
+                for{" "}
+                {ouNames.map((ou) => {
+                  return <span>{ou},</span>;
                 })}
               </div>
-}
+            )}
           </center>
         </h4>
         <Spacer></Spacer>
       </div>
 
-      {!RROntimedataPresent
-        ? <Loading2></Loading2>
-        : <div className="theGraph">
-          {allData2.length === 0 || allData2 === "undefined"
-            ? <center>
-                <NoData></NoData>
-              </center>
-            : <div>
-              {showLine
-                ? <Line
-                    options={{
-                    animation: {
-                      duration: 3000
-                    },
-                    responsive: true
-                  }}
-                    data={mydata}></Line>
-                : <HorizontalBar
+      {!RROntimedataPresent ? (
+        <Loading2></Loading2>
+      ) : (
+        <div className="theGraph">
+          {allData2.length === 0 || allData2 === "undefined" ? (
+            <center>
+              <NoData></NoData>
+            </center>
+          ) : (
+            <div>
+              {showLine ? (
+                <Line
                   options={{
-                  animation: {
-                    duration: 3000
-                  },
-                  responsive: true
-                }}
-                  data={mydata}/>
-}
+                    animation: {
+                      duration: 3000,
+                    },
+                    responsive: true,
+                  }}
+                  data={mydata}
+                ></Line>
+              ) : (
+                <HorizontalBar
+                  options={{
+                    animation: {
+                      duration: 3000,
+                    },
+                    responsive: true,
+                  }}
+                  data={mydata}
+                />
+              )}
             </div>
-}
+          )}
         </div>
-}
+      )}
     </div>
   );
-}
+};
 
 export default ReportingRRateonTime;
