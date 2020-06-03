@@ -22,7 +22,7 @@ const Loading = () => {
   return (
     <div>
       {isData && dataPresent && RROntimedataPresent ? (
-        <Redirect to="/"></Redirect>
+        <Redirect to="/table"></Redirect>
       ) : showLoading ? (
         <div
           style={{

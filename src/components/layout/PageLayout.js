@@ -30,6 +30,7 @@ import ReceiptReportReportOntimeProvider from "../../contexts/ReceiptReportRepor
 import { useSpring, animated } from "react-spring";
 import SaveToPdfContextProvider from "../../contexts/SaveToPdfContext";
 import UserOrgsProvider from "../../contexts/UserOrgs";
+import ReportingRateOverTimeTable from "../tables/ReportingRateOverTimeTable";
 
 export default function PageLayout() {
   const [myopacity, setOpacity] = useState(0);
@@ -68,7 +69,7 @@ export default function PageLayout() {
                             <UserContextProvider>
                               <ActualReportingExpectedProvider>
                                 <ChvReportingRateContextProvider>
-                                  <Loading></Loading>
+                                  {/* <Loading></Loading> */}
                                   {/* <BackgroundLoading></BackgroundLoading> */}
 
                                   <animated.div
@@ -108,6 +109,10 @@ export default function PageLayout() {
                                           <Route
                                             path="/receiptreports"
                                             component={ReceiptReportPage}
+                                          ></Route>
+                                          <Route
+                                            path="/table"
+                                            component={ReportingRateOverTimeTable}
                                           ></Route>
                                         </animated.div>
                                       </div>

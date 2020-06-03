@@ -1,211 +1,212 @@
-import React, {createContext, useState, useEffect} from 'react'
-import constants from '../constants'
+import React, { createContext, useState, useEffect } from "react";
+import constants from "../constants";
 
 export const ReportingRateReportingRateOnTime = createContext();
 
 const fetchOptions = {
   headers: {
-    Authorization: `Basic ${btoa('albertagoya@gmail.com:Pa$$word1')}`
-  }
-}
+    Authorization: `Basic ${btoa("albertagoya@gmail.com:Pa$$word1")}`,
+  },
+};
 
 const ReportingRateReportingRateOnTimeProvider = (props) => {
+  const [periodAPI, setPeriodApi] = useState("LAST_3_MONTHS");
+  const [graphData, setGraphData] = useState([]);
+  const [RROntimedataPresent, setdataPresent] = useState(false);
+  const [allData, setAllData] = useState([]);
 
-  const [periodAPI,
-    setPeriodApi] = useState('LAST_3_MONTHS')
-  const [graphData,
-    setGraphData] = useState([])
-  const [RROntimedataPresent,
-    setdataPresent] = useState(false)
-  const [allData,
-    setAllData] = useState([]);
+  const [allData2, setAllData2] = useState([]);
+  const [periods, setPeriods] = useState([]);
+  const [ou, setOu] = useState([]);
+  const [dx, setDx] = useState([]);
 
-  const [allData2,
-    setAllData2] = useState([]);
-  const [periods,
-    setPeriods] = useState([])
-  const [ou,
-    setOu] = useState([])
-  const [dx,
-    setDx] = useState([])
+  const [ouNames, setOuNames] = useState([]);
 
-  const [ouNames,
-    setOuNames] = useState([])
+// Table Data
+  const [allTableData, setAllTableData] = useState([]);
 
-    const changePeriodAPI = (pe) => {
+  const [allTableData2, setAllTableData2] = useState([]);
+  const [Tableperiods, setTablePeriods] = useState([]);
+  const [Tableou, setTableOu] = useState([]);
+  const [Tabledx, setTableDx] = useState([]);
 
-      setPeriodApi(pe)
-    }
+  const [TableouNames, setTableOuNames] = useState([]);
 
-    const [ouAPI,setouAPI]=useState('USER_ORGUNIT')
-    const [defaultou,setdefaultou]=useState('USER_ORGUNIT')
+  const changePeriodAPI = (pe) => {
+    setPeriodApi(pe);
+  };
 
-  const changeOrgAPI=(ou)=>{
+  const [ouAPI, setouAPI] = useState("USER_ORGUNIT");
+  const [defaultou, setdefaultou] = useState("USER_ORGUNIT");
+
+  const changeOrgAPI = (ou) => {
     //alert(ou)
-    setouAPI(ou)
+    setouAPI(ou);
+  };
 
-  }
+  const getData = async () => {
+    setdataPresent(false);
+    const allData = await fetch(
+      `/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME&dimension=ou:${ouAPI}&dimension=pe:${periodAPI}&displayProperty=NAME&user=TG3lulrxMYB`
 
-  const getData = async() => {
-    setdataPresent(false)
-    const allData = await fetch(`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`);
+      //`/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:${periodAPI}&filter=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`
+    );
 
     const allDatajson = await allData.json();
     setAllData(await allDatajson);
-    setPeriods(await allDatajson.metaData.dimensions.pe)
-    setOu(await allDatajson.metaData.dimensions.ou)
-    setDx(await allDatajson.metaData.dimensions.dx)
-    setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]))
+    setPeriods(await allDatajson.metaData.dimensions.pe);
+    setOu(await allDatajson.metaData.dimensions.ou);
+    setDx(await allDatajson.metaData.dimensions.dx);
+    setAllData2(await allDatajson.rows.slice().sort((a, b) => a[1] - b[1]));
+  };
 
-  }
+  const getTableData = async () => {
+    setdataPresent(false);
+    const allTableData = await fetch(
+      `/api/analytics.json?dimension=dx:z2slLbjn7PM.REPORTING_RATE;z2slLbjn7PM.REPORTING_RATE_ON_TIME&dimension=ou:${ouAPI}&dimension=pe:${periodAPI}&displayProperty=NAME&user=TG3lulrxMYB&outputIdScheme=CODE`
+    );
+
+    const allTableDatajson = await allTableData.json();
+    setAllTableData(await allTableDatajson);
+    setTablePeriods(await allTableDatajson.metaData.dimensions.pe);
+    setTableOu(await allTableDatajson.metaData.dimensions.ou);
+    setTableDx(await allTableDatajson.metaData.dimensions.dx);
+    setAllTableData2(
+      await allTableDatajson.rows.slice().sort((a, b) => a[1] - b[1])
+    );
+  };
 
   const getOuNames = () => {
-    let myounames = []
+    let myounames = [];
     ou.forEach((id, index) => {
       let orgName;
-      let orgUnitId = id
+      let orgUnitId = id;
       fetch(`/api/organisationUnits/${orgUnitId}`)
-        .then(res => res.json())
+        .then((res) => res.json())
         .then((result) => {
           //alert(myounames)
-          orgName = result.displayName
+          orgName = result.displayName;
           // myounames = [   ...myounames,   result.displayName ]
 
           myounames[index] = orgName;
-          setOuNames([...myounames])
+          setOuNames([...myounames]);
         })
         .catch((e) => {
-         // console.log(e)
-        })
-
-    })
-
-  }
-  const getData2 = async() => {
-    const allData = await fetch(`/api/analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:THIS_MONTH;LAST_6_MONTHS&dimension=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`);
+          // console.log(e)
+        });
+    });
+  };
+  const getData2 = async () => {
+    const allData = await fetch(
+      `/api/analytics/dataValueSet?dimension=dx:z2slLbjn7PM.REPORTING_RATE_ON_TIME;z2slLbjn7PM.REPORTING_RATE&dimension=pe:THIS_MONTH;LAST_6_MONTHS&dimension=ou:${ouAPI}&displayProperty=NAME&user=Fsw9jvRNAGL`
+    );
     const allDatajson = await allData.json();
 
     // setAllData2(await allDatajson.dataValues.slice().sort((a, b) => a.period -
     // b.period));
     //console.log("this is data2", await allDatajson)
-    const sortedrowData = await allDatajson.dataValues
+    const sortedrowData = await allDatajson.dataValues;
     // .slice() .sort((a, b) => a[2] - b[2]) setAllData2(await sortedrowData)
     // setPeriods(await allDatajson.metaData.dimensions.pe) setOu(await
     // allDatajson.metaData.dimensions.ou) setDx(await
     // allDatajson.metaData.dimensions.dx)
-  }
+  };
 
   const makdeGraphData = () => {
-
     let graphData = [];
     let newds = [];
     dx.map((dxvalue) => {
       let dataElement;
       let aggData = [];
 
-      let backgroundColor = ''
+      let backgroundColor = "";
       var colorR = Math.floor(Math.random() * 255) + 1;
       var colorG = Math.floor(Math.random() * 255) + 1;
       var colorB = Math.floor(Math.random() * 255) + 1;
-      var colorA = 0.80;
+      var colorA = 0.8;
 
       backgroundColor = `rgba(${colorR},${colorG},${colorB},${colorA})`;
       if (dxvalue === "z2slLbjn7PM.REPORTING_RATE_ON_TIME") {
-        dataElement = "CHV Reporting Rate on time"
-        backgroundColor=`rgba(112,223,173,.8)`
-
+        dataElement = "CHV Reporting Rate on time";
+        backgroundColor = `rgba(112,223,173,.8)`;
       } else if (dxvalue === "z2slLbjn7PM.REPORTING_RATE") {
-        dataElement = "CHV Reporting Rate"
-        backgroundColor=`rgba(241,103,186,.80)`
-
+        dataElement = "CHV Reporting Rate";
+        backgroundColor = `rgba(241,103,186,.80)`;
       }
 
       let filtered = allData2
         .slice()
         .sort((a, b) => a.period - b.period)
         .filter((data) => {
-          return data[0] === dxvalue
-
+          return data[0] === dxvalue;
         })
         .map((data) => {
-          return data[2];
-        })
+          return data[3];
+        });
 
-      aggData = filtered
+      aggData = filtered;
 
       let data = {
         data: aggData,
         label: dataElement,
-        backgroundColor: backgroundColor
-      }
+        backgroundColor: backgroundColor,
+      };
 
-      newds = [
-        ...newds,
-        data
-      ]
+      newds = [...newds, data];
 
-
-      newds=newds.slice().sort((a, b) =>{
-        if(a.label.toLowerCase() < b.label.toLowerCase()) return -1;
-        if(a.label.toLowerCase() > b.label.toLowerCase()) return 1;
+      newds = newds.slice().sort((a, b) => {
+        if (a.label.toLowerCase() < b.label.toLowerCase()) return -1;
+        if (a.label.toLowerCase() > b.label.toLowerCase()) return 1;
         return 0;
-       })
+      });
 
-
-      setGraphData(newds)
-      setdataPresent(true)
+      setGraphData(newds);
+      setdataPresent(true);
       // allData2.forEach((data)=>{ })
-     // console.log(dataElement)
-    })
-  }
-
-
+      // console.log(dataElement)
+    });
+  };
 
   useEffect(() => {
-    getData()
-  }, [periodAPI,ouAPI])
+    getData();
+    getTableData();
+  }, [periodAPI, ouAPI]);
 
   useEffect(() => {
-
-    getData2()
-
-  }, [allData])
+    getData2();
+  }, [allData]);
 
   useEffect(() => {
-
-    getOuNames()
-
-  }, [ou])
-
- 
+    getOuNames();
+  }, [ou]);
 
   useEffect(() => {
     setTimeout(() => {
-      makdeGraphData()
+      makdeGraphData();
     }, 1000);
-  }, [allData2, dx, ou])
+  }, [allData2, dx, ou]);
 
   return (
     <ReportingRateReportingRateOnTime.Provider
       value={{
-      ou,
-      dx,
-      allData,
-      allData2,
-      graphData,
-      periods,
-      ouNames,
-      RROntimedataPresent,
-      changePeriodAPI,
-      periodAPI,
-      changeOrgAPI,
-      ouAPI,
-      defaultou
-    }}>
+        ou,
+        dx,
+        allData,
+        allData2,
+        graphData,
+        periods,
+        ouNames,
+        RROntimedataPresent,
+        changePeriodAPI,
+        periodAPI,
+        changeOrgAPI,
+        ouAPI,
+        defaultou,
+      }}
+    >
       {props.children}
     </ReportingRateReportingRateOnTime.Provider>
-  )
-
-}
+  );
+};
 
 export default ReportingRateReportingRateOnTimeProvider;

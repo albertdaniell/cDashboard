@@ -89,7 +89,7 @@ const SideNav = () => {
               >
                 cStock
               </p>
-              <br></br>
+              
               <span
                 style={{ color: "rgb(255, 115, 0)", fontSize: 12 }}
                 className="head"

@@ -196,7 +196,8 @@ const ChvReportingRateContextProvider = (props) => {
       changeOrgAPI,
       ouAPI,
       defaultou,
-      allData2
+      allData2,
+      orgUnits,
     }}>
       {props.children}
     </ChvReportingRateContext.Provider>

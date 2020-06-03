@@ -47,7 +47,7 @@ const SideNavLinks = () => {
     {
       linkName: "Tables",
       activeClass: "",
-      to: "#",
+      to: "/table",
       icon: "fas fa-user",
     },
   ];
